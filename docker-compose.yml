@@ -9,8 +9,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./client:/usr/src/app
-    working_dir: /client
+      - ./client/:/usr/src/app
+    command: yarn start
     tty: true
     # depends_on:
     #   - api
@@ -23,7 +23,6 @@ services:
 #       - '5000:5000'
 #     volumes:
 #       - ./server:/usr/src/app
-#     working_dir: /server
 #     depends_on:
 #       - db
 
