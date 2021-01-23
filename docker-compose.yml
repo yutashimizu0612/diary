@@ -14,18 +14,17 @@ services:
     tty: true
     # depends_on:
     #   - api
-#   api:
-#     container_name: api-container
-#     build: ./server
-#       context: ./server
-#       dockerfile: Dockerfile.dev
-#     ports:
-#       - '5000:5000'
-#     volumes:
-#       - ./server:/usr/src/app
-#     depends_on:
-#       - db
-
+  api:
+    container_name: api-container
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./server:/usr/src/app
+    # depends_on:
+    #   - db
 #   db:
 #     container_name: db-container
 #     image: mysql:5.7
