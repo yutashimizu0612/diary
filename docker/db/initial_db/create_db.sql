@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS diary;
+CREATE DATABASE diary;
+
+USE diary;
