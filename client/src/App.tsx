@@ -1,19 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import { Switch, Route, Link } from 'react-router-dom';
+import Login from './Login';
+import Singup from './Singup';
+import Posts from './Posts';
+import Status from './Status';
+import Day from './Day';
+import NotFound from './NotFound';
 
 const App: React.FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        Learn React
-      </a>
-    </header>
-  </div>
+  <Switch>
+    <Route exact path="/">
+      <Day />
+    </Route>
+    <Route path="/login">
+      <Login />
+    </Route>
+    <Route path="/signup">
+      <Singup />
+    </Route>
+    <Route path="/posts">
+      <Posts />
+    </Route>
+    <Route path="/status">
+      <Status />
+    </Route>
+    <Route>
+      <NotFound />
+    </Route>
+  </Switch>
 );
 
 export default App;
