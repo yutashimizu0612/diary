@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Header from '../Header';
 import TextForm from '../TextForm';
 import Button from '../Button';
@@ -21,11 +21,6 @@ const StyledText = styled.p`
   text-align: center;
 `;
 
-const StyledForm = styled.div`
-  margin: 30px 0 36px;
-  color: #3f3e3e;
-`;
-
 const StyledFormList = styled.ul``;
 
 const StyledFormItem = styled.li`
@@ -45,17 +40,16 @@ const StyledFacebook = styled.div`
   padding-top: 24px;
 `;
 
-const StyledFacebookButtonWrapper = styled.div`
-  margin-top: 24px;
-`;
-
 const Login: React.FC = () => (
   <>
     <Header />
     <StyledWrapper>
       <StyledTitle>ログイン</StyledTitle>
       <StyledText>登録したメールアドレスとパスワードを入力してください。</StyledText>
-      <StyledForm>
+      <div
+        css={`
+          margin: 30px 0 36px;
+        `}>
         <StyledFormList>
           <StyledFormItem>
             <TextForm />
@@ -64,20 +58,23 @@ const Login: React.FC = () => (
             <TextForm />
           </StyledFormItem>
         </StyledFormList>
-      </StyledForm>
+      </div>
       <StyledLoginButtonWrapper>
         <Button text="ログイン" appearance="primary" onClick={() => console.log('ログイン処理')} />
       </StyledLoginButtonWrapper>
       <StyledFacebook>
         <StyledText>または</StyledText>
         <StyledText>Facebookでもログインできます。</StyledText>
-        <StyledFacebookButtonWrapper>
+        <div
+          css={`
+            margin-top: 30px;
+          `}>
           <Button
             text="Facebookでログイン"
             appearance="facebook"
             onClick={() => console.log('facebookでログイン処理')}
           />
-        </StyledFacebookButtonWrapper>
+        </div>
       </StyledFacebook>
     </StyledWrapper>
   </>
