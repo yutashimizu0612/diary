@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Login from './Login';
-import Singup from './Singup';
-import Posts from './Posts';
-import Status from './Status';
-import Day from './Day';
+import Login from './pages/Login';
+import Singup from './pages/Singup';
+import Posts from './pages/Posts';
+import Status from './pages/Status';
+import Day from './pages/Day';
 import NotFound from './NotFound';
 
 const App: React.FC = () => (

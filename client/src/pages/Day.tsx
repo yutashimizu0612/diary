@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from '../Header';
 
 const Button = styled.button`
   background: #1877f2;
@@ -19,6 +20,11 @@ const Button = styled.button`
   }
 `;
 
-const Day: React.FC = () => <p>日記ページ</p>;
+const Day: React.FC = () => (
+  <>
+    <Header />
+    <p>日記ページ</p>
+  </>
+);
 
 export default Day;
