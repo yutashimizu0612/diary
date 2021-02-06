@@ -2,81 +2,84 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header';
 import TextForm from '../TextForm';
-import PrimaryButton from '../PrimaryButton';
-import FacebookButton from '../FacebookButton';
+import Button from '../Button';
 
-const Wrapper = styled.div`
+const StyledWrapper = styled.div`
   margin: 130px auto 0;
   width: 700px;
 `;
 
-const Title = styled.h2`
+const StyledTitle = styled.h2`
   font-size: 24px;
   font-weight: normal;
   margin-bottom: 80px;
   text-align: center;
 `;
 
-const Text = styled.p`
+const StyledText = styled.p`
   color: #acacac;
   text-align: center;
 `;
 
-const Form = styled.div`
+const StyledForm = styled.div`
   margin: 30px 0 36px;
   color: #3f3e3e;
 `;
 
-const FormList = styled.ul``;
+const StyledFormList = styled.ul``;
 
-const FormItem = styled.li`
+const StyledFormItem = styled.li`
   &:not(:first-child) {
     margin-top: 20px;
   }
 `;
 
-const LoginButtonWrapper = styled.div`
+const StyledLoginButtonWrapper = styled.div`
   margin: 0 auto;
   width: 400px;
 `;
 
-const Facebook = styled.div`
+const StyledFacebook = styled.div`
   border-top: 1px dotted #707070;
   margin-top: 96px;
   padding-top: 24px;
 `;
 
-const FacebookButtonWrapper = styled.div`
+const StyledFacebookButtonWrapper = styled.div`
   margin-top: 24px;
 `;
 
 const Login: React.FC = () => (
   <>
     <Header />
-    <Wrapper>
-      <Title>ログイン</Title>
-      <Text>登録したメールアドレスとパスワードを入力してください。</Text>
-      <Form>
-        <FormList>
-          <FormItem>
+    <StyledWrapper>
+      <StyledTitle>ログイン</StyledTitle>
+      <StyledText>登録したメールアドレスとパスワードを入力してください。</StyledText>
+      <StyledForm>
+        <StyledFormList>
+          <StyledFormItem>
             <TextForm />
-          </FormItem>
-          <FormItem>
+          </StyledFormItem>
+          <StyledFormItem>
             <TextForm />
-          </FormItem>
-        </FormList>
-      </Form>
-      <LoginButtonWrapper>
-        <PrimaryButton />
-      </LoginButtonWrapper>
-      <Facebook>
-        <Text>または</Text>
-        <Text>Facebookでもログインできます。</Text>
-        <FacebookButtonWrapper>
-          <FacebookButton />
-        </FacebookButtonWrapper>
-      </Facebook>
-    </Wrapper>
+          </StyledFormItem>
+        </StyledFormList>
+      </StyledForm>
+      <StyledLoginButtonWrapper>
+        <Button text="ログイン" appearance="primary" onClick={() => console.log('ログイン処理')} />
+      </StyledLoginButtonWrapper>
+      <StyledFacebook>
+        <StyledText>または</StyledText>
+        <StyledText>Facebookでもログインできます。</StyledText>
+        <StyledFacebookButtonWrapper>
+          <Button
+            text="Facebookでログイン"
+            appearance="facebook"
+            onClick={() => console.log('facebookでログイン処理')}
+          />
+        </StyledFacebookButtonWrapper>
+      </StyledFacebook>
+    </StyledWrapper>
   </>
 );
 
