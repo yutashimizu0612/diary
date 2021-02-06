@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Header from '../Header';
-import TextForm from '../TextForm';
-import Button from '../Button';
+import Header from '../components/Header';
+import TextForm from '../components/TextForm';
+import Button from '../components/Button';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;

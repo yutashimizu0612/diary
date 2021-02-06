@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Login from './pages/Login';
-import Singup from './pages/Singup';
-import Posts from './pages/Posts';
-import Status from './pages/Status';
-import Day from './pages/Day';
-import NotFound from './NotFound';
+import Login from './views/pages/Login';
+import Singup from './views/pages/Singup';
+import Posts from './views/pages/Posts';
+import Status from './views/pages/Status';
+import Day from './views/pages/Day';
+import NotFound from './views/pages/NotFound';
 
 const App: React.FC = () => (
   <Switch>
