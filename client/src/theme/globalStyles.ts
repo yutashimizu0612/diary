@@ -34,7 +34,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* common */
+  a {
+    cursor: pointer;
+  }
+
   body {
+    background: #F7F8FA;
     color: #3e3e3e;
     font-family: 'Helvetica', 'Arial', sans-serif;
   }

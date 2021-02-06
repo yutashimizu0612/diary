@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  background: #222E24;
+  background: #222e24;
 `;
 
 const Inner = styled.div`
@@ -25,7 +25,6 @@ const Item = styled.li`
 const Link = styled.a`
   color: #ccc;
   display: block;
-  font-size: 18px;
   padding: 22px 0 20px;
   &:hover {
     color: #fff;
@@ -36,10 +35,18 @@ const Header: React.FC = () => (
   <Wrapper>
     <Inner>
       <List>
-        <Item><Link>日記を書く</Link></Item>
-        <Item><Link>ステータス</Link></Item>
-        <Item><Link>みんなの投稿</Link></Item>
-        <Item><Link>ランキング</Link></Item>
+        <Item>
+          <Link>日記を書く</Link>
+        </Item>
+        <Item>
+          <Link>ステータス</Link>
+        </Item>
+        <Item>
+          <Link>みんなの投稿</Link>
+        </Item>
+        <Item>
+          <Link>ランキング</Link>
+        </Item>
       </List>
     </Inner>
   </Wrapper>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Form = styled.input`
   background: #fff;
   border-radius: 24px;
+  border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
   color: #fff;
   cursor: pointer;
