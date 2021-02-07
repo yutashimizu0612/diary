@@ -52,10 +52,10 @@ const Login: React.FC = () => (
         `}>
         <StyledFormList>
           <StyledFormItem>
-            <TextForm />
+            <TextForm placeholder="メールアドレス" />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm />
+            <TextForm placeholder="パスワード" />
           </StyledFormItem>
         </StyledFormList>
       </div>

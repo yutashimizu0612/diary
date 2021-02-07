@@ -6,20 +6,32 @@ const Form = styled.input`
   border-radius: 24px;
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
-  color: #fff;
   cursor: pointer;
   font-size: 18px;
-  font-weight: bold;
   outline: none;
-  padding: 16px 0;
-  text-align: center;
+  padding: 16px 0 16px 86px;
+  position: relative;
   transition: 0.2s;
   width: 100%;
   &:hover {
     opacity: 0.8;
   }
+  ::placeholder {
+    color: #acacac;
+  }
 `;
 
-const TextForm: React.FC = () => <Form placeholder="test" />;
+type Props = {
+  placeholder: string;
+};
+
+const TextForm: React.FC<Props> = ({ placeholder }) => (
+  <div
+    css={`
+      position: relative;
+    `}>
+    <Form placeholder={placeholder} />
+  </div>
+);
 
 export default TextForm;
