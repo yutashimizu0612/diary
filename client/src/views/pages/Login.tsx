@@ -3,6 +3,8 @@ import styled from 'styled-components/macro';
 import Header from '../components/Header';
 import TextForm from '../components/TextForm';
 import Button from '../components/Button';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -52,10 +54,10 @@ const Login: React.FC = () => (
         `}>
         <StyledFormList>
           <StyledFormItem>
-            <TextForm placeholder="メールアドレス" />
+            <TextForm iconType={EmailOutlinedIcon} placeholder="メールアドレス" />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm placeholder="パスワード" />
+            <TextForm iconType={LockOutlinedIcon} placeholder="パスワード" />
           </StyledFormItem>
         </StyledFormList>
       </div>

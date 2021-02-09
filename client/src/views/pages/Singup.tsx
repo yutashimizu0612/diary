@@ -3,6 +3,9 @@ import styled from 'styled-components/macro';
 import Header from '../components/Header';
 import TextForm from '../components/TextForm';
 import Button from '../components/Button';
+import PersonIcon from '@material-ui/icons/Person';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -51,16 +54,19 @@ const Singup: React.FC = () => (
         `}>
         <StyledFormList>
           <StyledFormItem>
-            <TextForm placeholder="名前" />
+            <TextForm iconType={PersonIcon} placeholder="名前" />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm placeholder="メールアドレス" />
+            <TextForm iconType={EmailOutlinedIcon} placeholder="メールアドレス" />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm placeholder="パスワード" />
+            <TextForm iconType={LockOutlinedIcon} placeholder="パスワード" />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm placeholder="確認用にもう1度パスワードを入力してください" />
+            <TextForm
+              iconType={LockOutlinedIcon}
+              placeholder="確認用にもう1度パスワードを入力してください"
+            />
           </StyledFormItem>
         </StyledFormList>
       </div>
