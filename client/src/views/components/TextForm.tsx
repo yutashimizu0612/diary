@@ -14,7 +14,7 @@ const StyledForm = styled.input`
   transition: 0.2s;
   width: 100%;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   ::placeholder {
     color: #acacac;

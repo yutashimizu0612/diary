@@ -8,10 +8,9 @@ const StyledButton = styled.button<{ appearance: 'primary' | 'facebook' }>`
   cursor: pointer;
   outline: none;
   padding: 16px 0;
-  transition: 0.2s;
   width: 100%;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   ${(props) =>
     props.appearance === 'primary' &&

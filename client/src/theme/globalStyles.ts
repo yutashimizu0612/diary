@@ -33,6 +33,11 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
+  button {
+    border: none;
+    outline: none;
+  }
+
   /* common */
   a {
     cursor: pointer;
@@ -42,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
     background: #F7F8FA;
     color: #3e3e3e;
     font-family: 'Helvetica', 'Arial', sans-serif;
+  }
+
+  a, button {
+    transition: 0.2s;
   }
 `;
 
