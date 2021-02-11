@@ -45,7 +45,7 @@ const StyledItem = styled.li`
 
 // type Props = {};
 
-const Button: React.FC = () => (
+const Post: React.FC = () => (
   <StyledPost>
     <div>
       <StyledUser>
@@ -69,4 +69,4 @@ const Button: React.FC = () => (
   </StyledPost>
 );
 
-export default Button;
+export default Post;
