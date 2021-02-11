@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import SeeMore from './SeeMore';
 
 const StyledPost = styled.div`
   background: #fff;
@@ -66,6 +67,13 @@ const Post: React.FC = () => (
       </StyledItem>
       <StyledItem>・朝散歩に行けた</StyledItem>
     </StyledList>
+    <div
+      css={`
+        margin-top: 10px;
+        text-align: center;
+      `}>
+      <SeeMore />
+    </div>
   </StyledPost>
 );
 
