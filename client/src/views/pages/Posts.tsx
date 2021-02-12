@@ -16,6 +16,18 @@ const Posts: React.FC = () => (
         `}>
         <Post />
       </li>
+      <li
+        css={`
+          margin-bottom: 20px;
+        `}>
+        <Post />
+      </li>
+      <li
+        css={`
+          margin-bottom: 20px;
+        `}>
+        <Post />
+      </li>
     </ul>
   </StyledWrapper>
 );
