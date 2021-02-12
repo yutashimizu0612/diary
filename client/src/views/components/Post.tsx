@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import SeeMore from './SeeMore';
+import PerformanceIcon from './PerformanceIcon';
 
 const StyledPost = styled.div`
   background: #fff;
@@ -48,7 +49,12 @@ const StyledItem = styled.li`
 
 const Post: React.FC = () => (
   <StyledPost>
-    <div>
+    <div
+      css={`
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      `}>
       <StyledUser>
         <StyledImage src="https://placehold.jp/150x150.png" />
         <div
@@ -59,6 +65,7 @@ const Post: React.FC = () => (
           <StyledDate>2020/12/31</StyledDate>
         </div>
       </StyledUser>
+      <PerformanceIcon />
     </div>
     <StyledList>
       <StyledItem>・5km走れた</StyledItem>
