@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import CheckBoxRoundedIcon from '@material-ui/icons/CheckBoxRounded';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import GradeIcon from '@material-ui/icons/Grade';
 
 const StyledList = styled.ul`
@@ -24,12 +24,7 @@ const StyledNumber = styled.span`
 const PerformanceIcon: React.FC = () => (
   <StyledList>
     <StyledItem>
-      <CheckBoxRoundedIcon
-        fontSize="small"
-        css={`
-          color: #707070;
-        `}
-      />
+      <CheckBoxOutlinedIcon fontSize="small" />
       <StyledNumber>7</StyledNumber>
     </StyledItem>
     <StyledItem>
