@@ -5,7 +5,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const StyledWrapper = styled.button`
   background: #2cd671;
   border-radius: 16px;
-  cursor: pointer;
   display: inline-block;
   line-height: 1;
   padding: 6px 10px 7px 24px;

@@ -5,7 +5,6 @@ import facebookLogo from '../../assets/images/logo_facebook.png';
 const StyledButton = styled.button<{ appearance: 'primary' | 'facebook' }>`
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
-  cursor: pointer;
   outline: none;
   padding: 16px 0;
   width: 100%;
