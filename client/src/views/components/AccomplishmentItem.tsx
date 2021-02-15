@@ -17,6 +17,7 @@ const StyledWrapper = styled.div`
 
 const StyledText = styled.span`
   font-size: 18px;
+  font-weight: 300;
 `;
 
 const StyledOperation = styled.div`
@@ -30,6 +31,18 @@ const StyledButton = styled.button`
   font-size: 12px;
   padding: 3px 0;
   width: 50px;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const StyledIconWrapper = styled.div`
+  color: #353535;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 type Props = {
@@ -42,12 +55,15 @@ const AccomplishmentItem: React.FC<Props> = ({ text }) => (
     <StyledText>{text}</StyledText>
     <StyledOperation>
       <StyledButton>公開</StyledButton>
-      <EditIcon
+      <StyledIconWrapper
         css={`
           margin: 0 12px;
-        `}
-      />
-      <DeleteIcon />
+        `}>
+        <EditIcon />
+      </StyledIconWrapper>
+      <StyledIconWrapper>
+        <DeleteIcon />
+      </StyledIconWrapper>
     </StyledOperation>
   </StyledWrapper>
 );
