@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import Header from '../components/Header';
 import DiaryDate from '../components/DiaryDate';
 import DiaryAccomplishment from '../components/DiaryAccomplishment';
+import AccomplishmentForm from '../components/AccomplishmentForm';
 
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
@@ -15,6 +16,7 @@ const Day: React.FC = () => (
     <StyledWrapper>
       <DiaryDate />
       <DiaryAccomplishment />
+      <AccomplishmentForm />
     </StyledWrapper>
   </>
 );
