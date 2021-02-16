@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import H2Heading from './H2Heading';
 import AccomplishmentItem from './AccomplishmentItem';
+import AccomplishmentForm from '../components/AccomplishmentForm';
 
 // type Props = {};
 
@@ -16,6 +17,7 @@ const DiaryAccomplishment: React.FC = () => (
       <AccomplishmentItem text="15km走れた" />
       <AccomplishmentItem text="25km走れた" />
     </div>
+    <AccomplishmentForm />
   </>
 );
 
