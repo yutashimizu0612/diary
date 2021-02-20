@@ -28,12 +28,7 @@ const PerformanceIcon: React.FC = () => (
       <StyledNumber>7</StyledNumber>
     </StyledItem>
     <StyledItem>
-      <GradeIcon
-        fontSize="small"
-        css={`
-          color: #f5e73f;
-        `}
-      />
+      <GradeIcon fontSize="small" css="color: #f5e73f;" />
       <StyledNumber>5</StyledNumber>
     </StyledItem>
   </StyledList>

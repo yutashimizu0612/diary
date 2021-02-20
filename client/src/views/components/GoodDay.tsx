@@ -11,6 +11,11 @@ const StyledWrapper = styled.div`
   padding: 20px 22px 12px;
 `;
 
+const StyledTop = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
 const StyledDate = styled.span`
   font-weight: bold;
   margin-left: 5px;
@@ -29,30 +34,27 @@ const StyledItem = styled.li`
   }
 `;
 
+const StyledBottom = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+`;
+
 // type Props = {};
 
 const GoodDay: React.FC = () => (
   <StyledWrapper>
-    <div
-      css={`
-        display: flex;
-        align-items: flex-start;
-      `}>
+    <StyledTop>
       <TodayIcon />
       <StyledDate>12/31</StyledDate>
-    </div>
+    </StyledTop>
     <StyledList>
       <StyledItem>・5km走れた</StyledItem>
       <StyledItem>・ポートフォリオ作成のための</StyledItem>
     </StyledList>
-    <div
-      css={`
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 12px;
-      `}>
+    <StyledBottom>
       <PerformanceIcon />
-    </div>
+    </StyledBottom>
   </StyledWrapper>
 );
 
