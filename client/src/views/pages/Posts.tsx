@@ -10,22 +10,13 @@ const StyledWrapper = styled.div`
 const Posts: React.FC = () => (
   <StyledWrapper>
     <ul>
-      <li
-        css={`
-          margin-bottom: 20px;
-        `}>
+      <li css="margin-bottom: 20px;">
         <Post />
       </li>
-      <li
-        css={`
-          margin-bottom: 20px;
-        `}>
+      <li css="margin-bottom: 20px;">
         <Post />
       </li>
-      <li
-        css={`
-          margin-bottom: 20px;
-        `}>
+      <li css="margin-bottom: 20px;">
         <Post />
       </li>
     </ul>

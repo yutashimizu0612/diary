@@ -48,10 +48,7 @@ const Singup: React.FC = () => (
     <Header />
     <StyledWrapper>
       <StyledTitle>アカウント登録</StyledTitle>
-      <div
-        css={`
-          margin: 30px 0 36px;
-        `}>
+      <div css="margin: 30px 0 36px;">
         <StyledFormList>
           <StyledFormItem>
             <TextForm iconType={PersonIcon} placeholder="名前" />
@@ -80,10 +77,7 @@ const Singup: React.FC = () => (
       <StyledFacebook>
         <StyledText>または</StyledText>
         <StyledText>Facebookでも登録できます。</StyledText>
-        <div
-          css={`
-            margin-top: 30px;
-          `}>
+        <div css="margin-top: 30px;">
           <Button
             text="Facebookで登録"
             appearance="facebook"

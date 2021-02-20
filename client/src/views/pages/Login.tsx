@@ -48,10 +48,7 @@ const Login: React.FC = () => (
     <StyledWrapper>
       <StyledTitle>ログイン</StyledTitle>
       <StyledText>登録したメールアドレスとパスワードを入力してください。</StyledText>
-      <div
-        css={`
-          margin: 30px 0 36px;
-        `}>
+      <div css="margin: 30px 0 36px;">
         <StyledFormList>
           <StyledFormItem>
             <TextForm iconType={EmailOutlinedIcon} placeholder="メールアドレス" />
@@ -67,10 +64,7 @@ const Login: React.FC = () => (
       <StyledFacebook>
         <StyledText>または</StyledText>
         <StyledText>Facebookでもログインできます。</StyledText>
-        <div
-          css={`
-            margin-top: 30px;
-          `}>
+        <div css="margin-top: 30px;">
           <Button
             text="Facebookでログイン"
             appearance="facebook"
