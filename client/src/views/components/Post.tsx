@@ -11,6 +11,12 @@ const StyledPost = styled.div`
   padding: 20px 30px 16px;
 `;
 
+const StyledTop = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
 const StyledUser = styled.div`
   display: flex;
   align-items: center;
@@ -45,28 +51,25 @@ const StyledItem = styled.li`
   }
 `;
 
+const StyledSeeMore = styled.div`
+  margin-top: 10px;
+  text-align: center;
+`;
+
 // type Props = {};
 
 const Post: React.FC = () => (
   <StyledPost>
-    <div
-      css={`
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-      `}>
+    <StyledTop>
       <StyledUser>
         <StyledImage src="https://placehold.jp/150x150.png" />
-        <div
-          css={`
-            margin-left: 30px;
-          `}>
+        <div css="margin-left: 30px;">
           <StyledName>ユーザ名</StyledName>
           <StyledDate>2020/12/31</StyledDate>
         </div>
       </StyledUser>
       <PerformanceIcon />
-    </div>
+    </StyledTop>
     <StyledList>
       <StyledItem>・5km走れた</StyledItem>
       <StyledItem>
@@ -74,13 +77,9 @@ const Post: React.FC = () => (
       </StyledItem>
       <StyledItem>・朝散歩に行けた</StyledItem>
     </StyledList>
-    <div
-      css={`
-        margin-top: 10px;
-        text-align: center;
-      `}>
+    <StyledSeeMore>
       <SeeMore />
-    </div>
+    </StyledSeeMore>
   </StyledPost>
 );
 
