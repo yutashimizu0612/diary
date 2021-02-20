@@ -15,8 +15,12 @@ const Day: React.FC = () => (
     <Header />
     <StyledWrapper>
       <DiaryDate />
-      <DiaryAccomplishment />
-      <DiaryComment />
+      <div css="margin-top: 45px;">
+        <DiaryAccomplishment />
+      </div>
+      <div css="margin-top: 60px;">
+        <DiaryComment />
+      </div>
     </StyledWrapper>
   </>
 );

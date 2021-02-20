@@ -43,12 +43,7 @@ const StyledIconWrapper = styled.div`
 const AccomplishmentForm: React.FC = () => (
   <StyledWrapper>
     <StyledIconWrapper>
-      <AddIcon
-        fontSize="large"
-        css={`
-          margin-top: 1px;
-        `}
-      />
+      <AddIcon fontSize="large" css="margin-top: 1px" />
     </StyledIconWrapper>
     <StyledForm placeholder="今日達成したことを入力" />
   </StyledWrapper>

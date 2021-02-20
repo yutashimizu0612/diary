@@ -51,18 +51,10 @@ const DiaryDate: React.FC = () => (
     <StyledToday>TODAY</StyledToday>
     <StyledArrows>
       <StyledArrow>
-        <NavigateBeforeIcon
-          css={`
-            color: #808080;
-          `}
-        />
+        <NavigateBeforeIcon css="color: #808080;" />
       </StyledArrow>
       <StyledArrow>
-        <NavigateNextIcon
-          css={`
-            color: #808080;
-          `}
-        />
+        <NavigateNextIcon css="color: #808080;" />
       </StyledArrow>
     </StyledArrows>
     <StyledDate>Thursday 31 December 2020</StyledDate>

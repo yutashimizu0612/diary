@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const StyledWrapper = styled.div`
   background: #fff;
   border-left: 8px solid #2cd671;
+  border-bottom: 2px solid #eae7e7;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,10 +56,7 @@ const AccomplishmentItem: React.FC<Props> = ({ text }) => (
     <StyledText>{text}</StyledText>
     <StyledOperation>
       <StyledButton>公開</StyledButton>
-      <StyledIconWrapper
-        css={`
-          margin: 0 12px;
-        `}>
+      <StyledIconWrapper css="margin: 0 12px;">
         <EditIcon />
       </StyledIconWrapper>
       <StyledIconWrapper>

@@ -8,10 +8,7 @@ import DiaryCommentForm from './DiaryCommentForm';
 const DiaryComment: React.FC = () => (
   <>
     <H2Heading text="コメント" color="#f8548c" />
-    <div
-      css={`
-        margin: 16px 0;
-      `}>
+    <div css="margin: 16px 0;">
       <DiaryCommentForm />
     </div>
   </>
