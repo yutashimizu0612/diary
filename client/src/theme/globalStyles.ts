@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body,h1,h2,h3,h4,p,figure,blockquote,dl,dt,dd,ol,ul,li {
+  body,h1,h2,h3,h4,p,figure,blockquote,dl,dt,dd,ol,ul,li,button {
     margin: 0;
     padding: 0;
   }
