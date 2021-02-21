@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import DiaryDate from '../components/DiaryDate';
 import DiaryAccomplishment from '../components/DiaryAccomplishment';
 import DiaryComment from '../components/DiaryComment';
+import DiaryStar from '../components/DiaryStar';
 
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
@@ -20,6 +21,13 @@ const Day: React.FC = () => (
       </div>
       <div css="margin-top: 60px;">
         <DiaryComment />
+      </div>
+      <div
+        css={`
+          margin-top: 60px;
+          text-align: right;
+        `}>
+        <DiaryStar />
       </div>
     </StyledWrapper>
   </>
