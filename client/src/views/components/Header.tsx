@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
@@ -25,13 +26,14 @@ const StyledItem = styled.li`
   }
 `;
 
-const StyledLink = styled.a<{ isActive?: boolean }>`
+const StyledLink = styled(Link)<{ isActive?: boolean }>`
   border-bottom-width: 4px;
   border-bottom-style: solid;
   border-bottom-color: ${(props) => (props.isActive ? '#fff' : '#121813')};
   color: ${(props) => (props.isActive ? '#fff' : '#ccc')};
   display: block;
   padding: 22px 0 12px;
+  text-decoration: none;
   &:hover {
     color: #fff;
   }
@@ -66,16 +68,30 @@ const StyledDropDown = styled.div`
   width: 120px;
 `;
 
-const StyledDropDownLink = styled.a`
+const StyledDropDownLink = styled(Link)`
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  color: #808080;
+  display: block;
+  font-size: 12px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  &:hover {
+    background: #f5f5f5;
+    color: #000;
+  }
+`;
+
+const StyledDropDownButton = styled.button`
   background: #fff;
   color: #808080;
   display: block;
   font-size: 12px;
-  text-align: center;
   padding: 10px;
-  &:first-child {
-    border-radius: 8px 8px 0 0;
-  }
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
   &:last-child {
     border-radius: 0 0 8px 8px;
   }
@@ -90,43 +106,42 @@ type Props = {
   current?: string;
 };
 
-// active時のスタイル
-// Linkがaタグになってるのでreact-routerのLinkを使用する
-
 const Header: React.FC<Props> = () => (
   <StyledWrapper>
     <StyledInner>
       {/* ログイン中のみ表示 */}
       <StyledList>
         <StyledItem>
-          <StyledLink isActive>日記を書く</StyledLink>
+          <StyledLink to="/" isActive>
+            日記を書く
+          </StyledLink>
         </StyledItem>
         <StyledItem>
-          <StyledLink>ステータス</StyledLink>
+          <StyledLink to="/status">ステータス</StyledLink>
         </StyledItem>
         <StyledItem>
-          <StyledLink>みんなの投稿</StyledLink>
+          <StyledLink to="/posts">みんなの投稿</StyledLink>
         </StyledItem>
         <StyledItem>
-          <StyledLink>ランキング</StyledLink>
+          <StyledLink to="/">ランキング</StyledLink>
         </StyledItem>
       </StyledList>
       {/* 未ログイン時のみ表示 */}
       <StyledAuthList>
         <StyledAuthItem>
-          <StyledLink>アカウント登録</StyledLink>
+          <StyledLink to="/signup">アカウント登録</StyledLink>
         </StyledAuthItem>
         <StyledAuthItem>
-          <StyledLink>ログイン</StyledLink>
+          <StyledLink to="/login">ログイン</StyledLink>
         </StyledAuthItem>
       </StyledAuthList>
       {/* ログイン中のみ表示 */}
       <StyledIconWrapper>
         <StyledAccountCircleIcon />
         <StyledDropDown>
-          <StyledDropDownLink>アカウント設定</StyledDropDownLink>
-          <StyledDropDownLink>ログアウト</StyledDropDownLink>
-          <StyledDropDownLink>退会</StyledDropDownLink>
+          <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
+          <StyledDropDownButton>ログアウト</StyledDropDownButton>
+          <StyledDropDownButton>退会</StyledDropDownButton>
         </StyledDropDown>
       </StyledIconWrapper>
     </StyledInner>
