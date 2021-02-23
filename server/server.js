@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
   res.send('api is started.');
 });
 
-app.listen(5000, () => {
-  console.log('Server is started.');
+const port = process.env.port || 5000;
+app.listen(port, () => {
+  console.log(`Server is started on port ${port}.`);
 });
