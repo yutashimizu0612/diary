@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -52,6 +52,7 @@ const StyledAuthItem = styled.li`
 `;
 
 const StyledIconWrapper = styled.div`
+  cursor: pointer;
   position: relative;
 `;
 
@@ -106,46 +107,53 @@ type Props = {
   current?: string;
 };
 
-const Header: React.FC<Props> = () => (
-  <StyledWrapper>
-    <StyledInner>
-      {/* ログイン中のみ表示 */}
-      <StyledList>
-        <StyledItem>
-          <StyledLink to="/" isActive>
-            日記を書く
-          </StyledLink>
-        </StyledItem>
-        <StyledItem>
-          <StyledLink to="/status">ステータス</StyledLink>
-        </StyledItem>
-        <StyledItem>
-          <StyledLink to="/posts">みんなの投稿</StyledLink>
-        </StyledItem>
-        <StyledItem>
-          <StyledLink to="/">ランキング</StyledLink>
-        </StyledItem>
-      </StyledList>
-      {/* 未ログイン時のみ表示 */}
-      <StyledAuthList>
-        <StyledAuthItem>
-          <StyledLink to="/signup">アカウント登録</StyledLink>
-        </StyledAuthItem>
-        <StyledAuthItem>
-          <StyledLink to="/login">ログイン</StyledLink>
-        </StyledAuthItem>
-      </StyledAuthList>
-      {/* ログイン中のみ表示 */}
-      <StyledIconWrapper>
-        <StyledAccountCircleIcon />
-        <StyledDropDown>
-          <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
-          <StyledDropDownButton>ログアウト</StyledDropDownButton>
-          <StyledDropDownButton>退会</StyledDropDownButton>
-        </StyledDropDown>
-      </StyledIconWrapper>
-    </StyledInner>
-  </StyledWrapper>
-);
+const Header: React.FC<Props> = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  return (
+    <StyledWrapper>
+      <StyledInner>
+        {/* ログイン中のみ表示 */}
+        <StyledList>
+          <StyledItem>
+            <StyledLink to="/" isActive>
+              日記を書く
+            </StyledLink>
+          </StyledItem>
+          <StyledItem>
+            <StyledLink to="/status">ステータス</StyledLink>
+          </StyledItem>
+          <StyledItem>
+            <StyledLink to="/posts">みんなの投稿</StyledLink>
+          </StyledItem>
+          <StyledItem>
+            <StyledLink to="/">ランキング</StyledLink>
+          </StyledItem>
+        </StyledList>
+        {/* 未ログイン時のみ表示 */}
+        <StyledAuthList>
+          <StyledAuthItem>
+            <StyledLink to="/signup">アカウント登録</StyledLink>
+          </StyledAuthItem>
+          <StyledAuthItem>
+            <StyledLink to="/login">ログイン</StyledLink>
+          </StyledAuthItem>
+        </StyledAuthList>
+        {/* ログイン中のみ表示 */}
+        <StyledIconWrapper
+          onMouseEnter={() => setIsVisible(true)}
+          onMouseLeave={() => setIsVisible(false)}>
+          <StyledAccountCircleIcon />
+          {isVisible && (
+            <StyledDropDown>
+              <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
+              <StyledDropDownButton>ログアウト</StyledDropDownButton>
+              <StyledDropDownButton>退会</StyledDropDownButton>
+            </StyledDropDown>
+          )}
+        </StyledIconWrapper>
+      </StyledInner>
+    </StyledWrapper>
+  );
+};
 
 export default Header;
