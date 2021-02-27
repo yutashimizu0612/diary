@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "api for diary app",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yutashimizu0612/diary.git"
+  },
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -12,6 +16,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.5.0"
   },
