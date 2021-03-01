@@ -1,6 +1,6 @@
 const { body } = require('express-validator');
 
-exports.signupFormvalidator = [
+const signupFormValidator = [
   body('name').not().isEmpty().withMessage('名前は入力必須です'),
   body('email')
     .not()
@@ -25,3 +25,7 @@ exports.signupFormvalidator = [
       return true;
     }),
 ];
+
+module.exports = {
+  signupFormValidator,
+};
