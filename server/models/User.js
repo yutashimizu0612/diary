@@ -7,10 +7,12 @@ const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -23,27 +25,28 @@ const User = sequelize.define('User', {
 });
 
 // methods
-exports.test = async () => {
+const findOneUser = async (key, value) => {
+  const user = await User.findOne({ where: { [key]: value } });
+  return user;
+};
+
+const createNewUser = async (name, email, hash) => {
   try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    const newUser = await User.create({
+      name,
+      email,
+      password: hash,
+      auth: false,
+    });
+    console.log('new user is created.', newUser);
+    return newUser;
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.log('createNewUser Error', error);
+    return error;
   }
 };
 
-exports.createNewUser = async () => {
-  try {
-    const user = await User.create({
-      name: 'testname',
-      email: 'sample@gmail.com',
-      password: 'hash',
-      auth: false,
-    });
-    console.log('new user is created.', user);
-    return user;
-  } catch (error) {
-    console.log('error', error);
-    return res.status(400).json({ error: error });
-  }
+module.exports = {
+  findOneUser,
+  createNewUser,
 };
