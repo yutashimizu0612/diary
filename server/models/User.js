@@ -25,28 +25,25 @@ const User = sequelize.define('User', {
 });
 
 // methods
-const findOneUser = async (key, value) => {
-  const user = await User.findOne({ where: { [key]: value } });
-  return user;
-};
-
-const createNewUser = async (name, email, hash) => {
-  try {
-    const newUser = await User.create({
-      name,
-      email,
-      password: hash,
-      auth: false,
-    });
-    console.log('new user is created.', newUser);
-    return newUser;
-  } catch (error) {
-    console.log('createNewUser Error', error);
-    return error;
-  }
-};
-
 module.exports = {
-  findOneUser,
-  createNewUser,
+  findOneUser: async (key, value) => {
+    const user = await User.findOne({ where: { [key]: value } });
+    return user;
+  },
+
+  addNewUser: async (name, email, hash) => {
+    try {
+      const newUser = await User.create({
+        name,
+        email,
+        password: hash,
+        auth: false,
+      });
+      console.log('new user is created.', newUser);
+      return newUser;
+    } catch (error) {
+      console.log('addNewUser Error', error);
+      return error;
+    }
+  },
 };
