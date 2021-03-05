@@ -24,6 +24,11 @@ const User = sequelize.define('User', {
   },
 });
 
+// ユーザの新規登録時、パスワードハッシュ化
+User.beforeCreate((user) => {
+  user.password = 'test_from_before_create';
+});
+
 // methods
 module.exports = {
   findOneUser: async (key, value) => {

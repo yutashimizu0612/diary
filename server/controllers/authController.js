@@ -29,8 +29,6 @@ module.exports = {
     }
     // ユーザ登録
     try {
-      // TODO password hash
-      // const hash = await bcrypt.hash(req.body.password, 10);
       const newUser = await User.addNewUser(name, email, password);
       console.log('newUser', newUser);
       return res.redirect(301, '/');
