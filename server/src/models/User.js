@@ -1,4 +1,3 @@
-// const mysql = require('mysql2/promise');
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('./createSequelize');
 const bcrypt = require('bcrypt');
@@ -25,7 +24,7 @@ const User = sequelize.define('User', {
   },
 });
 
-// ユーザの新規登録時、パスワードハッシュ化
+// ユーザの新規登録前にパスワードハッシュ化
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt();
   user.password = await bcrypt.hash(user.password, salt);
