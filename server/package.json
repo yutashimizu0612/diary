@@ -2,17 +2,18 @@
   "name": "diary-api",
   "version": "1.0.0",
   "description": "api for diary app",
-  "main": "server.js",
+  "main": "src/server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/yutashimizu0612/diary.git"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon src/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
