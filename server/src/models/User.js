@@ -1,6 +1,7 @@
 // const mysql = require('mysql2/promise');
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('./createSequelize');
+const bcrypt = require('bcrypt');
 
 // model
 const User = sequelize.define('User', {
@@ -25,8 +26,9 @@ const User = sequelize.define('User', {
 });
 
 // ユーザの新規登録時、パスワードハッシュ化
-User.beforeCreate((user) => {
-  user.password = 'test_from_before_create';
+User.beforeCreate(async (user) => {
+  const salt = await bcrypt.genSalt();
+  user.password = await bcrypt.hash(user.password, salt);
 });
 
 // methods
@@ -36,12 +38,12 @@ module.exports = {
     return user;
   },
 
-  addNewUser: async (name, email, hash) => {
+  addNewUser: async (name, email, password) => {
     try {
       const newUser = await User.create({
         name,
         email,
-        password: hash,
+        password,
         auth: false,
       });
       console.log('new user is created.', newUser);
