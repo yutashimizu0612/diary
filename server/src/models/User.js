@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -37,5 +39,10 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     },
   );
+  // ユーザの新規登録時、パスワードハッシュ化
+  User.beforeCreate(async (user) => {
+    const salt = await bcrypt.genSalt();
+    user.password = await bcrypt.hash(user.password, salt);
+  });
   return User;
 };

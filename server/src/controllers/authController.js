@@ -1,11 +1,33 @@
-const User = require('../models/User');
+const models = require('../models');
+
+// TODO:DB接続を行うメソッド群を別ファイルに切り出したい
+const findOneUser = async (key, value) => {
+  const user = await models.User.findOne({ where: { [key]: value } });
+  return user;
+};
+
+const addNewUser = async (name, email, password) => {
+  try {
+    const newUser = await models.User.create({
+      name,
+      email,
+      password,
+      auth: false,
+    });
+    console.log('new user is created.', newUser);
+    return newUser;
+  } catch (error) {
+    console.log('addNewUser Error', error);
+    return error;
+  }
+};
 
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
     // 既にユーザ名が登録済みの場合
     try {
-      const user = await User.findOneUser('name', name);
+      const user = await findOneUser('name', name);
       if (user) {
         return res.status(400).json({
           error: 'この名前は既に使用されています。別の名前をご使用ください',
@@ -17,7 +39,7 @@ module.exports = {
     }
     // 既にメールアドレスが登録済みの場合
     try {
-      const user = await User.findOneUser('email', email);
+      const user = await findOneUser('email', email);
       if (user) {
         return res.status(400).json({
           error: 'このメールアドレスは既に登録されています。',
@@ -29,7 +51,7 @@ module.exports = {
     }
     // ユーザ登録
     try {
-      const newUser = await User.addNewUser(name, email, password);
+      const newUser = await addNewUser(name, email, password);
       console.log('newUser', newUser);
       return res.redirect(301, '/');
     } catch (error) {
