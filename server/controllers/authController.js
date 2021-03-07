@@ -14,7 +14,7 @@ const addNewUser = async (name, email, password) => {
       password,
       auth: false,
     });
-    console.log('new user is created.', newUser);
+    console.log('new user is created.');
     return newUser;
   } catch (error) {
     console.log('addNewUser Error', error);

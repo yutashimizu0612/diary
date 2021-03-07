@@ -2,13 +2,13 @@
   "name": "diary-api",
   "version": "1.0.0",
   "description": "api for diary app",
-  "main": "src/server.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/yutashimizu0612/diary.git"
   },
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
