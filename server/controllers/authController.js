@@ -1,4 +1,9 @@
 const models = require('../models');
+const sgMail = require('@sendgrid/mail');
+
+require('dotenv').config();
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // TODO:DB接続を行うメソッド群を別ファイルに切り出したい
 const findOneUser = async (key, value) => {
@@ -29,6 +34,7 @@ module.exports = {
     try {
       const user = await findOneUser('name', name);
       if (user) {
+        // TODO：エラーメッセージ検討
         return res.status(400).json({
           error: 'この名前は既に使用されています。別の名前をご使用ください',
         });
@@ -49,15 +55,40 @@ module.exports = {
       console.log('findUserEmail error', error);
       return res.status(400).json({ error: error });
     }
-    // ユーザ登録
+    const msg = {
+      to: email,
+      from: process.env.EMAIL_FROM, // Use the email address or domain you verified above
+      subject: '会員仮登録のお知らせ',
+      html: `
+        <p>仮登録いただき、誠にありがとうございます。</p>
+        <br />
+        <p>下記のURLにアクセスし、本登録をお願いいたします。</p>
+        <p>（なお、30分以内に本登録されない場合は、無効となります。お手数ですが、再度登録手続きをしてください。）</p>
+        <br />
+        <p>＜本登録用URL＞</p>
+        <p>${process.env.CLIENT_URL}/auth/confirmation</p>
+      `,
+    };
     try {
-      const newUser = await addNewUser(name, email, password);
-      console.log('newUser', newUser);
-      return res.redirect(301, '/');
+      await sgMail.send(msg);
+      return res.json({
+        message: `Email has been sent to ${email}. Follow the instruction to activate your account.`,
+      });
     } catch (error) {
-      console.log('signup error', error);
-      return res.status(400).json({ error: error });
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.body);
+      }
     }
+    // ユーザ登録
+    // try {
+    //   const newUser = await addNewUser(name, email, password);
+    //   console.log('newUser', newUser);
+    //   return res.redirect(301, '/');
+    // } catch (error) {
+    //   console.log('signup error', error);
+    //   return res.status(400).json({ error: error });
+    // }
   },
 
   login: (req, res) => {
