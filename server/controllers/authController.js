@@ -1,9 +1,8 @@
 const models = require('../models');
-const sgMail = require('@sendgrid/mail');
+const { generateToken } = require('../functions/auth/generateToken');
+const { sendConfirmationEmail } = require('../functions/auth/sendConfirmationEmail');
 
 require('dotenv').config();
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // TODO:DB接続を行うメソッド群を別ファイルに切り出したい
 const findOneUser = async (key, value) => {
@@ -55,31 +54,23 @@ module.exports = {
       console.log('findUserEmail error', error);
       return res.status(400).json({ error: error });
     }
-    const msg = {
-      to: email,
-      from: process.env.EMAIL_FROM, // Use the email address or domain you verified above
-      subject: '会員仮登録のお知らせ',
-      html: `
-        <p>仮登録いただき、誠にありがとうございます。</p>
-        <br />
-        <p>下記のURLにアクセスし、本登録をお願いいたします。</p>
-        <p>（なお、30分以内に本登録されない場合は、無効となります。お手数ですが、再度登録手続きをしてください。）</p>
-        <br />
-        <p>＜本登録用URL＞</p>
-        <p>${process.env.CLIENT_URL}/auth/confirmation</p>
-      `,
-    };
+    // confirmation-token発行
+    const confirmationToken = await generateToken(
+      { name },
+      process.env.JWT_ACCOUNT_CONFIRMATION,
+      '600s',
+    );
+    // メールアドレスに確認メールを送信
     try {
-      await sgMail.send(msg);
-      return res.json({
-        message: `Email has been sent to ${email}. Follow the instruction to activate your account.`,
-      });
+      await sendConfirmationEmail(res, email, confirmationToken);
     } catch (error) {
       console.error(error);
       if (error.response) {
         console.error(error.response.body);
       }
     }
+    // 確認メールに添付のurlを押下したら、ユーザ登録完了（アクティベーション）
+
     // ユーザ登録
     // try {
     //   const newUser = await addNewUser(name, email, password);
