@@ -1,4 +1,5 @@
 const models = require('../models');
+const jwt = require('jsonwebtoken');
 const { generateToken } = require('../functions/auth/generateToken');
 const { sendConfirmationEmail } = require('../functions/auth/sendConfirmationEmail');
 
@@ -56,9 +57,10 @@ module.exports = {
     }
     // confirmation-token発行
     const confirmationToken = await generateToken(
-      { name },
+      // TODO jwtにemailやpasswordを含んで良いのか...?
+      { name, email, password },
       process.env.JWT_ACCOUNT_CONFIRMATION,
-      '600s',
+      '900s',
     );
     // メールアドレスに確認メールを送信
     try {
@@ -69,17 +71,37 @@ module.exports = {
         console.error(error.response.body);
       }
     }
-    // 確認メールに添付のurlを押下したら、ユーザ登録完了（アクティベーション）
+  },
 
-    // ユーザ登録
-    // try {
-    //   const newUser = await addNewUser(name, email, password);
-    //   console.log('newUser', newUser);
-    //   return res.redirect(301, '/');
-    // } catch (error) {
-    //   console.log('signup error', error);
-    //   return res.status(400).json({ error: error });
-    // }
+  activateAccount: (req, res) => {
+    const token = req.query.confirmation_token;
+    if (token) {
+      jwt.verify(token, process.env.JWT_ACCOUNT_CONFIRMATION, async (error, decoded) => {
+        if (error) {
+          console.log('ACCOUNT ACTIVATION ERROR', error);
+          return res.status(401).json({
+            error: '再度登録画面からやり直してください。',
+          });
+        }
+
+        const { name, email, password } = decoded;
+        // ユーザ登録
+        try {
+          const newUser = await addNewUser(name, email, password);
+          console.log('newUser', newUser);
+          return res.redirect(301, '/');
+        } catch (error) {
+          console.log('SIGNUP ERROR', error);
+          return res.status(400).json({
+            error: '登録に失敗しました。再度登録画面からやり直してください。',
+          });
+        }
+      });
+    } else {
+      return res.json({
+        message: 'お手数ですが、再度登録画面からやり直してください。',
+      });
+    }
   },
 
   login: (req, res) => {
