@@ -12,10 +12,10 @@ exports.sendConfirmationEmail = async (res, email, confirmationToken) => {
       <p>仮登録いただき、誠にありがとうございます。</p>
       <br />
       <p>下記のURLにアクセスし、本登録をお願いいたします。</p>
-      <p>（なお、30分以内に本登録されない場合は、無効となります。お手数ですが、再度登録手続きをしてください。）</p>
+      <p>（なお、15分以内に本登録されない場合は、無効となります。お手数ですが、再度登録手続きをしてください。）</p>
       <br />
       <p>＜本登録用URL＞</p>
-      <p>${process.env.CLIENT_URL}/auth/confirmation/${confirmationToken}</p>
+      <p>${process.env.CLIENT_URL}/api/confirmation/?confirmation_token=${confirmationToken}</p>
     `,
   };
   await sgMail.send(msg);
