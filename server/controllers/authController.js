@@ -30,46 +30,44 @@ const addNewUser = async (name, email, password) => {
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
-    // 既にユーザ名が登録済みの場合
     try {
-      const user = await findOneUser('name', name);
-      if (user) {
+      // 既にユーザ名が登録されていないかチェック
+      const userName = await findOneUser('name', name);
+      if (userName) {
         // TODO：エラーメッセージ検討
         return res.status(400).json({
           error: 'この名前は既に使用されています。別の名前をご使用ください',
         });
       }
-    } catch (error) {
-      console.log('findUserName error', error);
-      return res.status(400).json({ error: error });
-    }
-    // 既にメールアドレスが登録済みの場合
-    try {
-      const user = await findOneUser('email', email);
-      if (user) {
+
+      // 既にメールアドレスが登録されていないかチェック
+      const userEmail = await findOneUser('email', email);
+      if (userEmail) {
         return res.status(400).json({
           error: 'このメールアドレスは既に登録されています。',
         });
       }
-    } catch (error) {
-      console.log('findUserEmail error', error);
-      return res.status(400).json({ error: error });
-    }
-    // confirmation-token発行
-    const confirmationToken = await generateToken(
-      // TODO jwtにemailやpasswordを含んで良いのか...?
-      { name, email, password },
-      process.env.JWT_ACCOUNT_CONFIRMATION,
-      '900s',
-    );
-    // メールアドレスに確認メールを送信
-    try {
-      await sendConfirmationEmail(res, email, confirmationToken);
-    } catch (error) {
-      console.error(error);
-      if (error.response) {
-        console.error(error.response.body);
+
+      // confirmation-token発行
+      const confirmationToken = await generateToken(
+        // TODO jwtにemailやpasswordを含んで良いのか...?
+        { name, email, password },
+        process.env.JWT_ACCOUNT_CONFIRMATION,
+        '900s',
+      );
+
+      // メールアドレスに確認メールを送信
+      try {
+        await sendConfirmationEmail(res, email, confirmationToken);
+      } catch (error) {
+        console.error(error);
+        if (error.response) {
+          console.error(error.response.body);
+        }
       }
+    } catch (error) {
+      console.log('error', error);
+      return res.status(400).json({ error: error });
     }
   },
 
@@ -85,7 +83,7 @@ module.exports = {
         }
 
         const { name, email, password } = decoded;
-        // ユーザ登録
+        // ユーザ登録処理
         try {
           const newUser = await addNewUser(name, email, password);
           console.log('newUser', newUser);
