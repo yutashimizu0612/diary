@@ -6,8 +6,8 @@ const { sendConfirmationEmail } = require('../functions/auth/sendConfirmationEma
 require('dotenv').config();
 
 // TODO:DB接続を行うメソッド群を別ファイルに切り出したい
-const findOneUser = async (key, value) => {
-  const user = await models.User.findOne({ where: { [key]: value } });
+const findUserByEmail = async (email) => {
+  const user = await models.User.findOne({ where: { email } });
   return user;
 };
 
@@ -31,18 +31,9 @@ module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
     try {
-      // 既にユーザ名が登録されていないかチェック
-      const userName = await findOneUser('name', name);
-      if (userName) {
-        // TODO：エラーメッセージ検討
-        return res.status(400).json({
-          error: 'この名前は既に使用されています。別の名前をご使用ください',
-        });
-      }
-
       // 既にメールアドレスが登録されていないかチェック
-      const userEmail = await findOneUser('email', email);
-      if (userEmail) {
+      const user = await findUserByEmail(email);
+      if (user) {
         return res.status(400).json({
           error: 'このメールアドレスは既に登録されています。',
         });
