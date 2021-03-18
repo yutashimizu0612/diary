@@ -26,6 +26,22 @@ const signupFormValidator = [
     }),
 ];
 
+const loginFormValidator = [
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage('メールアドレスは入力必須です')
+    .isEmail()
+    .withMessage('正しいメールアドレスを入力してください'),
+  body('password')
+    .not()
+    .isEmpty()
+    .withMessage('パスワードは入力必須です')
+    .isLength({ min: 7 })
+    .withMessage('7文字以上のパスワードを入力してください'),
+];
+
 module.exports = {
   signupFormValidator,
+  loginFormValidator,
 };

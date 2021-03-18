@@ -1,5 +1,6 @@
 const models = require('../models');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const { generateToken } = require('../functions/auth/generateToken');
 const { sendConfirmationEmail } = require('../functions/auth/sendConfirmationEmail');
 
@@ -7,8 +8,12 @@ require('dotenv').config();
 
 // TODO:DB接続を行うメソッド群を別ファイルに切り出したい
 const findUserByEmail = async (email) => {
-  const user = await models.User.findOne({ where: { email } });
-  return user;
+  try {
+    const user = await models.User.findOne({ where: { email } });
+    return user;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const addNewUser = async (name, email, password) => {
@@ -104,8 +109,35 @@ module.exports = {
     }
   },
 
-  login: (req, res) => {
-    res.send('login endpoint from controller');
+  login: async (req, res) => {
+    try {
+      const user = await findUserByEmail(req.body.email);
+      // ユーザが登録されていない場合
+      if (!user) {
+        return res.status(400).json({
+          error: 'このメールアドレスは登録されていません。',
+        });
+      }
+
+      // パスワードの照合
+      const match = await bcrypt.compare(req.body.password, user.password);
+      if (!match) {
+        return res.status(400).json({ error: 'メールアドレスかパスワードが間違っています。' });
+      }
+
+      // access-tokenの発行
+      const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '900s');
+      const { id, name, email, auth } = user;
+      return res.json({
+        accessToken,
+        user: { id, name, email, auth },
+      });
+    } catch (error) {
+      console.log('LOGIN ERROR', error);
+      return res.status(400).json({
+        error: 'ログインに失敗しました。',
+      });
+    }
   },
 
   logout: (req, res) => {
