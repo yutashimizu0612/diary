@@ -22,8 +22,11 @@ const addNewUser = async (name, email, password) => {
     console.log('new user is created.');
     return newUser;
   } catch (error) {
-    console.log('addNewUser Error', error);
-    return error;
+    if (error.parent.code === 'ER_DUP_ENTRY') {
+      throw 'DuplicateEntryException';
+    } else {
+      throw error;
+    }
   }
 };
 
@@ -80,10 +83,18 @@ module.exports = {
           console.log('newUser', newUser);
           return res.redirect(301, '/');
         } catch (error) {
-          console.log('SIGNUP ERROR', error);
-          return res.status(400).json({
-            error: '登録に失敗しました。再度登録画面からやり直してください。',
-          });
+          switch (error) {
+            case 'DuplicateEntryException':
+              console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
+              return res.status(400).json({
+                error: '既に登録されています。ログイン画面からログインしてください。',
+              });
+            default:
+              console.log('SIGNUP ERROR', error);
+              return res.status(400).json({
+                error: '登録に失敗しました。再度登録画面からやり直してください。',
+              });
+          }
         }
       });
     } else {
