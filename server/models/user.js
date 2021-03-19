@@ -12,6 +12,18 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+    static findUserByEmail(email) {
+      return this.findOne({ where: { email } });
+    }
+    static addNewUser(name, email, password) {
+      console.log('new user is created.');
+      return this.create({
+        name,
+        email,
+        password,
+        auth: false,
+      });
+    }
   }
   User.init(
     {

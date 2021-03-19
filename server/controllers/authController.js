@@ -6,41 +6,12 @@ const { sendConfirmationEmail } = require('../functions/auth/sendConfirmationEma
 
 require('dotenv').config();
 
-// TODO:DB接続を行うメソッド群を別ファイルに切り出したい
-const findUserByEmail = async (email) => {
-  try {
-    const user = await models.User.findOne({ where: { email } });
-    return user;
-  } catch (error) {
-    throw error;
-  }
-};
-
-const addNewUser = async (name, email, password) => {
-  try {
-    const newUser = await models.User.create({
-      name,
-      email,
-      password,
-      auth: false,
-    });
-    console.log('new user is created.');
-    return newUser;
-  } catch (error) {
-    if (error.parent.code === 'ER_DUP_ENTRY') {
-      throw 'DuplicateEntryException';
-    } else {
-      throw error;
-    }
-  }
-};
-
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
     try {
       // 既にメールアドレスが登録されていないかチェック
-      const user = await findUserByEmail(email);
+      const user = await models.User.findUserByEmail(email);
       if (user) {
         return res.status(400).json({
           error: 'このメールアドレスは既に登録されています。',
@@ -84,15 +55,15 @@ module.exports = {
         const { name, email, password } = decoded;
         // ユーザ登録処理
         try {
-          const newUser = await addNewUser(name, email, password);
+          const newUser = await models.User.addNewUser(name, email, password);
           console.log('newUser', newUser);
           return res.redirect(301, '/');
         } catch (error) {
-          switch (error) {
-            case 'DuplicateEntryException':
+          switch (error.parent.code) {
+            case 'ER_DUP_ENTRY':
               console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
               return res.status(400).json({
-                error: '既に登録されています。ログイン画面からログインしてください。',
+                error: 'ログイン画面からログインしてください。',
               });
             default:
               console.log('SIGNUP ERROR', error);
