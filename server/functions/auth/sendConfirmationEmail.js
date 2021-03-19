@@ -20,6 +20,6 @@ exports.sendConfirmationEmail = async (res, email, confirmationToken) => {
   };
   await sgMail.send(msg);
   return res.json({
-    message: `${email}に確認メールを送信しました。メールに記載されている手順にしたがって本登録を行ってください。`,
+    message: `${email}に確認メールを送信しました。メールをご確認の上、本登録を行ってください。`,
   });
 };
