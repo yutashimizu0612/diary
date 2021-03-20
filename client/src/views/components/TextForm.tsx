@@ -1,21 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-const StyledForm = styled.input`
+const StyledInput = styled.input`
   background: #fff;
   border-radius: 24px;
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
-  cursor: pointer;
   font-size: 18px;
   outline: none;
   padding: 16px 0 16px 86px;
   position: relative;
   transition: 0.2s;
   width: 100%;
-  &:hover {
-    opacity: 0.7;
-  }
   ::placeholder {
     color: #acacac;
     font-size: 16px;
@@ -43,10 +39,12 @@ const TextForm: React.FC<Props> = ({ placeholder, iconType }) => {
       css={`
         position: relative;
       `}>
-      <StyledWrapper>
-        <Icon fontSize="large" />
-      </StyledWrapper>
-      <StyledForm placeholder={placeholder} />
+      <label>
+        <StyledWrapper>
+          <Icon fontSize="large" />
+        </StyledWrapper>
+        <StyledInput placeholder={placeholder} />
+      </label>
     </div>
   );
 };
