@@ -28,11 +28,14 @@ const StyledWrapper = styled.div`
 `;
 
 type Props = {
-  placeholder: string;
+  name: string;
   iconType: any;
+  placeholder: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const TextForm: React.FC<Props> = ({ placeholder, iconType }) => {
+const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, onChange }) => {
   const Icon = iconType;
   return (
     <div
@@ -43,7 +46,7 @@ const TextForm: React.FC<Props> = ({ placeholder, iconType }) => {
         <StyledWrapper>
           <Icon fontSize="large" />
         </StyledWrapper>
-        <StyledInput placeholder={placeholder} />
+        <StyledInput name={name} value={value} onChange={onChange} placeholder={placeholder} />
       </label>
     </div>
   );
