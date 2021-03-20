@@ -51,10 +51,22 @@ const Login: React.FC = () => (
       <div css="margin: 30px 0 36px;">
         <StyledFormList>
           <StyledFormItem>
-            <TextForm iconType={EmailOutlinedIcon} placeholder="メールアドレス" />
+            <TextForm
+              name="email"
+              iconType={EmailOutlinedIcon}
+              placeholder="メールアドレス"
+              value={'email'}
+              onChange={() => console.log('email')}
+            />
           </StyledFormItem>
           <StyledFormItem>
-            <TextForm iconType={LockOutlinedIcon} placeholder="パスワード" />
+            <TextForm
+              name="password"
+              iconType={LockOutlinedIcon}
+              placeholder="パスワード"
+              value={'password'}
+              onChange={() => console.log('password')}
+            />
           </StyledFormItem>
         </StyledFormList>
       </div>
