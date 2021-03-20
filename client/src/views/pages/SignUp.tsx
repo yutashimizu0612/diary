@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import Header from '../components/Header';
-import SingupForm from '../components/SingupForm';
+import SignUpForm from '../components/SignUpForm';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -15,7 +15,7 @@ const StyledTitle = styled.h2`
   text-align: center;
 `;
 
-const Singup: React.FC = () => {
+const SignUp: React.FC = () => {
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -33,10 +33,10 @@ const Singup: React.FC = () => {
       <Header />
       <StyledWrapper>
         <StyledTitle>アカウント登録</StyledTitle>
-        <SingupForm values={values} onChange={(e) => handleChange(e)} />
+        <SignUpForm values={values} onChange={(e) => handleChange(e)} />
       </StyledWrapper>
     </>
   );
 };
 
-export default Singup;
+export default SignUp;

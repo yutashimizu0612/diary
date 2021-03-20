@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './views/pages/Login';
-import Singup from './views/pages/Singup';
+import SignUp from './views/pages/SignUp';
 import Posts from './views/pages/Posts';
 import Status from './views/pages/Status';
 import Day from './views/pages/Day';
@@ -18,7 +18,7 @@ const Routes: React.FC = () => (
         <Login />
       </Route>
       <Route path="/signup">
-        <Singup />
+        <SignUp />
       </Route>
       <Route path="/posts">
         <Posts />

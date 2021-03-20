@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import TextForm from './TextForm';
-import Button from '../components/Button';
+import Button from './Button';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -40,7 +40,7 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const SingupForm: React.FC<Props> = ({ values, onChange }) => {
+const SignUpForm: React.FC<Props> = ({ values, onChange }) => {
   return (
     <StyledForm>
       {/* フォーム */}
@@ -104,4 +104,4 @@ const SingupForm: React.FC<Props> = ({ values, onChange }) => {
   );
 };
 
-export default SingupForm;
+export default SignUpForm;
