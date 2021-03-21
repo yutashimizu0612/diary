@@ -14,7 +14,7 @@ const signupFormValidator = [
     .withMessage('パスワードは入力必須です')
     .isLength({ min: 7 })
     .withMessage('7文字以上のパスワードを入力してください'),
-  body('confirm_password')
+  body('confirmation')
     .not()
     .isEmpty()
     .withMessage('確認用パスワードは入力必須です')
