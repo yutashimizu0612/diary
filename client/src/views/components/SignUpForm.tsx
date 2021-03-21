@@ -38,9 +38,10 @@ type Props = {
     confirmation: string;
   };
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const SignUpForm: React.FC<Props> = ({ values, onChange }) => {
+const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
   return (
     <StyledForm>
       {/* フォーム */}
@@ -82,11 +83,7 @@ const SignUpForm: React.FC<Props> = ({ values, onChange }) => {
       </StyledFormItem>
       {/* Submitボタン */}
       <StyledSignupButtonWrapper>
-        <Button
-          text="アカウント登録"
-          appearance="primary"
-          onClick={() => console.log('アカウント登録処理')}
-        />
+        <Button text="アカウント登録" appearance="primary" onClick={onSubmit} />
       </StyledSignupButtonWrapper>
       {/* Submitボタン（Facebook） */}
       <StyledFacebook>
