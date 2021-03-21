@@ -50,7 +50,7 @@ const StyledText = styled.span<{ appearance: 'primary' | 'facebook' }>`
 type Props = {
   text: string;
   appearance: 'primary' | 'facebook';
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Button: React.FC<Props> = ({ text, appearance, onClick }) => (
