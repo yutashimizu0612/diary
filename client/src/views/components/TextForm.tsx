@@ -27,28 +27,38 @@ const StyledWrapper = styled.div`
   z-index: 1;
 `;
 
+const StyledError = styled.span`
+  color: #ec3e3e;
+  display: block;
+  margin: 8px 0 0 32px;
+`;
+
 type Props = {
   name: string;
   iconType: any;
   placeholder: string;
   value: string;
+  error?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, onChange }) => {
+const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, error, onChange }) => {
   const Icon = iconType;
   return (
-    <div
-      css={`
-        position: relative;
-      `}>
-      <label>
-        <StyledWrapper>
-          <Icon fontSize="large" />
-        </StyledWrapper>
-        <StyledInput name={name} value={value} onChange={onChange} placeholder={placeholder} />
-      </label>
-    </div>
+    <>
+      <div
+        css={`
+          position: relative;
+        `}>
+        <label>
+          <StyledWrapper>
+            <Icon fontSize="large" />
+          </StyledWrapper>
+          <StyledInput name={name} value={value} onChange={onChange} placeholder={placeholder} />
+        </label>
+      </div>
+      {error && <StyledError>{error}</StyledError>}
+    </>
   );
 };
 

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Color } from '@material-ui/lab/Alert';
 import Header from '../components/Header';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
+import { validateSignUpForm } from '../../functions/validation';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -26,24 +27,31 @@ const SignUp: React.FC = () => {
     confirmation: '',
   });
 
+  const [errors, setErrors] = useState({});
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [toastStatus, setToastStatus] = useState({
     isOpen: false,
     message: '',
     severity: 'success' as Color,
   });
 
-  const { name, email, password, confirmation } = values;
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     console.log('value', event.target.value);
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    console.log(name);
-    console.log(email);
-    console.log(password);
+    console.log('handleSubmit');
+    setErrors(validateSignUpForm(values));
+    setIsSubmitting(true);
+  };
+
+  const submit = (): void => {
+    console.log('submit');
+    const { name, email, password, confirmation } = values;
     axios({
       method: 'POST',
       url: `${process.env.REACT_APP_API_URL}/signup`,
@@ -65,7 +73,8 @@ const SignUp: React.FC = () => {
         });
       })
       .catch((error) => {
-        console.log('SIGNUP SUBMIT ERROR', error);
+        console.log('SIGNUP SUBMIT ERROR response', error.response);
+        console.log('SIGNUP SUBMIT ERROR response.data', error.response.data);
         setToastStatus({
           isOpen: true,
           message: 'エラー文言を入れる',
@@ -78,6 +87,15 @@ const SignUp: React.FC = () => {
     setToastStatus({ ...toastStatus, isOpen: false });
   };
 
+  useEffect(() => {
+    console.log('useEffect');
+    console.log('isSubmitting', isSubmitting);
+    if (isSubmitting && Object.keys(errors).length === 0) {
+      // submit();
+      console.log('useEffectのsubmit！');
+    }
+  }, [errors]);
+
   return (
     <>
       <Header />
@@ -89,7 +107,12 @@ const SignUp: React.FC = () => {
       />
       <StyledWrapper>
         <StyledTitle>アカウント登録</StyledTitle>
-        <SignUpForm values={values} onChange={(e) => handleChange(e)} onSubmit={submit} />
+        <SignUpForm
+          values={values}
+          errors={errors}
+          onChange={(e) => handleChange(e)}
+          onSubmit={handleSubmit}
+        />
       </StyledWrapper>
     </>
   );

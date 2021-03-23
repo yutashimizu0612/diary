@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import TextForm from './TextForm';
-import Button from './Button';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+import { SignUpFormValues } from '../../types';
+import TextForm from './TextForm';
+import Button from './Button';
 
 const StyledForm = styled.form``;
 
@@ -31,17 +33,18 @@ const StyledFacebook = styled.div`
 `;
 
 type Props = {
-  values: {
-    name: string;
-    email: string;
-    password: string;
-    confirmation: string;
+  values: SignUpFormValues;
+  errors: {
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmation?: string;
   };
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
+const SignUpForm: React.FC<Props> = ({ values, errors, onChange, onSubmit }) => {
   return (
     <StyledForm>
       {/* フォーム */}
@@ -51,6 +54,7 @@ const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
           iconType={PersonIcon}
           placeholder="名前"
           value={values.name}
+          error={errors.name}
           onChange={onChange}
         />
       </StyledFormItem>
@@ -60,6 +64,7 @@ const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
           iconType={EmailOutlinedIcon}
           placeholder="メールアドレス"
           value={values.email}
+          error={errors.email}
           onChange={onChange}
         />
       </StyledFormItem>
@@ -69,6 +74,7 @@ const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
           iconType={LockOutlinedIcon}
           placeholder="パスワード"
           value={values.password}
+          error={errors.password}
           onChange={onChange}
         />
       </StyledFormItem>
@@ -78,6 +84,7 @@ const SignUpForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
           iconType={LockOutlinedIcon}
           placeholder="確認用にもう1度パスワードを入力してください"
           value={values.confirmation}
+          error={errors.confirmation}
           onChange={onChange}
         />
       </StyledFormItem>
