@@ -26,11 +26,8 @@ const SignUp: React.FC = () => {
     password: '',
     confirmation: '',
   });
-
   const [errors, setErrors] = useState({});
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [toastStatus, setToastStatus] = useState({
     isOpen: false,
     message: '',
@@ -77,7 +74,7 @@ const SignUp: React.FC = () => {
         console.log('SIGNUP SUBMIT ERROR response.data', error.response.data);
         setToastStatus({
           isOpen: true,
-          message: 'エラー文言を入れる',
+          message: error.response.data.message,
           severity: 'error',
         });
       });
@@ -91,8 +88,8 @@ const SignUp: React.FC = () => {
     console.log('useEffect');
     console.log('isSubmitting', isSubmitting);
     if (isSubmitting && Object.keys(errors).length === 0) {
-      // submit();
       console.log('useEffectのsubmit！');
+      submit();
     }
   }, [errors]);
 
