@@ -35,13 +35,11 @@ const SignUp: React.FC = () => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log('value', event.target.value);
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    console.log('handleSubmit');
     setErrors(validateSignUpForm(values));
     setIsSubmitting(true);
   };
@@ -56,7 +54,6 @@ const SignUp: React.FC = () => {
     })
       .then((response) => {
         console.log('SIGNUP SUBMIT SUCCESS', response);
-        console.log('SIGNUP SUBMIT SUCCESS response.data', response.data);
         setValues({
           name: '',
           email: '',
@@ -71,7 +68,6 @@ const SignUp: React.FC = () => {
       })
       .catch((error) => {
         console.log('SIGNUP SUBMIT ERROR response', error.response);
-        console.log('SIGNUP SUBMIT ERROR response.data', error.response.data);
         setToastStatus({
           isOpen: true,
           message: error.response.data.message,
@@ -86,7 +82,6 @@ const SignUp: React.FC = () => {
 
   useEffect(() => {
     console.log('useEffect');
-    console.log('isSubmitting', isSubmitting);
     if (isSubmitting && Object.keys(errors).length === 0) {
       console.log('useEffectのsubmit！');
       submit();
