@@ -9,12 +9,13 @@ require('dotenv').config();
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
+    console.log('api側のsignup', name, email, password);
     try {
       // 既にメールアドレスが登録されていないかチェック
       const user = await models.User.findUserByEmail(email);
       if (user) {
         return res.status(400).json({
-          error: 'このメールアドレスは既に登録されています。',
+          message: 'このメールアドレスは既に登録されています。',
         });
       }
 
@@ -48,7 +49,7 @@ module.exports = {
         if (error) {
           console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
-            error: '再度登録画面からやり直してください。',
+            message: '再度登録画面からやり直してください。',
           });
         }
 
@@ -63,12 +64,12 @@ module.exports = {
             case 'ER_DUP_ENTRY':
               console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
               return res.status(400).json({
-                error: 'ログイン画面からログインしてください。',
+                message: 'ログイン画面からログインしてください。',
               });
             default:
               console.log('SIGNUP ERROR', error);
               return res.status(400).json({
-                error: '登録に失敗しました。再度登録画面からやり直してください。',
+                message: '登録に失敗しました。再度登録画面からやり直してください。',
               });
           }
         }
@@ -82,18 +83,18 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const user = await findUserByEmail(req.body.email);
+      const user = await models.User.findUserByEmail(req.body.email);
       // ユーザが登録されていない場合
       if (!user) {
         return res.status(400).json({
-          error: 'このメールアドレスは登録されていません。',
+          message: 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。',
         });
       }
 
       // パスワードの照合
       const match = await bcrypt.compare(req.body.password, user.password);
       if (!match) {
-        return res.status(400).json({ error: 'メールアドレスかパスワードが間違っています。' });
+        return res.status(400).json({ message: 'メールアドレスかパスワードが間違っています。' });
       }
 
       // access-tokenの発行
@@ -106,7 +107,7 @@ module.exports = {
     } catch (error) {
       console.log('LOGIN ERROR', error);
       return res.status(400).json({
-        error: 'ログインに失敗しました。',
+        message: 'ログインに失敗しました。',
       });
     }
   },
