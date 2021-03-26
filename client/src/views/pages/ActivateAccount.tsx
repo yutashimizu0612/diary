@@ -22,42 +22,32 @@ const StyledTitle = styled.h2`
 type Props = RouteComponentProps<{ token: string }>;
 
 const ActivateAccount: React.FC<Props> = ({ match }) => {
-  const [values, setValues] = useState({
-    name: '',
-    token: '',
-  });
+  const [values, setValues] = useState({ token: '' });
 
   useEffect(() => {
     const token = match.params.token;
     console.log('token', token);
+    if (token) {
+      setValues({ ...values, token });
+    }
   }, []);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [toastStatus, setToastStatus] = useState({
     isOpen: false,
     message: '',
     severity: 'success' as Color,
   });
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    setIsSubmitting(true);
-  };
-
   const submit = (): void => {
     console.log('submit');
-    const { name, token } = values;
+    const { token } = values;
     axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_API_URL}/signup`,
-      data: { name, token },
+      url: `${process.env.REACT_APP_API_URL}/activation`,
+      data: { token },
     })
       .then((response) => {
-        console.log('SIGNUP SUBMIT SUCCESS', response);
-        setValues({
-          name: '',
-          token: '',
-        });
+        console.log('ACCOUNT ACTIVATION SUCCESS', response);
         setToastStatus({
           isOpen: true,
           message: response.data.message,
@@ -65,7 +55,7 @@ const ActivateAccount: React.FC<Props> = ({ match }) => {
         });
       })
       .catch((error) => {
-        console.log('SIGNUP SUBMIT ERROR response', error.response);
+        console.log('ACCOUNT ACTIVATION ERROR', error.response);
         setToastStatus({
           isOpen: true,
           message: error.response.data.message,
@@ -89,7 +79,7 @@ const ActivateAccount: React.FC<Props> = ({ match }) => {
       />
       <StyledWrapper>
         <StyledTitle>アカウントの本登録</StyledTitle>
-        <Button text="登録する" appearance="primary" onClick={() => console.log('本登録')} />
+        <Button text="登録する" appearance="primary" onClick={() => submit()} />
       </StyledWrapper>
     </>
   );
