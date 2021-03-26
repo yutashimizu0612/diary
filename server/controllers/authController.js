@@ -43,7 +43,7 @@ module.exports = {
   },
 
   activateAccount: (req, res) => {
-    const token = req.query.confirmation_token;
+    const token = req.body.token;
     if (token) {
       jwt.verify(token, process.env.JWT_ACCOUNT_CONFIRMATION, async (error, decoded) => {
         if (error) {
@@ -58,7 +58,9 @@ module.exports = {
         try {
           const newUser = await models.User.addNewUser(name, email, password);
           console.log('newUser', newUser);
-          return res.redirect(301, '/');
+          return res.json({
+            message: 'ユーザ登録が完了しました。ログインしてください！',
+          });
         } catch (error) {
           switch (error.parent.code) {
             case 'ER_DUP_ENTRY':
@@ -75,7 +77,7 @@ module.exports = {
         }
       });
     } else {
-      return res.json({
+      return res.status(400).json({
         message: 'お手数ですが、再度登録画面からやり直してください。',
       });
     }
