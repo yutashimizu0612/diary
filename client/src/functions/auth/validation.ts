@@ -1,4 +1,4 @@
-import { SignUpFormValues, LoginFormValues } from '../types';
+import { SignUpFormValues, LoginFormValues } from '../../types';
 
 export function validateSignUpForm(values: SignUpFormValues) {
   const errors = {};

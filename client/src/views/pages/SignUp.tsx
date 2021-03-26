@@ -5,7 +5,7 @@ import { Color } from '@material-ui/lab/Alert';
 import Header from '../components/Header';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
-import { validateSignUpForm } from '../../functions/validation';
+import { validateSignUpForm } from '../../functions/auth/validation';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
