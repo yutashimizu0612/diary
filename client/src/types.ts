@@ -9,3 +9,12 @@ export type LoginFormValues = {
   email: string;
   password: string;
 };
+
+export type LoginResponseData = {
+  accessToken: string;
+  user: {
+    id: string;
+    name: string;
+    auth: boolean;
+  };
+};

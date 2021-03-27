@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import Toast from '../components/Toast';
 import LoginForm from '../components/LoginForm';
 import { validateLoginForm } from '../../functions/auth/validation';
+import { authenticate } from '../../functions/auth/authenticate';
 import { LoginFormValues } from '../../types';
 
 const StyledWrapper = styled.div`
@@ -58,14 +59,13 @@ const Login: React.FC = () => {
     })
       .then((response) => {
         console.log('LOGIN SUBMIT SUCCESS', response);
-        setValues({
-          email: '',
-          password: '',
-        });
-        setToastStatus({
-          isOpen: true,
-          message: `ようこそ！${response.data.user.name}さん`,
-          severity: 'success',
+        authenticate(response.data, () => {
+          setValues({ email: '', password: '' });
+          setToastStatus({
+            isOpen: true,
+            message: `ようこそ！${response.data.user.name}さん`,
+            severity: 'success',
+          });
         });
       })
       .catch((error) => {
