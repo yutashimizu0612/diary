@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Header from '../components/Header';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
 import { validateSignUpForm } from '../../functions/auth/validation';
+import { isLoggedIn } from '../../functions/auth/authenticate';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -87,6 +89,10 @@ const SignUp: React.FC = () => {
       submit();
     }
   }, [errors]);
+
+  if (isLoggedIn()) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>

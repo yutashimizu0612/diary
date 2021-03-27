@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Header from '../components/Header';
 import Toast from '../components/Toast';
 import LoginForm from '../components/LoginForm';
 import { validateLoginForm } from '../../functions/auth/validation';
-import { authenticate } from '../../functions/auth/authenticate';
+import { authenticate, isLoggedIn } from '../../functions/auth/authenticate';
 import { LoginFormValues } from '../../types';
 
 const StyledWrapper = styled.div`
@@ -90,6 +91,10 @@ const Login: React.FC = () => {
       submit();
     }
   }, [errors]);
+
+  if (isLoggedIn()) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>
