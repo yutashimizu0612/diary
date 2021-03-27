@@ -8,3 +8,9 @@ export const authenticate = (data: LoginResponseData, next: any): void => {
   Cookies.set('id', data.user.id, { expires: 1 });
   next();
 };
+
+export const isLoggedIn = () => {
+  const token = Cookies.get('accessToken');
+  const id = Cookies.get('id');
+  return token && id ? id : false;
+};
