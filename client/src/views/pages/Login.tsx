@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
-import Header from '../components/Header';
+import Header from '../components/header/Header';
 import Toast from '../components/Toast';
 import LoginForm from '../components/LoginForm';
 import { validateLoginForm } from '../../functions/auth/validation';

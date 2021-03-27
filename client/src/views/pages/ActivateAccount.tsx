@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Color } from '@material-ui/lab/Alert';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/header/Header';
 import Toast from '../components/Toast';
 import Button from '../components/Button';
 

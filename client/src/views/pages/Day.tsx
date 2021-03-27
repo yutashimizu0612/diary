@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Header from '../components/Header';
+import Header from '../components/header/Header';
 import Contribution from '../components/Contribution';
 import DiaryDate from '../components/DiaryDate';
 import DiaryAccomplishment from '../components/DiaryAccomplishment';
