@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { isLoggedIn } from '../../functions/auth/authenticate';
 
 const StyledWrapper = styled.div`
   background: #121813;
@@ -107,50 +108,64 @@ type Props = {
   current?: string;
 };
 
-const Header: React.FC<Props> = () => {
+const Nav = () => (
+  <StyledList>
+    <StyledItem>
+      <StyledLink to="/" isActive>
+        日記を書く
+      </StyledLink>
+    </StyledItem>
+    <StyledItem>
+      <StyledLink to="/status">ステータス</StyledLink>
+    </StyledItem>
+    <StyledItem>
+      <StyledLink to="/posts">みんなの投稿</StyledLink>
+    </StyledItem>
+    <StyledItem>
+      <StyledLink to="/">ランキング</StyledLink>
+    </StyledItem>
+  </StyledList>
+);
+
+const AuthNav = () => (
+  <StyledAuthList>
+    <StyledAuthItem>
+      <StyledLink to="/signup">アカウント登録</StyledLink>
+    </StyledAuthItem>
+    <StyledAuthItem>
+      <StyledLink to="/login">ログイン</StyledLink>
+    </StyledAuthItem>
+  </StyledAuthList>
+);
+
+const AccountDropDown = () => {
   const [isVisible, setIsVisible] = useState(false);
+  return (
+    <StyledIconWrapper
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}>
+      <StyledAccountCircleIcon />
+      {isVisible && (
+        <StyledDropDown>
+          <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
+          <StyledDropDownButton>ログアウト</StyledDropDownButton>
+          <StyledDropDownButton>退会</StyledDropDownButton>
+        </StyledDropDown>
+      )}
+    </StyledIconWrapper>
+  );
+};
+
+const Header: React.FC<Props> = () => {
   return (
     <StyledWrapper>
       <StyledInner>
         {/* ログイン中のみ表示 */}
-        <StyledList>
-          <StyledItem>
-            <StyledLink to="/" isActive>
-              日記を書く
-            </StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <StyledLink to="/status">ステータス</StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <StyledLink to="/posts">みんなの投稿</StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <StyledLink to="/">ランキング</StyledLink>
-          </StyledItem>
-        </StyledList>
+        {isLoggedIn() && <Nav />}
         {/* 未ログイン時のみ表示 */}
-        <StyledAuthList>
-          <StyledAuthItem>
-            <StyledLink to="/signup">アカウント登録</StyledLink>
-          </StyledAuthItem>
-          <StyledAuthItem>
-            <StyledLink to="/login">ログイン</StyledLink>
-          </StyledAuthItem>
-        </StyledAuthList>
+        {!isLoggedIn() && <AuthNav />}
         {/* ログイン中のみ表示 */}
-        <StyledIconWrapper
-          onMouseEnter={() => setIsVisible(true)}
-          onMouseLeave={() => setIsVisible(false)}>
-          <StyledAccountCircleIcon />
-          {isVisible && (
-            <StyledDropDown>
-              <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
-              <StyledDropDownButton>ログアウト</StyledDropDownButton>
-              <StyledDropDownButton>退会</StyledDropDownButton>
-            </StyledDropDown>
-          )}
-        </StyledIconWrapper>
+        {isLoggedIn() && <AccountDropDown />}
       </StyledInner>
     </StyledWrapper>
   );
