@@ -9,12 +9,13 @@ require('dotenv').config();
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
+    console.log('api側のsignup', name, email, password);
     try {
       // 既にメールアドレスが登録されていないかチェック
       const user = await models.User.findUserByEmail(email);
       if (user) {
         return res.status(400).json({
-          error: 'このメールアドレスは既に登録されています。',
+          message: 'このメールアドレスは既に登録されています。',
         });
       }
 
@@ -42,13 +43,13 @@ module.exports = {
   },
 
   activateAccount: (req, res) => {
-    const token = req.query.confirmation_token;
+    const token = req.body.token;
     if (token) {
       jwt.verify(token, process.env.JWT_ACCOUNT_CONFIRMATION, async (error, decoded) => {
         if (error) {
           console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
-            error: '再度登録画面からやり直してください。',
+            message: '再度登録画面からやり直してください。',
           });
         }
 
@@ -57,24 +58,26 @@ module.exports = {
         try {
           const newUser = await models.User.addNewUser(name, email, password);
           console.log('newUser', newUser);
-          return res.redirect(301, '/');
+          return res.json({
+            message: 'ユーザ登録が完了しました。ログインしてください！',
+          });
         } catch (error) {
           switch (error.parent.code) {
             case 'ER_DUP_ENTRY':
               console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
               return res.status(400).json({
-                error: 'ログイン画面からログインしてください。',
+                message: 'ログイン画面からログインしてください。',
               });
             default:
               console.log('SIGNUP ERROR', error);
               return res.status(400).json({
-                error: '登録に失敗しました。再度登録画面からやり直してください。',
+                message: '登録に失敗しました。再度登録画面からやり直してください。',
               });
           }
         }
       });
     } else {
-      return res.json({
+      return res.status(400).json({
         message: 'お手数ですが、再度登録画面からやり直してください。',
       });
     }
@@ -82,31 +85,31 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const user = await findUserByEmail(req.body.email);
+      const user = await models.User.findUserByEmail(req.body.email);
       // ユーザが登録されていない場合
       if (!user) {
         return res.status(400).json({
-          error: 'このメールアドレスは登録されていません。',
+          message: 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。',
         });
       }
 
       // パスワードの照合
       const match = await bcrypt.compare(req.body.password, user.password);
       if (!match) {
-        return res.status(400).json({ error: 'メールアドレスかパスワードが間違っています。' });
+        return res.status(400).json({ message: 'メールアドレスかパスワードが間違っています。' });
       }
 
       // access-tokenの発行
-      const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '900s');
-      const { id, name, email, auth } = user;
+      const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '7d');
+      const { id, name, auth } = user;
       return res.json({
         accessToken,
-        user: { id, name, email, auth },
+        user: { id, name, auth },
       });
     } catch (error) {
       console.log('LOGIN ERROR', error);
       return res.status(400).json({
-        error: 'ログインに失敗しました。',
+        message: 'ログインに失敗しました。',
       });
     }
   },
