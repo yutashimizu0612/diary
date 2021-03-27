@@ -1,21 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-const StyledForm = styled.input`
+const StyledInput = styled.input`
   background: #fff;
   border-radius: 24px;
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
-  cursor: pointer;
   font-size: 18px;
   outline: none;
   padding: 16px 0 16px 86px;
   position: relative;
   transition: 0.2s;
   width: 100%;
-  &:hover {
-    opacity: 0.7;
-  }
   ::placeholder {
     color: #acacac;
     font-size: 16px;
@@ -31,23 +27,38 @@ const StyledWrapper = styled.div`
   z-index: 1;
 `;
 
+const StyledError = styled.span`
+  color: #ec3e3e;
+  display: block;
+  margin: 8px 0 0 32px;
+`;
+
 type Props = {
-  placeholder: string;
+  name: string;
   iconType: any;
+  placeholder: string;
+  value: string;
+  error?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const TextForm: React.FC<Props> = ({ placeholder, iconType }) => {
+const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, error, onChange }) => {
   const Icon = iconType;
   return (
-    <div
-      css={`
-        position: relative;
-      `}>
-      <StyledWrapper>
-        <Icon fontSize="large" />
-      </StyledWrapper>
-      <StyledForm placeholder={placeholder} />
-    </div>
+    <>
+      <div
+        css={`
+          position: relative;
+        `}>
+        <label>
+          <StyledWrapper>
+            <Icon fontSize="large" />
+          </StyledWrapper>
+          <StyledInput name={name} value={value} onChange={onChange} placeholder={placeholder} />
+        </label>
+      </div>
+      {error && <StyledError>{error}</StyledError>}
+    </>
   );
 };
 

@@ -9,7 +9,7 @@ const app = express();
 require('dotenv').config();
 
 // middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan('dev'));
 if (process.env.NODE_ENV === 'development') {
   app.use(cors({ origin: `http://localhost:3000` }));
