@@ -100,7 +100,7 @@ module.exports = {
       }
 
       // access-tokenの発行
-      const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '900s');
+      const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '7d');
       const { id, name, email, auth } = user;
       return res.json({
         accessToken,
