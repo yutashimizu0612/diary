@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { logout } from '../../../functions/auth/authenticate';
 
 const StyledIconWrapper = styled.div`
   cursor: pointer;
@@ -56,6 +57,10 @@ const StyledDropDownButton = styled.button`
 
 const DropDown: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const history = useHistory();
+  const redirectToTop = (): void => {
+    history.push('/');
+  };
   return (
     <StyledIconWrapper
       onMouseEnter={() => setIsVisible(true)}
@@ -64,7 +69,9 @@ const DropDown: React.FC = () => {
       {isVisible && (
         <StyledDropDown>
           <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
-          <StyledDropDownButton>ログアウト</StyledDropDownButton>
+          <StyledDropDownButton onClick={() => logout(() => redirectToTop())}>
+            ログアウト
+          </StyledDropDownButton>
           <StyledDropDownButton>退会</StyledDropDownButton>
         </StyledDropDown>
       )}
