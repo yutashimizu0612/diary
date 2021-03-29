@@ -14,3 +14,9 @@ export const isLoggedIn = () => {
   const id = Cookies.get('id');
   return token && id ? id : false;
 };
+
+export const logout = (next: any) => {
+  Cookies.remove('accessToken');
+  Cookies.remove('id');
+  next();
+};
