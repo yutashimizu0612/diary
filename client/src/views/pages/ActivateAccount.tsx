@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Color } from '@material-ui/lab/Alert';
 import { useParams } from 'react-router-dom';
-import Header from '../components/header/Header';
+import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import Button from '../components/Button';
 
@@ -71,8 +71,7 @@ const ActivateAccount: React.FC = () => {
   };
 
   return (
-    <>
-      <Header />
+    <Layout>
       <Toast
         open={toastStatus.isOpen}
         onClose={closeSnackBar}
@@ -83,7 +82,7 @@ const ActivateAccount: React.FC = () => {
         <StyledTitle>アカウントの本登録</StyledTitle>
         <Button text="登録する" appearance="primary" onClick={() => submit()} />
       </StyledWrapper>
-    </>
+    </Layout>
   );
 };
 

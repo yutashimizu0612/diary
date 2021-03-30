@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Header from '../components/header/Header';
+import Layout from '../layouts/Layout';
 import Contribution from '../components/Contribution';
 import DiaryDate from '../components/DiaryDate';
 import DiaryAccomplishment from '../components/DiaryAccomplishment';
@@ -14,8 +14,7 @@ const StyledWrapper = styled.div`
 `;
 
 const Day: React.FC = () => (
-  <>
-    <Header />
+  <Layout>
     <Contribution />
     <StyledWrapper>
       <DiaryDate />
@@ -36,7 +35,7 @@ const Day: React.FC = () => (
         <DiaryPagination />
       </div>
     </StyledWrapper>
-  </>
+  </Layout>
 );
 
 export default Day;

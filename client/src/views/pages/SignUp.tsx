@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
-import Header from '../components/header/Header';
+import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
 import { validateSignUpForm } from '../../functions/auth/validation';
@@ -95,8 +95,7 @@ const SignUp: React.FC = () => {
   }
 
   return (
-    <>
-      <Header />
+    <Layout>
       <Toast
         open={toastStatus.isOpen}
         onClose={closeSnackBar}
@@ -112,7 +111,7 @@ const SignUp: React.FC = () => {
           onSubmit={handleSubmit}
         />
       </StyledWrapper>
-    </>
+    </Layout>
   );
 };
 
