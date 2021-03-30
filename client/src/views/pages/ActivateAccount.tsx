@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import { Color } from '@material-ui/lab/Alert';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Toast from '../components/Toast';
 import Button from '../components/Button';
@@ -19,13 +19,15 @@ const StyledTitle = styled.h2`
   text-align: center;
 `;
 
-type Props = RouteComponentProps<{ token: string }>;
+type ParamTypes = {
+  token: string;
+};
 
-const ActivateAccount: React.FC<Props> = ({ match }) => {
+const ActivateAccount: React.FC = () => {
   const [values, setValues] = useState({ token: '' });
+  const { token } = useParams<ParamTypes>();
 
   useEffect(() => {
-    const token = match.params.token;
     console.log('token', token);
     if (token) {
       setValues({ ...values, token });
@@ -85,4 +87,4 @@ const ActivateAccount: React.FC<Props> = ({ match }) => {
   );
 };
 
-export default withRouter(ActivateAccount);
+export default ActivateAccount;
