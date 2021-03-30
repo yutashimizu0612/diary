@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Header from '../components/header/Header';
+import Layout from '../layouts/Layout';
 
 const StyledWrapper = styled.div`
   background: #fff;
@@ -46,8 +46,7 @@ const StyledButton = styled.button`
 `;
 
 const AccountSettings: React.FC = () => (
-  <>
-    <Header />
+  <Layout>
     <StyledWrapper>
       <StyledTitle>アカウント設定</StyledTitle>
       <dl>
@@ -69,7 +68,7 @@ const AccountSettings: React.FC = () => (
         <StyledData>sample@gmail.com</StyledData>
       </dl>
     </StyledWrapper>
-  </>
+  </Layout>
 );
 
 export default AccountSettings;

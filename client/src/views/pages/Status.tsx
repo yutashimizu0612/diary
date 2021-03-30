@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Layout from '../layouts/Layout';
 import GoodDays from '../components/GoodDays';
 
 const StyledWrapper = styled.div`
@@ -8,9 +9,11 @@ const StyledWrapper = styled.div`
 `;
 
 const Status: React.FC = () => (
-  <StyledWrapper>
-    <GoodDays />
-  </StyledWrapper>
+  <Layout>
+    <StyledWrapper>
+      <GoodDays />
+    </StyledWrapper>
+  </Layout>
 );
 
 export default Status;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import Layout from '../layouts/Layout';
 import Post from '../components/Post';
 
 const StyledWrapper = styled.div`
@@ -8,19 +9,21 @@ const StyledWrapper = styled.div`
 `;
 
 const Posts: React.FC = () => (
-  <StyledWrapper>
-    <ul>
-      <li css="margin-bottom: 20px;">
-        <Post />
-      </li>
-      <li css="margin-bottom: 20px;">
-        <Post />
-      </li>
-      <li css="margin-bottom: 20px;">
-        <Post />
-      </li>
-    </ul>
-  </StyledWrapper>
+  <Layout>
+    <StyledWrapper>
+      <ul>
+        <li css="margin-bottom: 20px;">
+          <Post />
+        </li>
+        <li css="margin-bottom: 20px;">
+          <Post />
+        </li>
+        <li css="margin-bottom: 20px;">
+          <Post />
+        </li>
+      </ul>
+    </StyledWrapper>
+  </Layout>
 );
 
 export default Posts;
