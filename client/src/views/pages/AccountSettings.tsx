@@ -56,8 +56,6 @@ const AccountSettings: React.FC = () => (
         <StyledData>
           <StyledImage src="https://placehold.jp/150x150.png" />
         </StyledData>
-        <StyledTerm>ユーザID</StyledTerm>
-        <StyledData>suzuki5107</StyledData>
         <StyledTerm>
           ニックネーム<StyledButton>変更する</StyledButton>
         </StyledTerm>
