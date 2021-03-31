@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 // routes
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 const app = express();
 require('dotenv').config();
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(cors({ origin: `http://localhost:3000` }));
 }
 app.use('/api', authRouter);
+app.use('/api', userRouter);
 
 app.get('/', (req, res) => {
   res.send('api is started.');
