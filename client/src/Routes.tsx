@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './views/components/auth/PrivateRoute';
 import Login from './views/pages/Login';
 import SignUp from './views/pages/SignUp';
 import ActivateAccount from './views/pages/ActivateAccount';
@@ -12,9 +13,6 @@ import NotFound from './views/pages/NotFound';
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/">
-        <Day />
-      </Route>
       <Route path="/login">
         <Login />
       </Route>
@@ -24,15 +22,18 @@ const Routes: React.FC = () => (
       <Route path="/activation/:token">
         <ActivateAccount />
       </Route>
-      <Route path="/posts">
+      <PrivateRoute exact path="/">
+        <Day />
+      </PrivateRoute>
+      <PrivateRoute path="/posts">
         <Posts />
-      </Route>
-      <Route path="/status">
+      </PrivateRoute>
+      <PrivateRoute path="/status">
         <Status />
-      </Route>
-      <Route path="/settings">
+      </PrivateRoute>
+      <PrivateRoute path="/settings">
         <AccountSettings />
-      </Route>
+      </PrivateRoute>
       <Route>
         <NotFound />
       </Route>
