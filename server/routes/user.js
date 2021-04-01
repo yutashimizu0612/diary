@@ -1,9 +1,10 @@
 const express = require('express');
 const userRouter = express.Router();
+const { requireLogin } = require('../middleware/auth');
 // controller
 const userController = require('../controllers/userController');
 
-userRouter.get('/user/:id', userController.read);
+userRouter.get('/user/:id', requireLogin, userController.read);
 userRouter.put('/user/', userController.update);
 
 module.exports = userRouter;
