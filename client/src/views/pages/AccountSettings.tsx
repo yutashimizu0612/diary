@@ -60,9 +60,7 @@ const AccountSettings: React.FC = () => (
           ニックネーム<StyledButton>変更する</StyledButton>
         </StyledTerm>
         <StyledData>鈴木 尚典</StyledData>
-        <StyledTerm>
-          メールアドレス<StyledButton>変更する</StyledButton>
-        </StyledTerm>
+        <StyledTerm>メールアドレス</StyledTerm>
         <StyledData>sample@gmail.com</StyledData>
       </dl>
     </StyledWrapper>
