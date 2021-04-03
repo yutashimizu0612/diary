@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import Layout from '../layouts/Layout';
+import UpdateAccountForm from '../components/UpdateAccountForm';
 
 const StyledWrapper = styled.div`
   background: #fff;
@@ -45,30 +46,64 @@ const StyledButton = styled.button`
   }
 `;
 
-const AccountSettings: React.FC = () => (
-  <Layout>
-    <StyledWrapper>
-      <StyledTitle>アカウント設定</StyledTitle>
-      <dl>
-        <StyledTerm>
-          プロフィール画像<StyledButton>変更する</StyledButton>
-        </StyledTerm>
-        <StyledData>
-          <StyledImage src="https://placehold.jp/150x150.png" />
-        </StyledData>
-        <StyledTerm>ユーザID</StyledTerm>
-        <StyledData>suzuki5107</StyledData>
-        <StyledTerm>
-          ニックネーム<StyledButton>変更する</StyledButton>
-        </StyledTerm>
-        <StyledData>鈴木 尚典</StyledData>
-        <StyledTerm>
-          メールアドレス<StyledButton>変更する</StyledButton>
-        </StyledTerm>
-        <StyledData>sample@gmail.com</StyledData>
-      </dl>
-    </StyledWrapper>
-  </Layout>
-);
+type State = {
+  name: string;
+};
+
+const AccountSettings: React.FC = () => {
+  const [values, setValues] = useState<State>({
+    name: '',
+  });
+  const [errors, setErrors] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+
+  const edit = () => {
+    setIsEditing(true);
+  };
+
+  const Profile = () => (
+    <dl>
+      <StyledTerm>
+        プロフィール画像<StyledButton>変更する</StyledButton>
+      </StyledTerm>
+      <StyledData>
+        <StyledImage src="https://placehold.jp/150x150.png" />
+      </StyledData>
+      <StyledTerm>
+        ニックネーム<StyledButton onClick={() => edit()}>変更する</StyledButton>
+      </StyledTerm>
+      <StyledData>鈴木 尚典</StyledData>
+      <StyledTerm>メールアドレス</StyledTerm>
+      <StyledData>sample@gmail.com</StyledData>
+    </dl>
+  );
+
+  const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const quitEditing = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    <Layout>
+      <StyledWrapper>
+        <StyledTitle>アカウント設定</StyledTitle>
+        {isEditing ? (
+          <UpdateAccountForm
+            values={values}
+            errors={errors}
+            onChange={handleChange('name')}
+            onSubmit={() => console.log('submit')}
+            onBackButton={quitEditing}
+          />
+        ) : (
+          <Profile />
+        )}
+      </StyledWrapper>
+    </Layout>
+  );
+};
 
 export default AccountSettings;
