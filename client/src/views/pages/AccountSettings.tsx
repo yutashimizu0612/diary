@@ -82,6 +82,10 @@ const AccountSettings: React.FC = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  const quitEditing = () => {
+    setIsEditing(false);
+  };
+
   return (
     <Layout>
       <StyledWrapper>
@@ -92,7 +96,7 @@ const AccountSettings: React.FC = () => {
             errors={errors}
             onChange={handleChange('name')}
             onSubmit={() => console.log('submit')}
-            quitEditing={() => console.log('quitEditing')}
+            onBackButton={quitEditing}
           />
         ) : (
           <Profile />

@@ -28,7 +28,7 @@ type Props = {
   };
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  quitEditing: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onBackButton: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const UpdateAccountForm: React.FC<Props> = ({
@@ -36,7 +36,7 @@ const UpdateAccountForm: React.FC<Props> = ({
   errors,
   onChange,
   onSubmit,
-  quitEditing,
+  onBackButton,
 }) => {
   return (
     <>
@@ -48,7 +48,9 @@ const UpdateAccountForm: React.FC<Props> = ({
         fullWidth
       />
       <StyledWrapper>
-        <Button variant="contained">戻る</Button>
+        <Button variant="contained" onClick={onBackButton}>
+          戻る
+        </Button>
         <StyledButton variant="contained">保存する</StyledButton>
       </StyledWrapper>
     </>
