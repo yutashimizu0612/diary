@@ -13,9 +13,9 @@ const Header: React.FC = () => {
   return (
     <StyledWrapper>
       {/* ログイン中のみ表示 */}
-      {auth.user && <Nav />}
+      {auth.user.isLoggedIn && <Nav />}
       {/* 未ログイン時のみ表示 */}
-      {!auth.user && <AuthNav />}
+      {!auth.user.isLoggedIn && <AuthNav />}
     </StyledWrapper>
   );
 };
