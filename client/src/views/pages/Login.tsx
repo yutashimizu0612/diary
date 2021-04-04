@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import LoginForm from '../components/LoginForm';
 import { validateLoginForm } from '../../functions/auth/validation';
-import { authenticate, isLoggedIn } from '../../functions/auth/authenticate';
+import { useAuth } from '../../hooks/use-auth';
 import { LoginFormValues } from '../../types';
 
 const StyledWrapper = styled.div`
@@ -28,6 +27,8 @@ const StyledText = styled.p`
 `;
 
 const Login: React.FC = () => {
+  const auth = useAuth();
+  console.log('useAuthで取得したauth', auth);
   const [values, setValues] = useState<LoginFormValues>({
     email: '',
     password: '',
@@ -50,26 +51,20 @@ const Login: React.FC = () => {
     setIsSubmitting(true);
   };
 
-  const submit = (): void => {
-    console.log('submit');
+  const login = async () => {
+    console.log('login');
     const { email, password } = values;
-    axios({
-      method: 'POST',
-      url: `${process.env.REACT_APP_API_URL}/login`,
-      data: { email, password },
-    })
-      .then((response) => {
-        console.log('LOGIN SUBMIT SUCCESS', response);
-        authenticate(response.data, () => {
-          setValues({ email: '', password: '' });
-          setToastStatus({
-            isOpen: true,
-            message: `ようこそ！${response.data.user.name}さん`,
-            severity: 'success',
-          });
+    auth
+      .login(email, password)
+      .then((data: any) => {
+        setValues({ email: '', password: '' });
+        setToastStatus({
+          isOpen: true,
+          message: `ようこそ！${data.user.name}さん`,
+          severity: 'success',
         });
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log('LOGIN SUBMIT ERROR response', error.response);
         setToastStatus({
           isOpen: true,
@@ -88,11 +83,11 @@ const Login: React.FC = () => {
     console.log(Object.keys(errors).length);
     if (isSubmitting && Object.keys(errors).length === 0) {
       console.log('useEffectのsubmit！');
-      submit();
+      login();
     }
   }, [errors]);
 
-  if (isLoggedIn()) {
+  if (auth.user && auth.hasAccessToken) {
     return <Redirect to="/" />;
   }
 

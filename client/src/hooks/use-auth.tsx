@@ -9,9 +9,17 @@ export const useAuth = () => {
 
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
+
+  const hasAccessToken = () => {
+    const token = Cookies.get('accessToken');
+    const id = Cookies.get('id');
+    return token && id ? id : false;
+  };
+
   const signup = () => {
     console.log('signup');
   };
+
   const login = (email: string, password: string) => {
     return axios({
       method: 'POST',
@@ -22,15 +30,19 @@ const useProvideAuth = () => {
         console.log('LOGIN SUBMIT SUCCESS', response);
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
         Cookies.set('id', response.data.user.id, { expires: 1 });
+        setUser(response.data);
       }
       return response.data;
     });
   };
+
   const logout = () => {
     console.log('signup');
   };
+
   return {
     user,
+    hasAccessToken,
     signup,
     login,
     logout,
