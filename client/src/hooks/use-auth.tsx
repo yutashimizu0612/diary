@@ -10,10 +10,8 @@ export const useAuth = () => {
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
 
-  const hasAccessToken = () => {
-    const token = Cookies.get('accessToken');
-    const id = Cookies.get('id');
-    return token && id ? id : false;
+  const getAccessToken = () => {
+    return Cookies.get('accessToken');
   };
 
   const signup = (name: string, email: string, password: string, confirmation: string) => {
@@ -48,7 +46,7 @@ const useProvideAuth = () => {
 
   return {
     user,
-    hasAccessToken,
+    getAccessToken,
     signup,
     login,
     logout,
