@@ -57,11 +57,13 @@ const AccountSettings: React.FC = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      console.log('LOAD USER INFO', response);
-      const { name, email } = response.data;
-      setValues({ ...values, name, email });
-    });
+    })
+      .then((response) => {
+        console.log('LOAD USER INFO', response);
+        const { name, email } = response.data;
+        setValues({ ...values, name, email });
+      })
+      .catch((error) => console.log('LOAD USER INFO ERROR', error));
   };
 
   useEffect(() => {
