@@ -63,7 +63,12 @@ const AccountSettings: React.FC = () => {
         const { name, email } = response.data;
         setValues({ ...values, name, email });
       })
-      .catch((error) => console.log('LOAD USER INFO ERROR', error));
+      .catch((error) => {
+        console.log('LOAD USER INFO ERROR', error);
+        if (error.response.status === 401) {
+          auth.logout();
+        }
+      });
   };
 
   useEffect(() => {
