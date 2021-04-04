@@ -8,7 +8,12 @@ export const useAuth = () => {
 };
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    id: '',
+    name: '',
+    auth: false,
+    isLoggedIn: false,
+  });
 
   const getAccessToken = () => {
     return Cookies.get('accessToken');
@@ -30,9 +35,10 @@ const useProvideAuth = () => {
     }).then((response) => {
       if (response.data.accessToken) {
         console.log('LOGIN SUBMIT SUCCESS', response);
+        const { id, name, auth } = response.data.user;
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
-        Cookies.set('id', response.data.user.id, { expires: 1 });
-        setUser(response.data);
+        Cookies.set('id', id, { expires: 1 });
+        setUser({ id, name, auth, isLoggedIn: true });
       }
       return response.data;
     });
@@ -41,7 +47,12 @@ const useProvideAuth = () => {
   const logout = () => {
     Cookies.remove('accessToken');
     Cookies.remove('id');
-    setUser(null);
+    setUser({
+      id: '',
+      name: '',
+      auth: false,
+      isLoggedIn: false,
+    });
   };
 
   return {
