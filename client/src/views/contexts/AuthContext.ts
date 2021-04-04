@@ -2,8 +2,10 @@ import { createContext } from 'react';
 
 // TODO contextのdefault値
 const user = null;
-const hasAccessToken = () => {};
-const signup = () => {
+const hasAccessToken = () => {
+  console.log('hasAccessToken');
+};
+const signup = (name: string, email: string, password: string, confirmation: string): any => {
   console.log('signup');
 };
 const login = (email: string, password: string): any => {

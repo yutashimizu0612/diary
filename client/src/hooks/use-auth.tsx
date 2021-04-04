@@ -16,8 +16,12 @@ const useProvideAuth = () => {
     return token && id ? id : false;
   };
 
-  const signup = () => {
-    console.log('signup');
+  const signup = (name: string, email: string, password: string, confirmation: string) => {
+    return axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_API_URL}/signup`,
+      data: { name, email, password, confirmation },
+    });
   };
 
   const login = (email: string, password: string) => {
