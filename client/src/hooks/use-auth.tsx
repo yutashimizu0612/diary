@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import authContext from '../views/contexts/AuthContext';
