@@ -41,7 +41,9 @@ const useProvideAuth = () => {
   };
 
   const logout = () => {
-    console.log('signup');
+    Cookies.remove('accessToken');
+    Cookies.remove('id');
+    setUser(null);
   };
 
   return {
