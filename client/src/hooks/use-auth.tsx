@@ -37,7 +37,6 @@ const useProvideAuth = () => {
         console.log('LOGIN SUBMIT SUCCESS', response);
         const { id, name, auth } = response.data.user;
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
-        Cookies.set('id', id, { expires: 1 });
         setUser({ id, name, auth, isLoggedIn: true });
       }
       return response.data;
@@ -46,7 +45,6 @@ const useProvideAuth = () => {
 
   const logout = () => {
     Cookies.remove('accessToken');
-    Cookies.remove('id');
     setUser({
       id: '',
       name: '',
