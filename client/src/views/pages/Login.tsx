@@ -28,7 +28,6 @@ const StyledText = styled.p`
 
 const Login: React.FC = () => {
   const auth = useAuth();
-  console.log('useAuthで取得したauth', auth);
   const [values, setValues] = useState<LoginFormValues>({
     email: '',
     password: '',
@@ -51,7 +50,7 @@ const Login: React.FC = () => {
     setIsSubmitting(true);
   };
 
-  const login = async () => {
+  const submit = async () => {
     console.log('login');
     const { email, password } = values;
     auth
@@ -83,7 +82,7 @@ const Login: React.FC = () => {
     console.log(Object.keys(errors).length);
     if (isSubmitting && Object.keys(errors).length === 0) {
       console.log('useEffectのsubmit！');
-      login();
+      submit();
     }
   }, [errors]);
 
