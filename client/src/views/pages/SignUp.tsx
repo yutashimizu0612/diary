@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
 import { validateSignUpForm } from '../../functions/auth/validation';
-import { isLoggedIn } from '../../functions/auth/authenticate';
+import { useAuth } from '../../hooks/use-auth';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -22,6 +21,7 @@ const StyledTitle = styled.h2`
 `;
 
 const SignUp: React.FC = () => {
+  const auth = useAuth();
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -46,15 +46,12 @@ const SignUp: React.FC = () => {
     setIsSubmitting(true);
   };
 
-  const submit = (): void => {
+  const submit = () => {
     console.log('submit');
     const { name, email, password, confirmation } = values;
-    axios({
-      method: 'POST',
-      url: `${process.env.REACT_APP_API_URL}/signup`,
-      data: { name, email, password, confirmation },
-    })
-      .then((response) => {
+    auth
+      .signup(name, email, password, confirmation)
+      .then((response: any) => {
         console.log('SIGNUP SUBMIT SUCCESS', response);
         setValues({
           name: '',
@@ -68,7 +65,7 @@ const SignUp: React.FC = () => {
           severity: 'success',
         });
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log('SIGNUP SUBMIT ERROR response', error.response);
         setToastStatus({
           isOpen: true,
@@ -90,7 +87,7 @@ const SignUp: React.FC = () => {
     }
   }, [errors]);
 
-  if (isLoggedIn()) {
+  if (auth.user && auth.hasAccessToken) {
     return <Redirect to="/" />;
   }
 
