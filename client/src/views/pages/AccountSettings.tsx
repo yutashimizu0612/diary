@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Layout from '../layouts/Layout';
 import UpdateAccountForm from '../components/UpdateAccountForm';
@@ -30,12 +31,14 @@ type State = {
 const AccountSettings: React.FC = () => {
   const auth = useAuth();
   const token = auth.getAccessToken();
+  const userId = auth.getCurrentUserId();
   const [values, setValues] = useState<State>({
     name: '',
     email: '',
   });
   const [errors, setErrors] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const history = useHistory();
 
   const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -50,10 +53,9 @@ const AccountSettings: React.FC = () => {
   };
 
   const loadUserInfo = () => {
-    console.log('auth.user', auth.user);
     axios({
       method: 'GET',
-      url: `${process.env.REACT_APP_API_URL}/user/${auth.user.id}`,
+      url: `${process.env.REACT_APP_API_URL}/user/${userId}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +68,9 @@ const AccountSettings: React.FC = () => {
       .catch((error) => {
         console.log('LOAD USER INFO ERROR', error);
         if (error.response.status === 401) {
-          auth.logout();
+          auth.logout(() => {
+            history.push('/login');
+          });
         }
       });
   };
