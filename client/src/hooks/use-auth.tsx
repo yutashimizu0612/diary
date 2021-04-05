@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import authContext from '../views/contexts/AuthContext';
@@ -8,15 +8,16 @@ export const useAuth = () => {
 };
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState({
-    id: '',
-    name: '',
-    auth: false,
-    isLoggedIn: false,
-  });
+  const isLoggedIn = () => {
+    return Cookies.get('accessToken') && Cookies.get('id');
+  };
 
   const getAccessToken = () => {
     return Cookies.get('accessToken');
+  };
+
+  const getCurrentUserId = () => {
+    return Cookies.get('id');
   };
 
   const signup = (name: string, email: string, password: string, confirmation: string) => {
@@ -35,27 +36,24 @@ const useProvideAuth = () => {
     }).then((response) => {
       if (response.data.accessToken) {
         console.log('LOGIN SUBMIT SUCCESS', response);
-        const { id, name, auth } = response.data.user;
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
-        setUser({ id, name, auth, isLoggedIn: true });
+        Cookies.set('id', response.data.user.id, { expires: 1 });
       }
       return response.data;
     });
   };
 
-  const logout = () => {
+  const logout = (next: any) => {
+    console.log('logout');
     Cookies.remove('accessToken');
-    setUser({
-      id: '',
-      name: '',
-      auth: false,
-      isLoggedIn: false,
-    });
+    Cookies.remove('id');
+    next();
   };
 
   return {
-    user,
+    isLoggedIn,
     getAccessToken,
+    getCurrentUserId,
     signup,
     login,
     logout,
