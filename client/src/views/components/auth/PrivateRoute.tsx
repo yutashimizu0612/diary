@@ -10,7 +10,7 @@ const PrivateRoute = ({ children, ...rest }: Props) => {
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user.isLoggedIn ? (
+        auth.isLoggedIn() ? (
           children
         ) : (
           <Redirect
