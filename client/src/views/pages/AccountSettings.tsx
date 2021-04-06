@@ -55,6 +55,8 @@ const AccountSettings: React.FC = () => {
 
   const quitEditing = () => {
     setIsEditing(false);
+    setIsSubmitting(false);
+    setErrors({});
     loadUserInfo();
   };
 
