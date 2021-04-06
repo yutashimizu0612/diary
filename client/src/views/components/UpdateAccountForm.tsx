@@ -23,8 +23,7 @@ type Props = {
     name: string;
   };
   errors: {
-    email?: string;
-    password?: string;
+    name?: string;
   };
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -43,6 +42,8 @@ const UpdateAccountForm: React.FC<Props> = ({
       <TextField
         label="名前"
         value={values.name}
+        error={Object.keys(errors).length !== 0}
+        helperText={errors.name}
         onChange={onChange}
         variant="outlined"
         fullWidth
@@ -51,7 +52,9 @@ const UpdateAccountForm: React.FC<Props> = ({
         <Button variant="contained" onClick={onBackButton}>
           戻る
         </Button>
-        <StyledButton variant="contained">保存する</StyledButton>
+        <StyledButton variant="contained" onClick={onSubmit}>
+          保存する
+        </StyledButton>
       </StyledWrapper>
     </>
   );

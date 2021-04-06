@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
+import { Color } from '@material-ui/lab/Alert';
+import axios from 'axios';
 import Layout from '../layouts/Layout';
+import Toast from '../components/Toast';
 import UpdateAccountForm from '../components/UpdateAccountForm';
+import Profile from '../components/Profile';
+import { useAuth } from '../../hooks/use-auth';
+import { validateUpdateAccountForm } from '../../functions/auth/validation';
 
 const StyledWrapper = styled.div`
   background: #fff;
@@ -19,75 +26,127 @@ const StyledTitle = styled.h2`
   text-align: center;
 `;
 
-const StyledTerm = styled.dt`
-  font-weight: bold;
-  margin-bottom: 12px;
-`;
-
-const StyledData = styled.dd`
-  margin-bottom: 50px;
-`;
-
-const StyledImage = styled.img`
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-`;
-
-const StyledButton = styled.button`
-  background: #fff;
-  border: 1px solid #808080;
-  border-radius: 16px;
-  color: #808080;
-  padding: 2px 12px 0;
-  margin-left: 12px;
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 type State = {
   name: string;
+  email: string;
 };
 
 const AccountSettings: React.FC = () => {
+  const auth = useAuth();
+  const token = auth.getAccessToken();
+  const userId = auth.getCurrentUserId();
   const [values, setValues] = useState<State>({
     name: '',
+    email: '',
   });
   const [errors, setErrors] = useState({});
+  const [toastStatus, setToastStatus] = useState({
+    isOpen: false,
+    message: '',
+    severity: 'success' as Color,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const history = useHistory();
 
   const edit = () => {
     setIsEditing(true);
   };
 
-  const Profile = () => (
-    <dl>
-      <StyledTerm>
-        プロフィール画像<StyledButton>変更する</StyledButton>
-      </StyledTerm>
-      <StyledData>
-        <StyledImage src="https://placehold.jp/150x150.png" />
-      </StyledData>
-      <StyledTerm>
-        ニックネーム<StyledButton onClick={() => edit()}>変更する</StyledButton>
-      </StyledTerm>
-      <StyledData>鈴木 尚典</StyledData>
-      <StyledTerm>メールアドレス</StyledTerm>
-      <StyledData>sample@gmail.com</StyledData>
-    </dl>
-  );
+  const quitEditing = () => {
+    setIsEditing(false);
+    setIsSubmitting(false);
+    setErrors({});
+    loadUserInfo();
+  };
 
   const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const quitEditing = () => {
-    setIsEditing(false);
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+    setErrors(validateUpdateAccountForm(values));
+    setIsSubmitting(true);
   };
+
+  const submit = () => {
+    console.log('update');
+    const { name } = values;
+    axios({
+      method: 'PUT',
+      url: `${process.env.REACT_APP_API_URL}/user/`,
+      data: { name },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log('PRPFILE UPDATE SUCCESS', response);
+        setToastStatus({
+          isOpen: true,
+          message: response.data.message,
+          severity: 'success',
+        });
+      })
+      .catch((error: any) => {
+        console.log('PRPFILE UPDATE ERROR', error.response);
+        setToastStatus({
+          isOpen: true,
+          message: error.response.data.message,
+          severity: 'error',
+        });
+      });
+  };
+
+  const loadUserInfo = () => {
+    axios({
+      method: 'GET',
+      url: `${process.env.REACT_APP_API_URL}/user/${userId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log('LOAD USER INFO', response);
+        const { name, email } = response.data;
+        setValues({ ...values, name, email });
+      })
+      .catch((error) => {
+        console.log('LOAD USER INFO ERROR', error);
+        if (error.response.status === 401) {
+          auth.logout(() => {
+            history.push('/login');
+          });
+        }
+      });
+  };
+
+  const closeSnackBar = (): void => {
+    setToastStatus({ ...toastStatus, isOpen: false });
+  };
+
+  useEffect(() => {
+    loadUserInfo();
+  }, []);
+
+  useEffect(() => {
+    console.log('useEffect');
+    console.log('errors', errors);
+    if (isSubmitting && Object.keys(errors).length === 0) {
+      console.log('useEffectのsubmit！');
+      submit();
+    }
+  }, [errors]);
 
   return (
     <Layout>
+      <Toast
+        open={toastStatus.isOpen}
+        onClose={closeSnackBar}
+        message={toastStatus.message}
+        severity={toastStatus.severity}
+      />
       <StyledWrapper>
         <StyledTitle>アカウント設定</StyledTitle>
         {isEditing ? (
@@ -95,11 +154,11 @@ const AccountSettings: React.FC = () => {
             values={values}
             errors={errors}
             onChange={handleChange('name')}
-            onSubmit={() => console.log('submit')}
+            onSubmit={handleSubmit}
             onBackButton={quitEditing}
           />
         ) : (
-          <Profile />
+          <Profile name={values.name} email={values.email} onClick={() => edit()} />
         )}
       </StyledWrapper>
     </Layout>

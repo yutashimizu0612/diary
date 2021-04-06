@@ -1,9 +1,15 @@
 import { createContext } from 'react';
+import Cookies from 'js-cookie';
 
 // TODO contextのdefault値
-const user = null;
-const hasAccessToken = () => {
-  console.log('hasAccessToken');
+const isLoggedIn = () => {
+  return Cookies.get('accessToken');
+};
+const getAccessToken = () => {
+  return Cookies.get('accessToken');
+};
+const getCurrentUserId = () => {
+  return Cookies.get('accessToken');
 };
 const signup = (name: string, email: string, password: string, confirmation: string): any => {
   console.log('signup');
@@ -11,9 +17,17 @@ const signup = (name: string, email: string, password: string, confirmation: str
 const login = (email: string, password: string): any => {
   console.log('login');
 };
-const logout = () => {
+const logout = (next: any) => {
   console.log('logout');
+  next();
 };
-const AuthContext = createContext({ user, hasAccessToken, signup, login, logout });
+const AuthContext = createContext({
+  isLoggedIn,
+  getAccessToken,
+  getCurrentUserId,
+  signup,
+  login,
+  logout,
+});
 
 export default AuthContext;

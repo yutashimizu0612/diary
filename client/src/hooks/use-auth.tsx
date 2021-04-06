@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import authContext from '../views/contexts/AuthContext';
@@ -8,12 +8,16 @@ export const useAuth = () => {
 };
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
+  const isLoggedIn = () => {
+    return Cookies.get('accessToken') && Cookies.get('id');
+  };
 
-  const hasAccessToken = () => {
-    const token = Cookies.get('accessToken');
-    const id = Cookies.get('id');
-    return token && id ? id : false;
+  const getAccessToken = () => {
+    return Cookies.get('accessToken');
+  };
+
+  const getCurrentUserId = () => {
+    return Cookies.get('id');
   };
 
   const signup = (name: string, email: string, password: string, confirmation: string) => {
@@ -34,21 +38,22 @@ const useProvideAuth = () => {
         console.log('LOGIN SUBMIT SUCCESS', response);
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
         Cookies.set('id', response.data.user.id, { expires: 1 });
-        setUser(response.data);
       }
       return response.data;
     });
   };
 
-  const logout = () => {
+  const logout = (next: any) => {
+    console.log('logout');
     Cookies.remove('accessToken');
     Cookies.remove('id');
-    setUser(null);
+    next();
   };
 
   return {
-    user,
-    hasAccessToken,
+    isLoggedIn,
+    getAccessToken,
+    getCurrentUserId,
     signup,
     login,
     logout,

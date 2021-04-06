@@ -59,10 +59,6 @@ const DropDown: React.FC = () => {
   const auth = useAuth();
   const [isVisible, setIsVisible] = useState(false);
   const history = useHistory();
-  const handleLogout = () => {
-    auth.logout();
-    history.push('/');
-  };
   return (
     <StyledIconWrapper
       onMouseEnter={() => setIsVisible(true)}
@@ -71,7 +67,14 @@ const DropDown: React.FC = () => {
       {isVisible && (
         <StyledDropDown>
           <StyledDropDownLink to="/settings">アカウント設定</StyledDropDownLink>
-          <StyledDropDownButton onClick={() => handleLogout()}>ログアウト</StyledDropDownButton>
+          <StyledDropDownButton
+            onClick={() => {
+              auth.logout(() => {
+                history.push('/login');
+              });
+            }}>
+            ログアウト
+          </StyledDropDownButton>
           <StyledDropDownButton>退会</StyledDropDownButton>
         </StyledDropDown>
       )}

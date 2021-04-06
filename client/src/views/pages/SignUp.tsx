@@ -87,7 +87,7 @@ const SignUp: React.FC = () => {
     }
   }, [errors]);
 
-  if (auth.user && auth.hasAccessToken) {
+  if (auth.isLoggedIn()) {
     return <Redirect to="/" />;
   }
 

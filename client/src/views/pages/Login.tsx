@@ -50,7 +50,7 @@ const Login: React.FC = () => {
     setIsSubmitting(true);
   };
 
-  const submit = async () => {
+  const submit = () => {
     console.log('login');
     const { email, password } = values;
     auth
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
     }
   }, [errors]);
 
-  if (auth.user && auth.hasAccessToken) {
+  if (auth.isLoggedIn()) {
     return <Redirect to="/" />;
   }
 
