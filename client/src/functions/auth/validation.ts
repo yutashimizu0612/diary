@@ -66,3 +66,13 @@ export function validateLoginForm(values: LoginFormValues) {
 
   return errors;
 }
+
+export function validateUpdateAccountForm(values: { name: string }) {
+  const errors = {};
+  // ユーザ名
+  if (!values.name) {
+    Object.assign(errors, { name: 'ユーザ名は入力必須です。' });
+  }
+
+  return errors;
+}
