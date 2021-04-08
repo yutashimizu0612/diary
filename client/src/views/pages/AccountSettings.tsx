@@ -131,10 +131,7 @@ const AccountSettings: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect');
-    console.log('errors', errors);
     if (isSubmitting && Object.keys(errors).length === 0) {
-      console.log('useEffectのsubmit！');
       submit();
     }
   }, [errors]);

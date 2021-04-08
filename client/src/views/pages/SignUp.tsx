@@ -80,9 +80,7 @@ const SignUp: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     if (isSubmitting && Object.keys(errors).length === 0) {
-      console.log('useEffectのsubmit！');
       submit();
     }
   }, [errors]);
