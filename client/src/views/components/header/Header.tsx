@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import Nav from './Nav';
 import AuthNav from './AuthNav';
-import { useAuth } from '../../../hooks/use-auth';
+import { useAuth } from '../../../functions/auth/use-auth';
 
 const StyledWrapper = styled.div`
   background: #121813;

@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import LoginForm from '../components/LoginForm';
 import { validateLoginForm } from '../../functions/auth/validation';
-import { useAuth } from '../../hooks/use-auth';
+import { useAuth } from '../../functions/auth/use-auth';
 import { LoginFormValues } from '../../types';
 
 const StyledWrapper = styled.div`

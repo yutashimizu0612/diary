@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { useAuth } from '../../../hooks/use-auth';
+import { useAuth } from '../../../functions/auth/use-auth';
 
 type Props = { children: ReactNode } & RouteProps;
 

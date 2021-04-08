@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import UpdateAccountForm from '../components/UpdateAccountForm';
 import Profile from '../components/Profile';
-import { useAuth } from '../../hooks/use-auth';
+import { useAuth } from '../../functions/auth/use-auth';
 import { validateUpdateAccountForm } from '../../functions/auth/validation';
 
 const StyledWrapper = styled.div`
