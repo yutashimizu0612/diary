@@ -89,7 +89,7 @@ const AccountSettings: React.FC = () => {
           severity: 'success',
         });
       })
-      .catch((error: any) => {
+      .catch((error) => {
         console.log('PRPFILE UPDATE ERROR', error.response);
         setToastStatus({
           isOpen: true,
