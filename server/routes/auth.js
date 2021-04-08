@@ -9,6 +9,5 @@ const { executeValidation } = require('../middleware/validators');
 authRouter.post('/signup', signupFormValidator, executeValidation, authController.signup);
 authRouter.post('/activation', authController.activateAccount);
 authRouter.post('/login', loginFormValidator, executeValidation, authController.login);
-authRouter.get('/logout', authController.logout);
 
 module.exports = authRouter;
