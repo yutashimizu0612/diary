@@ -113,8 +113,4 @@ module.exports = {
       });
     }
   },
-
-  logout: (req, res) => {
-    res.send('logout endpoint from controller');
-  },
 };
