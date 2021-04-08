@@ -55,13 +55,8 @@ const Login: React.FC = () => {
     const { email, password } = values;
     auth
       .login(email, password)
-      .then((data: any) => {
+      .then(() => {
         setValues({ email: '', password: '' });
-        setToastStatus({
-          isOpen: true,
-          message: `ようこそ！${data.user.name}さん`,
-          severity: 'success',
-        });
       })
       .catch((error: any) => {
         console.log('LOGIN SUBMIT ERROR response', error.response);
