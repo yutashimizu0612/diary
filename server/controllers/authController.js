@@ -101,10 +101,10 @@ module.exports = {
 
       // access-tokenの発行
       const accessToken = await generateToken({ id: user.id }, process.env.JWT_SECRET, '7d');
-      const { id, name, auth } = user;
+      const { id } = user;
       return res.json({
         accessToken,
-        user: { id, name, auth },
+        user: { id },
       });
     } catch (error) {
       console.log('LOGIN ERROR', error);

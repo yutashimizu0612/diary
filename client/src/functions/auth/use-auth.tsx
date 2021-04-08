@@ -39,7 +39,6 @@ const useProvideAuth = () => {
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
         Cookies.set('id', response.data.user.id, { expires: 1 });
       }
-      return response.data;
     });
   };
 
