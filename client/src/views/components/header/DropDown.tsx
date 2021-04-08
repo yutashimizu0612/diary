@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { useAuth } from '../../../hooks/use-auth';
+import { useAuth } from '../../../functions/auth/use-auth';
 
 const StyledIconWrapper = styled.div`
   cursor: pointer;

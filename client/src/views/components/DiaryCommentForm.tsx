@@ -15,8 +15,6 @@ const StyledForm = styled.textarea`
   width: 100%;
 `;
 
-// type Props = {};
-
 const DiaryCommentForm: React.FC = () => <StyledForm />;
 
 export default DiaryCommentForm;

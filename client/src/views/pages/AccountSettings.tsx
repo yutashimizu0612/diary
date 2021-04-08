@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import UpdateAccountForm from '../components/UpdateAccountForm';
 import Profile from '../components/Profile';
-import { useAuth } from '../../hooks/use-auth';
+import { useAuth } from '../../functions/auth/use-auth';
 import { validateUpdateAccountForm } from '../../functions/auth/validation';
 
 const StyledWrapper = styled.div`
@@ -89,7 +89,7 @@ const AccountSettings: React.FC = () => {
           severity: 'success',
         });
       })
-      .catch((error: any) => {
+      .catch((error) => {
         console.log('PRPFILE UPDATE ERROR', error.response);
         setToastStatus({
           isOpen: true,
@@ -131,10 +131,7 @@ const AccountSettings: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect');
-    console.log('errors', errors);
     if (isSubmitting && Object.keys(errors).length === 0) {
-      console.log('useEffectのsubmit！');
       submit();
     }
   }, [errors]);

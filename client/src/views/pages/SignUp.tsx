@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import SignUpForm from '../components/SignUpForm';
 import { validateSignUpForm } from '../../functions/auth/validation';
-import { useAuth } from '../../hooks/use-auth';
+import { useAuth } from '../../functions/auth/use-auth';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
@@ -80,9 +80,7 @@ const SignUp: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     if (isSubmitting && Object.keys(errors).length === 0) {
-      console.log('useEffectのsubmit！');
       submit();
     }
   }, [errors]);

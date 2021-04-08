@@ -55,8 +55,6 @@ const StyledDate = styled.span`
   margin-right: 20px;
 `;
 
-// type Props = {};
-
 const DiaryDate: React.FC = () => (
   <StyledWrapper>
     <StyledToday>TODAY</StyledToday>

@@ -25,8 +25,6 @@ const StyledDate = styled.span`
   margin: 0 10px;
 `;
 
-// type Props = {};
-
 const DiaryPagination: React.FC = () => (
   <StyledWrapper>
     <StyledArrow>

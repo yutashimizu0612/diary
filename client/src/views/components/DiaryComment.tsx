@@ -1,9 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import H2Heading from './H2Heading';
 import DiaryCommentForm from './DiaryCommentForm';
-
-// type Props = {};
 
 const DiaryComment: React.FC = () => (
   <>

@@ -19,8 +19,6 @@ const StyledBody = styled.svg`
   width: 100%;
 `;
 
-// type Props = {};
-
 const Contribution: React.FC = () => {
   const xPositions = [...Array(52)].map((element, index) => 18 * index);
   const yPositions = [...Array(7)].map((element, index) => 18 * index);
