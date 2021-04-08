@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
-import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 import Alert, { Color } from '@material-ui/lab/Alert';
 
 type Props = {

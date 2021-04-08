@@ -56,8 +56,6 @@ const StyledSeeMore = styled.div`
   text-align: center;
 `;
 
-// type Props = {};
-
 const Post: React.FC = () => (
   <StyledPost>
     <StyledTop>

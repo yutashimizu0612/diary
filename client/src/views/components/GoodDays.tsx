@@ -17,8 +17,6 @@ const StyledItem = styled.li`
   }
 `;
 
-// type Props = {};
-
 const GoodDays: React.FC = () => (
   <StyledList>
     <StyledItem>

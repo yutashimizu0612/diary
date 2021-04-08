@@ -4,7 +4,6 @@ import H2Heading from './H2Heading';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 
-// type Props = {};
 const StyledWrapper = styled.div`
   display: inline-block;
   position: relative;

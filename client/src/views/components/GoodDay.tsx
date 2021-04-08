@@ -40,8 +40,6 @@ const StyledBottom = styled.div`
   margin-top: 12px;
 `;
 
-// type Props = {};
-
 const GoodDay: React.FC = () => (
   <StyledWrapper>
     <StyledTop>
