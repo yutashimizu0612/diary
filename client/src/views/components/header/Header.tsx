@@ -12,9 +12,7 @@ const Header: React.FC = () => {
   const auth = useAuth();
   return (
     <StyledWrapper>
-      {/* ログイン中のみ表示 */}
       {auth.isLoggedIn() && <Nav />}
-      {/* 未ログイン時のみ表示 */}
       {!auth.isLoggedIn() && <AuthNav />}
     </StyledWrapper>
   );
