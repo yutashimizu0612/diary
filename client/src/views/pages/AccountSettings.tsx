@@ -75,7 +75,7 @@ const AccountSettings: React.FC = () => {
     const { name } = values;
     axios({
       method: 'PUT',
-      url: `${process.env.REACT_APP_API_URL}/user/`,
+      url: `${process.env.REACT_APP_API_URL}/users/`,
       data: { name },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ const AccountSettings: React.FC = () => {
   const loadUserInfo = () => {
     axios({
       method: 'GET',
-      url: `${process.env.REACT_APP_API_URL}/user/${userId}`,
+      url: `${process.env.REACT_APP_API_URL}/users/${userId}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
