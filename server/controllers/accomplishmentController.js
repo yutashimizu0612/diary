@@ -17,6 +17,20 @@ module.exports = {
       return res.status(400).json({ error: error });
     }
   },
+  create: async (req, res) => {
+    const { content, published } = req.body;
+    try {
+      await models.Accomplishment.create({
+        content,
+        published,
+        userId: req.user.id,
+      });
+      return res.json({ message: 'new accomplishment' });
+    } catch (error) {
+      console.log('error', error);
+      return res.status(400).json({ error: error });
+    }
+  },
   update: async (req, res) => {
     const { name } = req.body;
     try {
