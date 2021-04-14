@@ -1,7 +1,8 @@
 const models = require('../models');
 
 module.exports = {
-  read: async (req, res) => {
+  // TODO 全件取得（6件ずつ）
+  getAllAccomplishments: async (req, res) => {
     const userId = req.params.id;
     try {
       const user = await models.User.findOne({ where: { id: userId } });
@@ -17,6 +18,8 @@ module.exports = {
       return res.status(400).json({ error: error });
     }
   },
+  // 日付による取得
+  getAccomplishments: async (req, res) => {},
   create: async (req, res) => {
     const { content, published } = req.body;
     try {
@@ -32,23 +35,41 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    const { name } = req.body;
+    const { content } = req.body;
     try {
-      const user = await models.User.findOne({ where: { id: req.user.id } });
-      if (!user) {
+      const accomplishment = await models.Accomplishment.findOne({ where: { id: req.params.id } });
+      if (!accomplishment) {
         return res.status(400).json({
-          message: '存在しないユーザです。',
+          message: '存在しない投稿です。',
         });
       }
-      if (!name) {
+      if (!content) {
         return res.status(400).json({
-          message: '名前は入力必須です。',
+          message: '内容は入力必須です。',
         });
       } else {
-        user.name = name;
-        await user.save();
+        accomplishment.content = content;
+        await accomplishment.save();
         return res.json({
-          message: 'プロフィール情報を更新しました。',
+          message: '達成したことの内容を更新しました。',
+        });
+      }
+    } catch (error) {
+      console.log('error', error);
+      return res.status(400).json({ error: error });
+    }
+  },
+  delete: async (req, res) => {
+    try {
+      const accomplishment = await models.Accomplishment.findOne({ where: { id: req.params.id } });
+      if (!accomplishment) {
+        return res.status(400).json({
+          message: '存在しない投稿です。',
+        });
+      } else {
+        await accomplishment.destroy();
+        return res.json({
+          message: '達成したことの内容を削除しました。',
         });
       }
     } catch (error) {
