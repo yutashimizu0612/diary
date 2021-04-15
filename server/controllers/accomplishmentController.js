@@ -2,26 +2,28 @@ const models = require('../models');
 
 module.exports = {
   // TODO 全件取得（6件ずつ）
-  getAllAccomplishments: async (req, res) => {
-    const userId = req.params.id;
+  getAllAccomplishments: async (req, res) => {},
+  // TODO 日付を指定する（URL？パラメータ？）
+  getAccomplishments: async (req, res) => {
     try {
-      const user = await models.User.findOne({ where: { id: userId } });
-      if (!user) {
-        return res.status(400).json({
-          message: '存在しないユーザです。',
-        });
-      }
-      user.password = undefined;
-      res.json(user);
+      const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
+        req.user.id,
+        '2021-04-15',
+      );
+      console.log('accomplishments', accomplishments);
+      return res.json(accomplishments);
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
     }
   },
-  // 日付による取得
-  getAccomplishments: async (req, res) => {},
   create: async (req, res) => {
     const { content, published } = req.body;
+    if (!content) {
+      return res.status(400).json({
+        message: '内容は入力必須です。',
+      });
+    }
     try {
       await models.Accomplishment.create({
         content,
@@ -36,16 +38,16 @@ module.exports = {
   },
   update: async (req, res) => {
     const { content } = req.body;
+    if (!content) {
+      return res.status(400).json({
+        message: '内容は入力必須です。',
+      });
+    }
     try {
       const accomplishment = await models.Accomplishment.findOne({ where: { id: req.params.id } });
       if (!accomplishment) {
         return res.status(400).json({
           message: '存在しない投稿です。',
-        });
-      }
-      if (!content) {
-        return res.status(400).json({
-          message: '内容は入力必須です。',
         });
       } else {
         accomplishment.content = content;
