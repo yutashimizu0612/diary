@@ -1,10 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 // routes
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const accomplishmentRouter = require('./routes/accomplishment');
 
 const app = express();
 require('dotenv').config();
@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use('/api', authRouter);
 app.use('/api', userRouter);
+app.use('/api', accomplishmentRouter);
 
 app.get('/', (req, res) => {
   res.send('api is started.');
