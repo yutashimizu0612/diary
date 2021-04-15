@@ -28,6 +28,22 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
+    // TODO
+    // 1. key名を'count'ではなく、該当日の日付にしたい
+    // 2. カウントが0の日も、含めたい
+    static getAccomplishmentsCounts(userId, from, to) {
+      return this.findAll({
+        attributes: [[sequelize.fn('COUNT', sequelize.col('createdAt')), 'count']],
+        where: {
+          userId,
+          createdAt: {
+            [Op.gte]: new Date(from + 'T00:00:00+09:00'),
+            [Op.lte]: new Date(to + 'T23:59:59+09:00'),
+          },
+        },
+        group: [sequelize.fn('day', sequelize.col('createdAt'))],
+      });
+    }
   }
   Accomplishment.init(
     {

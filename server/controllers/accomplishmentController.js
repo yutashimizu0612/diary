@@ -4,6 +4,21 @@ module.exports = {
   // TODO 全件取得（6件ずつ）
   getAllAccomplishments: async (req, res) => {},
   // TODO 日付を指定する（URL？パラメータ？）
+  getAccomplishmentsCounts: async (req, res) => {
+    try {
+      const counts = await models.Accomplishment.getAccomplishmentsCounts(
+        req.user.id,
+        '2021-04-13',
+        '2021-04-15',
+      );
+      console.log('counts', counts);
+      return res.json(counts);
+    } catch (error) {
+      console.log('error', error);
+      return res.status(400).json({ error: error });
+    }
+  },
+  // TODO 日付を指定する（URL？パラメータ？）
   getAccomplishments: async (req, res) => {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(

@@ -9,6 +9,11 @@ accomplishmentRouter.get(
   requireLogin,
   accomplishmentController.getAccomplishments,
 );
+accomplishmentRouter.get(
+  '/accomplishments/counts',
+  requireLogin,
+  accomplishmentController.getAccomplishmentsCounts,
+);
 accomplishmentRouter.post('/accomplishments/', requireLogin, accomplishmentController.create);
 accomplishmentRouter.put('/accomplishments/:id', requireLogin, accomplishmentController.update);
 accomplishmentRouter.delete('/accomplishments/:id', requireLogin, accomplishmentController.delete);
