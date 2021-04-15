@@ -4,6 +4,7 @@ const cors = require('cors');
 // routes
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const postRouter = require('./routes/post');
 const accomplishmentRouter = require('./routes/accomplishment');
 
 const app = express();
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use('/api', authRouter);
 app.use('/api', userRouter);
+app.use('/api', postRouter);
 app.use('/api', accomplishmentRouter);
 
 app.get('/', (req, res) => {
