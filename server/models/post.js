@@ -1,5 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, Sequelize } = require('sequelize');
+const Op = Sequelize.Op;
+
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
@@ -12,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.User, {
         foreignKey: 'userId',
         onDelete: 'CASCADE',
+      });
+    }
+    static getPostByDate(userId, date) {
+      return this.findAll({
+        where: {
+          userId,
+          createdAt: {
+            // ('2004-04-01T00:00:01+09:00')
+            [Op.gte]: new Date(date + 'T00:00:00+09:00'),
+            [Op.lte]: new Date(date + 'T23:59:59+09:00'),
+          },
+        },
       });
     }
   }
