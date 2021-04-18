@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Sequelize } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 const Op = Sequelize.Op;
 
 module.exports = (sequelize, DataTypes) => {
@@ -30,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     }
     // TODO
     // 1. key名を'count'ではなく、該当日の日付にしたい
-    // 2. カウントが0の日も、含めたい
     static getAccomplishmentsCounts(userId, from, to) {
       return this.findAll({
         attributes: [[sequelize.fn('COUNT', sequelize.col('createdAt')), 'count']],
@@ -61,5 +61,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Accomplishment',
     },
   );
+  Accomplishment.beforeCreate((accomplishment) => (accomplishment.id = uuidv4()));
   return Accomplishment;
 };
