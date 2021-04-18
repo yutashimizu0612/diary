@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Sequelize } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 const Op = Sequelize.Op;
 
 module.exports = (sequelize, DataTypes) => {
@@ -60,5 +61,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Accomplishment',
     },
   );
+  Accomplishment.beforeCreate((accomplishment) => (accomplishment.id = uuidv4()));
   return Accomplishment;
 };
