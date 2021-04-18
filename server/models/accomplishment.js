@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     }
     // TODO
     // 1. key名を'count'ではなく、該当日の日付にしたい
-    // 2. カウントが0の日も、含めたい
     static getAccomplishmentsCounts(userId, from, to) {
       return this.findAll({
         attributes: [[sequelize.fn('COUNT', sequelize.col('createdAt')), 'count']],
