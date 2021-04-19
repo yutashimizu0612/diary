@@ -1,9 +1,9 @@
 import React from 'react';
 import authContext from '../contexts/AuthContext';
-import useAuthProvider from '../../functions/auth/use-auth';
+import useProvideAuth from '../../functions/auth/use-auth';
 
 const AuthProvider: React.FC = ({ children }) => {
-  const auth = useAuthProvider();
+  const auth = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 };
 

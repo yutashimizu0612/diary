@@ -7,7 +7,7 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
-const useAuthProvider = () => {
+const useProvideAuth = () => {
   const isLoggedIn = () => {
     return Cookies.get('accessToken') && Cookies.get('id');
   };
@@ -59,4 +59,4 @@ const useAuthProvider = () => {
   };
 };
 
-export default useAuthProvider;
+export default useProvideAuth;
