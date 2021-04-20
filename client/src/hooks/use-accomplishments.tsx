@@ -13,7 +13,6 @@ const useProvideAccomplishment = () => {
   const [accomplishments, setAccomplishments] = useState([]);
 
   const getAccomplishments = useCallback(() => {
-    console.log('getAccomplishments');
     return axios({
       method: 'GET',
       url: `${process.env.REACT_APP_API_URL}/accomplishments`,

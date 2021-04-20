@@ -21,7 +21,6 @@ const StyledWrapper = styled.div`
 const Day: React.FC = () => {
   // Accomplishmentsの取得
   const { accomplishments, getAccomplishments } = useAccomplishment();
-  console.log('accomplishments', accomplishments);
   useEffect(() => {
     getAccomplishments();
   }, []);
