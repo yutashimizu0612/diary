@@ -26,8 +26,8 @@ const StyledOperation = styled.div`
   align-items: center;
 `;
 
-const StyledButton = styled.button`
-  background: #2cd671;
+const StyledButton = styled.button<{ isPublished: boolean }>`
+  background: ${(props) => (props.isPublished ? '#2cd671' : '#c1c1c1')};
   color: #fff;
   font-size: 12px;
   padding: 3px 0;
@@ -56,7 +56,7 @@ const AccomplishmentItem: React.FC<Props> = ({ id, text, published }) => (
   <StyledWrapper key={id}>
     <StyledText>{text}</StyledText>
     <StyledOperation>
-      <StyledButton>公開</StyledButton>
+      <StyledButton isPublished={published}>{published ? '公開' : '非公開'}</StyledButton>
       <StyledIconWrapper css="margin: 0 12px;">
         <EditIcon />
       </StyledIconWrapper>
