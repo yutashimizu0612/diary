@@ -47,12 +47,13 @@ const StyledIconWrapper = styled.div`
 `;
 
 type Props = {
+  id: string;
   text: string;
-  // published: boolean;
+  published: boolean;
 };
 
-const AccomplishmentItem: React.FC<Props> = ({ text }) => (
-  <StyledWrapper>
+const AccomplishmentItem: React.FC<Props> = ({ id, text, published }) => (
+  <StyledWrapper key={id}>
     <StyledText>{text}</StyledText>
     <StyledOperation>
       <StyledButton>公開</StyledButton>
