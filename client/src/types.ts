@@ -9,3 +9,9 @@ export type LoginFormValues = {
   email: string;
   password: string;
 };
+
+export type Accomplishment = {
+  id: string;
+  content: string;
+  published: boolean;
+};
