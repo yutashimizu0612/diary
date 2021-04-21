@@ -4,6 +4,10 @@ import { Accomplishment } from '../../types';
 // TODO contextのdefault値
 const accomplishments: Accomplishment[] = [];
 
+const setAccomplishments = (): Accomplishment[] => {
+  return accomplishments;
+};
+
 const getAccomplishments = (): any => {
   return accomplishments;
 };
@@ -18,6 +22,7 @@ const deleteAccomplishment = (id: string): any => {
 
 const AccomplishmentContext = createContext({
   accomplishments,
+  setAccomplishments,
   getAccomplishments,
   addAccomplishment,
   deleteAccomplishment,

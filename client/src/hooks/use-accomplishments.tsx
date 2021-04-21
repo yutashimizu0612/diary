@@ -53,6 +53,7 @@ const useProvideAccomplishment = () => {
 
   return {
     accomplishments,
+    setAccomplishments,
     getAccomplishments,
     addAccomplishment,
     deleteAccomplishment,
