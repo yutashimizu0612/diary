@@ -1,5 +1,6 @@
 import { useState, useCallback, useContext } from 'react';
 import axios from 'axios';
+import { Accomplishment } from '../types';
 import accomplishmentContext from '../views/contexts/AccomplishmentContext';
 import { useAuth } from '../functions/auth/use-auth';
 
@@ -10,7 +11,7 @@ export const useAccomplishment = () => {
 const useProvideAccomplishment = () => {
   const auth = useAuth();
   const token = auth.getAccessToken();
-  const [accomplishments, setAccomplishments] = useState([]);
+  const [accomplishments, setAccomplishments] = useState<Accomplishment[]>([]);
 
   const getAccomplishments = useCallback(() => {
     return axios({
@@ -38,10 +39,23 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
+  const deleteAccomplishment = useCallback((id: string) => {
+    return axios({
+      method: 'DELETE',
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log('DELETE ACCOMPLISHMENT SUCCESS', response);
+    });
+  }, []);
+
   return {
     accomplishments,
     getAccomplishments,
     addAccomplishment,
+    deleteAccomplishment,
   };
 };
 
