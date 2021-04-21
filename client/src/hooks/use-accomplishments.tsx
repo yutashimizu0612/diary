@@ -33,6 +33,8 @@ const useProvideAccomplishment = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    }).then((response) => {
+      console.log('NEW ACCOMPLISHMENT SUCCESS', response);
     });
   }, []);
 
