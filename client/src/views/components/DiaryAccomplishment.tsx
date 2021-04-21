@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { Accomplishment } from '../../types';
+import { Accomplishment, AccomplishmentFormValues } from '../../types';
 import H2Heading from './H2Heading';
 import AccomplishmentItem from './AccomplishmentItem';
-import AccomplishmentForm from '../components/AccomplishmentForm';
+import AccomplishmentForm from './AccomplishmentForm';
 
 const StyledWrapper = styled.div`
   margin: 16px 0;
@@ -11,9 +11,12 @@ const StyledWrapper = styled.div`
 
 type Props = {
   accomplishments: Accomplishment[];
+  values: AccomplishmentFormValues;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const DiaryAccomplishment: React.FC<Props> = ({ accomplishments }) => {
+const DiaryAccomplishment: React.FC<Props> = ({ accomplishments, values, onChange, onSubmit }) => {
   console.log('accomplishments in DiaryAccomplishment', accomplishments);
   return (
     <>
@@ -22,13 +25,13 @@ const DiaryAccomplishment: React.FC<Props> = ({ accomplishments }) => {
         {accomplishments &&
           accomplishments.map((accomplishment) => (
             <AccomplishmentItem
-              id={accomplishment.id}
+              key={accomplishment.id}
               text={accomplishment.content}
               published={accomplishment.published}
             />
           ))}
       </StyledWrapper>
-      <AccomplishmentForm />
+      <AccomplishmentForm values={values} onChange={onChange} onSubmit={onSubmit} />
     </>
   );
 };
