@@ -25,9 +25,21 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
+  const addAccomplishment = useCallback((content: string, published: boolean) => {
+    return axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_API_URL}/accomplishments`,
+      data: { content, published },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }, []);
+
   return {
     accomplishments,
     getAccomplishments,
+    addAccomplishment,
   };
 };
 

@@ -8,9 +8,14 @@ const getAccomplishments = (): any => {
   return accomplishments;
 };
 
+const addAccomplishment = (content: string, published: boolean): any => {
+  return accomplishments;
+};
+
 const AccomplishmentContext = createContext({
   accomplishments,
   getAccomplishments,
+  addAccomplishment,
 });
 
 export default AccomplishmentContext;
