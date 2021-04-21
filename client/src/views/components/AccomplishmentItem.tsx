@@ -37,7 +37,8 @@ const StyledButton = styled.button<{ isPublished: boolean }>`
   }
 `;
 
-const StyledIconWrapper = styled.div`
+const StyledIconButton = styled.button`
+  background: #fff;
   color: #353535;
   cursor: pointer;
   transition: 0.2s;
@@ -48,21 +49,23 @@ const StyledIconWrapper = styled.div`
 
 type Props = {
   key: string;
+  id: string;
   text: string;
   published: boolean;
+  onDelete: (id: string) => void;
 };
 
-const AccomplishmentItem: React.FC<Props> = ({ key, text, published }) => (
-  <StyledWrapper key={key}>
+const AccomplishmentItem: React.FC<Props> = ({ id, text, published, onDelete }) => (
+  <StyledWrapper>
     <StyledText>{text}</StyledText>
     <StyledOperation>
       <StyledButton isPublished={published}>{published ? '公開' : '非公開'}</StyledButton>
-      <StyledIconWrapper css="margin: 0 12px;">
+      <StyledIconButton css="margin: 0 12px;">
         <EditIcon />
-      </StyledIconWrapper>
-      <StyledIconWrapper>
+      </StyledIconButton>
+      <StyledIconButton onClick={() => onDelete(id)}>
         <DeleteIcon />
-      </StyledIconWrapper>
+      </StyledIconButton>
     </StyledOperation>
   </StyledWrapper>
 );

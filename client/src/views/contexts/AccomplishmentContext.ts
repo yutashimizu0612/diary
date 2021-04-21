@@ -12,10 +12,15 @@ const addAccomplishment = (content: string, published: boolean): any => {
   return accomplishments;
 };
 
+const deleteAccomplishment = (id: string): any => {
+  return accomplishments;
+};
+
 const AccomplishmentContext = createContext({
   accomplishments,
   getAccomplishments,
   addAccomplishment,
+  deleteAccomplishment,
 });
 
 export default AccomplishmentContext;

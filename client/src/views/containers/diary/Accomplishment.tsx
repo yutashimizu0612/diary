@@ -9,7 +9,12 @@ const Accomplishment: React.FC = () => {
     published: false,
   });
   // Accomplishmentsの取得
-  const { accomplishments, getAccomplishments, addAccomplishment } = useAccomplishment();
+  const {
+    accomplishments,
+    getAccomplishments,
+    addAccomplishment,
+    deleteAccomplishment,
+  } = useAccomplishment();
   // TODO 依存配列にdateを入れて、date変更時のみAPI通信
   useEffect(() => {
     getAccomplishments();
@@ -30,12 +35,22 @@ const Accomplishment: React.FC = () => {
       console.log('error', error);
     }
   };
+
+  const handleDelete = async (id: string): Promise<void> => {
+    try {
+      await deleteAccomplishment(id);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <DiaryAccomplishment
       accomplishments={accomplishments}
       values={values}
-      onChange={(e) => handleChange(e)}
-      onSubmit={(e) => handleSubmit(e)}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      onDelete={handleDelete}
     />
   );
 };
