@@ -3,9 +3,10 @@ import AccomplishmentContext from '../contexts/AccomplishmentContext';
 import useProvideAccomplishment from '../../hooks/use-accomplishments';
 
 const AccomplishmentProvider: React.FC = ({ children }) => {
-  const { accomplishments, getAccomplishments } = useProvideAccomplishment();
+  const { accomplishments, getAccomplishments, addAccomplishment } = useProvideAccomplishment();
   return (
-    <AccomplishmentContext.Provider value={{ accomplishments, getAccomplishments }}>
+    <AccomplishmentContext.Provider
+      value={{ accomplishments, getAccomplishments, addAccomplishment }}>
       {children}
     </AccomplishmentContext.Provider>
   );
