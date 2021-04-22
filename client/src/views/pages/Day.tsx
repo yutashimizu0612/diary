@@ -10,7 +10,7 @@ import DiaryPagination from '../components/DiaryPagination';
 
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
-  width: 950px;
+  width: 900px;
 `;
 
 // Postsの取得
