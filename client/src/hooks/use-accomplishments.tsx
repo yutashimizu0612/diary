@@ -39,6 +39,19 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
+  const updateAccomplishment = useCallback((id: string, content: string, published: boolean) => {
+    return axios({
+      method: 'PUT',
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/${id}`,
+      data: { content, published },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log('UPDATE ACCOMPLISHMENT SUCCESS', response);
+    });
+  }, []);
+
   const deleteAccomplishment = useCallback((id: string) => {
     return axios({
       method: 'DELETE',
@@ -53,9 +66,10 @@ const useProvideAccomplishment = () => {
 
   return {
     accomplishments,
-    setAccomplishments,
+    // setAccomplishments,
     getAccomplishments,
     addAccomplishment,
+    updateAccomplishment,
     deleteAccomplishment,
   };
 };

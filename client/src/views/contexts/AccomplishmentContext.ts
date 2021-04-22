@@ -16,15 +16,20 @@ const addAccomplishment = (content: string, published: boolean): any => {
   return accomplishments;
 };
 
+const updateAccomplishment = (id: string, content: string, published: boolean): any => {
+  return accomplishments;
+};
+
 const deleteAccomplishment = (id: string): any => {
   return accomplishments;
 };
 
 const AccomplishmentContext = createContext({
   accomplishments,
-  setAccomplishments,
+  // setAccomplishments,
   getAccomplishments,
   addAccomplishment,
+  updateAccomplishment,
   deleteAccomplishment,
 });
 
