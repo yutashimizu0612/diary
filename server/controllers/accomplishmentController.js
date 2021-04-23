@@ -23,7 +23,7 @@ module.exports = {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
         req.user.id,
-        '2021-04-15',
+        '2021-04-22',
       );
       console.log('accomplishments', accomplishments);
       return res.json(accomplishments);
@@ -52,7 +52,7 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    const { content } = req.body;
+    const { content, published } = req.body;
     if (!content) {
       return res.status(400).json({
         message: '内容は入力必須です。',
@@ -66,6 +66,7 @@ module.exports = {
         });
       } else {
         accomplishment.content = content;
+        accomplishment.published = published;
         await accomplishment.save();
         return res.json({
           message: '達成したことの内容を更新しました。',
