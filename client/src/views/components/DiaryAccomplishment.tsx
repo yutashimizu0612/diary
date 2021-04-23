@@ -14,6 +14,7 @@ type Props = {
   values: AccomplishmentFormValues;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onUpdate: (id: string, content: string, published: boolean) => void;
   onDelete: (id: string) => void;
 };
 
@@ -22,6 +23,7 @@ const DiaryAccomplishment: React.FC<Props> = ({
   values,
   onChange,
   onSubmit,
+  onUpdate,
   onDelete,
 }) => {
   return (
@@ -32,9 +34,8 @@ const DiaryAccomplishment: React.FC<Props> = ({
           accomplishments.map((accomplishment) => (
             <AccomplishmentItem
               key={accomplishment.id}
-              id={accomplishment.id}
-              text={accomplishment.content}
-              published={accomplishment.published}
+              accomplishment={accomplishment}
+              onUpdate={onUpdate}
               onDelete={onDelete}
             />
           ))}

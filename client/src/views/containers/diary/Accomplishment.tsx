@@ -13,6 +13,7 @@ const Accomplishment: React.FC = () => {
     accomplishments,
     getAccomplishments,
     addAccomplishment,
+    updateAccomplishment,
     deleteAccomplishment,
   } = useAccomplishment();
   // TODO 依存配列にdateを入れて、date変更時のみAPI通信
@@ -36,6 +37,14 @@ const Accomplishment: React.FC = () => {
     }
   };
 
+  const handleUpdate = async (id: string, content: string, published: boolean): Promise<void> => {
+    try {
+      await updateAccomplishment(id, content, published);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const handleDelete = async (id: string): Promise<void> => {
     try {
       await deleteAccomplishment(id);
@@ -50,6 +59,7 @@ const Accomplishment: React.FC = () => {
       values={values}
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onUpdate={handleUpdate}
       onDelete={handleDelete}
     />
   );
