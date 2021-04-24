@@ -15,8 +15,10 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   // Accomplishmentsの取得
   const {
     accomplishments,
-    getAccomplishments,
     addAccomplishment,
+    removeAccomplishment,
+    getAccomplishments,
+    createAccomplishment,
     updateAccomplishment,
     deleteAccomplishment,
   } = useAccomplishment();
@@ -33,7 +35,12 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     event.preventDefault();
     console.log('handleSubmit');
     try {
-      await addAccomplishment(values.content, values.published);
+      await createAccomplishment(values.content, values.published);
+      addAccomplishment({
+        id: 'id返してもらう必要ある',
+        content: values.content,
+        published: values.published,
+      });
       setValues({ content: '', published: false });
     } catch (error) {
       console.log('error', error);
@@ -51,6 +58,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   const handleDelete = async (id: string): Promise<void> => {
     try {
       await deleteAccomplishment(id);
+      removeAccomplishment(id);
     } catch (error) {
       console.log('error', error);
     }
