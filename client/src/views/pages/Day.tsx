@@ -34,7 +34,7 @@ const Day: React.FC = () => {
     <Layout>
       <Contribution />
       <StyledWrapper>
-        <DiaryDate prev={prev} next={next} backToToday={backToToday} />
+        <DiaryDate date={targetDate} prev={prev} next={next} backToToday={backToToday} />
         <div css="margin-top: 45px;">
           <Accomplishment date={targetDate} />
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import moment from 'moment';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
@@ -56,12 +57,13 @@ const StyledDate = styled.span`
 `;
 
 type Props = {
+  date: string;
   prev: () => void;
   next: () => void;
   backToToday: () => void;
 };
 
-const DiaryDate: React.FC<Props> = ({ prev, next, backToToday }) => (
+const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday }) => (
   <StyledWrapper>
     <StyledToday onClick={backToToday}>TODAY</StyledToday>
     <StyledArrows>
@@ -72,7 +74,7 @@ const DiaryDate: React.FC<Props> = ({ prev, next, backToToday }) => (
         <StyledNavigateNextIcon fontSize="large" />
       </StyledArrow>
     </StyledArrows>
-    <StyledDate>Thursday 31 December 2020</StyledDate>
+    <StyledDate>{moment(date).format('dddd, MMMM DD YYYY')}</StyledDate>
     <CalendarTodayIcon fontSize="large" />
   </StyledWrapper>
 );
