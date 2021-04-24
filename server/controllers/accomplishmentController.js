@@ -23,7 +23,7 @@ module.exports = {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
         req.user.id,
-        '2021-04-22',
+        req.params.date,
       );
       console.log('accomplishments', accomplishments);
       return res.json(accomplishments);
