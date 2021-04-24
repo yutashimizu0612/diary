@@ -8,7 +8,7 @@ const setAccomplishments = (): Accomplishment[] => {
   return accomplishments;
 };
 
-const getAccomplishments = (): any => {
+const getAccomplishments = (date: string): any => {
   return accomplishments;
 };
 

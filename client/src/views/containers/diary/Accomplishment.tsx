@@ -3,7 +3,11 @@ import { AccomplishmentFormValues } from '../../../types';
 import DiaryAccomplishment from '../../components/DiaryAccomplishment';
 import { useAccomplishment } from '../../../hooks/use-accomplishments';
 
-const Accomplishment: React.FC = () => {
+type Props = {
+  date: string;
+};
+
+const Accomplishment: React.FC<Props> = ({ date }) => {
   const [values, setValues] = useState<AccomplishmentFormValues>({
     content: '',
     published: false,
@@ -16,10 +20,9 @@ const Accomplishment: React.FC = () => {
     updateAccomplishment,
     deleteAccomplishment,
   } = useAccomplishment();
-  // TODO 依存配列にdateを入れて、date変更時のみAPI通信
   useEffect(() => {
-    getAccomplishments();
-  }, []);
+    getAccomplishments(date);
+  }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValues({ ...values, [event.target.name]: event.target.value });

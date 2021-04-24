@@ -13,10 +13,10 @@ const useProvideAccomplishment = () => {
   const token = auth.getAccessToken();
   const [accomplishments, setAccomplishments] = useState<Accomplishment[]>([]);
 
-  const getAccomplishments = useCallback(() => {
+  const getAccomplishments = useCallback((date) => {
     return axios({
       method: 'GET',
-      url: `${process.env.REACT_APP_API_URL}/accomplishments`,
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/${date}`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
