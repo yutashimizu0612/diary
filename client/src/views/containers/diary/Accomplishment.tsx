@@ -35,9 +35,9 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     event.preventDefault();
     console.log('handleSubmit');
     try {
-      await createAccomplishment(values.content, values.published);
+      const id = await createAccomplishment(values.content, values.published);
       addAccomplishment({
-        id: 'id返してもらう必要ある',
+        id,
         content: values.content,
         published: values.published,
       });

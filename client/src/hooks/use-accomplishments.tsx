@@ -42,6 +42,7 @@ const useProvideAccomplishment = () => {
       },
     }).then((response) => {
       console.log('NEW ACCOMPLISHMENT SUCCESS', response);
+      return response.data.id;
     });
   }, []);
 
