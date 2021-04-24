@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import moment from 'moment';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
@@ -26,16 +27,17 @@ const StyledDate = styled.span`
 `;
 
 type Props = {
+  date: string;
   prev: () => void;
   next: () => void;
 };
 
-const DiaryPagination: React.FC<Props> = ({ prev, next }) => (
+const DiaryPagination: React.FC<Props> = ({ date, prev, next }) => (
   <StyledWrapper>
     <StyledArrow onClick={prev}>
       <NavigateBeforeIcon css="color: #808080;" />
     </StyledArrow>
-    <StyledDate>2021/2/21</StyledDate>
+    <StyledDate>{moment(date).format('YYYY/MM/DD')}</StyledDate>
     <StyledArrow onClick={next}>
       <NavigateNextIcon css="color: #808080;" />
     </StyledArrow>

@@ -49,7 +49,7 @@ const Day: React.FC = () => {
           <DiaryStar />
         </div>
         <div css="margin-top: 75px;">
-          <DiaryPagination prev={prev} next={next} />
+          <DiaryPagination date={targetDate} prev={prev} next={next} />
         </div>
       </StyledWrapper>
     </Layout>
