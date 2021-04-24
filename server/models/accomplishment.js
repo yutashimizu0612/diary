@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     static getAccomplishmentsByDate(userId, date) {
       return this.findAll({
+        attributes: ['id', 'content', 'published'],
         where: {
           userId,
           createdAt: {

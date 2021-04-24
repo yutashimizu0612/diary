@@ -18,12 +18,11 @@ module.exports = {
       return res.status(400).json({ error: error });
     }
   },
-  // TODO 日付を指定する（URL？パラメータ？）
   getAccomplishments: async (req, res) => {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
         req.user.id,
-        '2021-04-15',
+        req.params.date,
       );
       console.log('accomplishments', accomplishments);
       return res.json(accomplishments);
@@ -40,19 +39,19 @@ module.exports = {
       });
     }
     try {
-      await models.Accomplishment.create({
+      const accomplishment = await models.Accomplishment.create({
         content,
         published,
         userId: req.user.id,
       });
-      return res.json({ message: 'new accomplishment' });
+      return res.json({ id: accomplishment.id });
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
     }
   },
   update: async (req, res) => {
-    const { content } = req.body;
+    const { content, published } = req.body;
     if (!content) {
       return res.status(400).json({
         message: '内容は入力必須です。',
@@ -66,6 +65,7 @@ module.exports = {
         });
       } else {
         accomplishment.content = content;
+        accomplishment.published = published;
         await accomplishment.save();
         return res.json({
           message: '達成したことの内容を更新しました。',

@@ -1,23 +1,24 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { AccomplishmentFormValues } from '../../types';
 import AddIcon from '@material-ui/icons/Add';
 
-const StyledWrapper = styled.div`
+const StyledForm = styled.form`
   display: flex;
   align-items: center;
   width: 795px;
 `;
 
-const StyledForm = styled.input`
+const StyledTextForm = styled.input`
   background: #fff;
   border-radius: 8px;
   border: 1px solid #d0caca;
-  cursor: pointer;
   font-size: 18px;
   outline: none;
   padding: 18px 0 16px 16px;
   transition: 0.2s;
   width: 100%;
+  /* TODO：focusの時のスタイル（Material UI？） */
   &:hover {
     opacity: 0.7;
   }
@@ -27,7 +28,7 @@ const StyledForm = styled.input`
   }
 `;
 
-const StyledIconWrapper = styled.div`
+const StyledButton = styled.button`
   background: #2cd671;
   border-radius: 50%;
   color: #fff;
@@ -40,13 +41,26 @@ const StyledIconWrapper = styled.div`
   height: 36px;
 `;
 
-const AccomplishmentForm: React.FC = () => (
-  <StyledWrapper>
-    <StyledIconWrapper>
-      <AddIcon fontSize="large" css="margin-top: 1px" />
-    </StyledIconWrapper>
-    <StyledForm placeholder="今日達成したことを入力" />
-  </StyledWrapper>
-);
+type Props = {
+  values: AccomplishmentFormValues;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+const AccomplishmentForm: React.FC<Props> = ({ values, onChange, onSubmit }) => {
+  return (
+    <StyledForm>
+      <StyledButton onClick={onSubmit}>
+        <AddIcon fontSize="large" css="margin-top: 1px" />
+      </StyledButton>
+      <StyledTextForm
+        name="content"
+        placeholder="今日達成したことを入力"
+        value={values.content}
+        onChange={onChange}
+      />
+    </StyledForm>
+  );
+};
 
 export default AccomplishmentForm;
