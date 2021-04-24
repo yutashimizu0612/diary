@@ -18,7 +18,6 @@ module.exports = {
       return res.status(400).json({ error: error });
     }
   },
-  // TODO 日付を指定する（URL？パラメータ？）
   getAccomplishments: async (req, res) => {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
