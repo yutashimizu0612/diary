@@ -55,14 +55,20 @@ const StyledDate = styled.span`
   margin-right: 20px;
 `;
 
-const DiaryDate: React.FC = () => (
+type Props = {
+  prev: () => void;
+  next: () => void;
+  backToToday: () => void;
+};
+
+const DiaryDate: React.FC<Props> = ({ prev, next, backToToday }) => (
   <StyledWrapper>
-    <StyledToday>TODAY</StyledToday>
+    <StyledToday onClick={backToToday}>TODAY</StyledToday>
     <StyledArrows>
-      <StyledArrow>
+      <StyledArrow onClick={prev}>
         <StyledNavigateBeforeIcon fontSize="large" />
       </StyledArrow>
-      <StyledArrow>
+      <StyledArrow onClick={next}>
         <StyledNavigateNextIcon fontSize="large" />
       </StyledArrow>
     </StyledArrows>

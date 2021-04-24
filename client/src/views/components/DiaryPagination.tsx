@@ -25,13 +25,18 @@ const StyledDate = styled.span`
   margin: 0 10px;
 `;
 
-const DiaryPagination: React.FC = () => (
+type Props = {
+  prev: () => void;
+  next: () => void;
+};
+
+const DiaryPagination: React.FC<Props> = ({ prev, next }) => (
   <StyledWrapper>
-    <StyledArrow>
+    <StyledArrow onClick={prev}>
       <NavigateBeforeIcon css="color: #808080;" />
     </StyledArrow>
     <StyledDate>2021/2/21</StyledDate>
-    <StyledArrow>
+    <StyledArrow onClick={next}>
       <NavigateNextIcon css="color: #808080;" />
     </StyledArrow>
   </StyledWrapper>
