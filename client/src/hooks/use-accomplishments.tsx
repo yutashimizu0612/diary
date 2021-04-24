@@ -13,6 +13,12 @@ const useProvideAccomplishment = () => {
   const token = auth.getAccessToken();
   const [accomplishments, setAccomplishments] = useState<Accomplishment[]>([]);
 
+  const addAccomplishment = (newAccomplishment: Accomplishment) =>
+    setAccomplishments([...accomplishments, newAccomplishment]);
+
+  const removeAccomplishment = (id: string) =>
+    setAccomplishments(accomplishments.filter((accomplishment) => accomplishment.id !== id));
+
   const getAccomplishments = useCallback((date) => {
     return axios({
       method: 'GET',
@@ -26,7 +32,7 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
-  const addAccomplishment = useCallback((content: string, published: boolean) => {
+  const createAccomplishment = useCallback((content: string, published: boolean) => {
     return axios({
       method: 'POST',
       url: `${process.env.REACT_APP_API_URL}/accomplishments`,
@@ -66,9 +72,10 @@ const useProvideAccomplishment = () => {
 
   return {
     accomplishments,
-    // setAccomplishments,
-    getAccomplishments,
     addAccomplishment,
+    removeAccomplishment,
+    getAccomplishments,
+    createAccomplishment,
     updateAccomplishment,
     deleteAccomplishment,
   };
