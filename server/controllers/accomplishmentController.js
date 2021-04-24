@@ -40,12 +40,12 @@ module.exports = {
       });
     }
     try {
-      await models.Accomplishment.create({
+      const accomplishment = await models.Accomplishment.create({
         content,
         published,
         userId: req.user.id,
       });
-      return res.json({ message: 'new accomplishment' });
+      return res.json({ id: accomplishment.id });
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
