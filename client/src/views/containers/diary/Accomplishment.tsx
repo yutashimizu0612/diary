@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components/macro';
 import { AccomplishmentFormValues } from '../../../types';
-import DiaryAccomplishment from '../../components/DiaryAccomplishment';
+import H2Heading from '../../components/H2Heading';
+import AccomplishmentItem from '../../components/AccomplishmentItem';
+import AccomplishmentForm from '../../components/AccomplishmentForm';
 import { useAccomplishment } from '../../../hooks/use-accomplishments';
+
+const StyledWrapper = styled.div`
+  margin: 16px 0;
+`;
 
 type Props = {
   date: string;
@@ -65,14 +72,21 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   };
 
   return (
-    <DiaryAccomplishment
-      accomplishments={accomplishments}
-      values={values}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-      onUpdate={handleUpdate}
-      onDelete={handleDelete}
-    />
+    <>
+      <H2Heading text="今日達成したこと" color="#2cd671" />
+      <StyledWrapper>
+        {accomplishments &&
+          accomplishments.map((accomplishment) => (
+            <AccomplishmentItem
+              key={accomplishment.id}
+              accomplishment={accomplishment}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          ))}
+      </StyledWrapper>
+      <AccomplishmentForm values={values} onChange={handleChange} onSubmit={handleSubmit} />
+    </>
   );
 };
 
