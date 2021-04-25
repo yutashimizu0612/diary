@@ -27,7 +27,7 @@ const useProvidePost = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-      console.log('getposts SUCCESS', response);
+      console.log('getPost SUCCESS', response);
       setPost(response.data);
     });
   }, []);
