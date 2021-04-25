@@ -3,10 +3,9 @@ import styled from 'styled-components/macro';
 import moment from 'moment';
 import Layout from '../layouts/Layout';
 import Accomplishment from '../containers/diary/Accomplishment';
+import Post from '../containers/diary/Post';
 import Contribution from '../components/Contribution';
 import DiaryDate from '../components/DiaryDate';
-import DiaryComment from '../components/DiaryComment';
-import DiaryStar from '../components/DiaryStar';
 import DiaryPagination from '../components/DiaryPagination';
 
 const StyledWrapper = styled.div`
@@ -39,14 +38,7 @@ const Day: React.FC = () => {
           <Accomplishment date={targetDate} />
         </div>
         <div css="margin-top: 60px;">
-          <DiaryComment />
-        </div>
-        <div
-          css={`
-            margin-top: 60px;
-            text-align: right;
-          `}>
-          <DiaryStar />
+          <Post date={targetDate} />
         </div>
         <div css="margin-top: 75px;">
           <DiaryPagination date={targetDate} prev={prev} next={next} />
