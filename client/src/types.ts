@@ -10,6 +10,12 @@ export type LoginFormValues = {
   password: string;
 };
 
+export type Post = {
+  id: string;
+  comment: string;
+  star: number;
+};
+
 export type Accomplishment = {
   id: string;
   content: string;
