@@ -1,10 +1,9 @@
 const models = require('../models');
 
 module.exports = {
-  // TODO 日付を指定する（URL？パラメータ？）
   getPost: async (req, res) => {
     try {
-      const post = await models.Post.getPostByDate(req.user.id, '2021-04-17');
+      const post = await models.Post.getPostByDate(req.user.id, req.params.date);
       console.log('post', post);
       return res.json(post);
     } catch (error) {
