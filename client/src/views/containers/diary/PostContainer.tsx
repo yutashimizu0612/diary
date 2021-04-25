@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { Post } from '../../../types';
 import DiaryComment from '../../components/DiaryComment';
 import DiaryStar from '../../components/DiaryStar';
-import { usePost } from '../../../hooks/use-posts';
+import { usePost } from '../../../hooks/use-post';
 
 const StyledWrapper = styled.div`
   margin: 16px 0;
@@ -13,41 +13,42 @@ type Props = {
   date: string;
 };
 
-const Post: React.FC<Props> = ({ date }) => {
-  const [values, setValues] = useState<Post>({
-    id: '',
-    comment: '',
-    star: 0,
-  });
+const PostContainer: React.FC<Props> = ({ date }) => {
   const { post, getPost, createPost, updatePost } = usePost();
+  const [isCreated, setIsCreated] = useState(false);
+  const [values, setValues] = useState<Post>({
+    id: post.id,
+    comment: post.comment,
+    star: post.star,
+  });
   useEffect(() => {
     getPost(date);
   }, [date]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setValues({ ...values, [event.target.name]: event.target.value });
     console.log('values', values);
   };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     console.log('handleSubmit');
+    isCreated ? update() : create();
+  };
+
+  const create = async (): Promise<void> => {
     try {
       const id = await createPost(values.comment, values.star);
-      // addAccomplishment({
-      //   id,
-      //   content: values.content,
-      //   published: values.published,
-      // });
-      setValues({ id: '', comment: '', star: 0 });
+      setValues({ id, comment: values.comment, star: values.star });
     } catch (error) {
       console.log('error', error);
     }
   };
 
-  const handleUpdate = async (id: string, comment: string, star: number): Promise<void> => {
+  const update = async (): Promise<void> => {
     try {
-      await updatePost(id, comment, star);
+      await updatePost(values.id, values.comment, values.star);
+      setValues({ ...values, comment: values.comment, star: values.star });
     } catch (error) {
       console.log('error', error);
     }
@@ -56,7 +57,7 @@ const Post: React.FC<Props> = ({ date }) => {
   return (
     <>
       <div css="margin-top: 60px;">
-        <DiaryComment />
+        <DiaryComment comment={values.comment} onChange={handleChange} onSubmit={handleSubmit} />
       </div>
       <div
         css={`
@@ -69,4 +70,4 @@ const Post: React.FC<Props> = ({ date }) => {
   );
 };
 
-export default Post;
+export default PostContainer;
