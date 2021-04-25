@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import moment from 'moment';
 import Layout from '../layouts/Layout';
 import Accomplishment from '../containers/diary/Accomplishment';
-import Post from '../containers/diary/Post';
+import PostContainer from '../containers/diary/PostContainer';
 import Contribution from '../components/Contribution';
 import DiaryDate from '../components/DiaryDate';
 import DiaryPagination from '../components/DiaryPagination';
@@ -38,7 +38,7 @@ const Day: React.FC = () => {
           <Accomplishment date={targetDate} />
         </div>
         <div css="margin-top: 60px;">
-          <Post date={targetDate} />
+          <PostContainer date={targetDate} />
         </div>
         <div css="margin-top: 75px;">
           <DiaryPagination date={targetDate} prev={prev} next={next} />
