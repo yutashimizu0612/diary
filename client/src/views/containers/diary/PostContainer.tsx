@@ -14,15 +14,13 @@ type Props = {
 };
 
 const PostContainer: React.FC<Props> = ({ date }) => {
-  const { post, getPost, createPost, updatePost } = usePost();
-  const [isCreated, setIsCreated] = useState(false);
-  const [values, setValues] = useState<Post>({
-    id: post.id,
-    comment: post.comment,
-    star: post.star,
-  });
+  const { isCreated, getPost, createPost, updatePost } = usePost();
+  const [values, setValues] = useState<Post>({ id: '', comment: '', star: 0 });
   useEffect(() => {
-    getPost(date);
+    (async () => {
+      const post: Post = await getPost(date);
+      setValues(post);
+    })();
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -38,8 +36,8 @@ const PostContainer: React.FC<Props> = ({ date }) => {
 
   const create = async (): Promise<void> => {
     try {
-      const id = await createPost(values.comment, values.star);
-      setValues({ id, comment: values.comment, star: values.star });
+      const id = await createPost(date, values.comment, values.star);
+      setValues({ ...values, id, comment: values.comment, star: values.star });
     } catch (error) {
       console.log('error', error);
     }
