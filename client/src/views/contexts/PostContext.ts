@@ -4,6 +4,8 @@ import { Post } from '../../types';
 // TODO contextのdefault値
 const post: Post = { id: '', comment: '', star: 0 };
 
+const isCreated = false;
+
 const getPost = (date: string): any => {
   return post;
 };
@@ -17,7 +19,7 @@ const updatePost = (id: string, comment: string, star: number): any => {
 };
 
 const PostContext = createContext({
-  post,
+  isCreated,
   getPost,
   createPost,
   updatePost,

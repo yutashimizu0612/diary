@@ -3,11 +3,11 @@ import PostContext from '../contexts/PostContext';
 import useProvidePost from '../../hooks/use-post';
 
 const PostProvider: React.FC = ({ children }) => {
-  const { post, getPost, createPost, updatePost } = useProvidePost();
+  const { isCreated, getPost, createPost, updatePost } = useProvidePost();
   return (
     <PostContext.Provider
       value={{
-        post,
+        isCreated,
         getPost,
         createPost,
         updatePost,
