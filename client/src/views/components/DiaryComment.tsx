@@ -11,7 +11,6 @@ const StyledTextArea = styled.textarea`
   border-radius: 8px;
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
-  cursor: pointer;
   color: #3e3e3e;
   font-size: 18px;
   outline: none;
