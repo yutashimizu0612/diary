@@ -7,6 +7,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
       },
+      date: {
+        allowNull: false,
+        type: Sequelize.DATEONLY,
+        unique: true,
+      },
       comment: {
         type: Sequelize.STRING,
       },

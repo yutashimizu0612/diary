@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Post.init(
     {
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        unique: true,
+      },
       comment: {
         type: DataTypes.STRING,
       },

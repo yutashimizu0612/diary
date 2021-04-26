@@ -12,11 +12,10 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    // TODO 同じ日付が被らないようにする
-    // 日付に一意制約？
-    const { comment, star } = req.body;
+    const { date, comment, star } = req.body;
     try {
       await models.Post.create({
+        date,
         comment,
         star,
         userId: req.user.id,
