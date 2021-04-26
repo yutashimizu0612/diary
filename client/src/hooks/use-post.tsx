@@ -11,13 +11,7 @@ export const usePost = () => {
 const useProvidePost = () => {
   const auth = useAuth();
   const token = auth.getAccessToken();
-  const [post, setPost] = useState<Post>({ id: '', comment: '', star: 0 });
-
-  // const addAccomplishment = (newAccomplishment: Accomplishment) =>
-  //   setPost([...posts, newAccomplishment]);
-
-  // const removeAccomplishment = (id: string) =>
-  //   setPost(posts.filter((accomplishment) => accomplishment.id !== id));
+  const [isCreated, setIsCreated] = useState(false);
 
   const getPost = useCallback((date) => {
     return axios({
@@ -28,7 +22,13 @@ const useProvidePost = () => {
       },
     }).then((response) => {
       console.log('getPost SUCCESS', response);
-      setPost(response.data);
+      if (response.data) {
+        setIsCreated(true);
+        return response.data;
+      } else {
+        setIsCreated(false);
+        return { id: '', comment: '', star: 0 };
+      }
     });
   }, []);
 
@@ -60,7 +60,7 @@ const useProvidePost = () => {
   }, []);
 
   return {
-    post,
+    isCreated,
     getPost,
     createPost,
     updatePost,
