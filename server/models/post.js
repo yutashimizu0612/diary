@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     static getPostByDate(userId, date) {
-      return this.findAll({
+      return this.findOne({
+        attributes: ['id', 'comment', 'star'],
         where: {
           userId,
           createdAt: {
