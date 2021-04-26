@@ -32,11 +32,11 @@ const useProvidePost = () => {
     });
   }, []);
 
-  const createPost = useCallback((comment: string, star: number) => {
+  const createPost = useCallback((date: string, comment: string, star: number) => {
     return axios({
       method: 'POST',
       url: `${process.env.REACT_APP_API_URL}/posts`,
-      data: { comment, star },
+      data: { date, comment, star },
       headers: {
         Authorization: `Bearer ${token}`,
       },

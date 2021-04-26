@@ -10,7 +10,7 @@ const getPost = (date: string): any => {
   return post;
 };
 
-const createPost = (comment: string, star: number): any => {
+const createPost = (date: string, comment: string, star: number): any => {
   return post;
 };
 
