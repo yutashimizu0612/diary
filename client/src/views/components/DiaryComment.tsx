@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import H2Heading from './H2Heading';
 
-const StyledForm = styled.textarea`
+const StyledForm = styled.form`
+  margin: 16px 0;
+`;
+
+const StyledTextArea = styled.textarea`
   background: #fff;
   border-radius: 8px;
   border: none;
@@ -16,16 +20,21 @@ const StyledForm = styled.textarea`
   width: 100%;
 `;
 
-// コメントの取得
-// コメントの新規作成
-// コメントの更新
+const StyledButton = styled.button``;
 
-const DiaryComment: React.FC = () => (
+type Props = {
+  comment: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const DiaryComment: React.FC<Props> = ({ comment, onChange, onSubmit }) => (
   <>
     <H2Heading text="コメント" color="#f8548c" />
-    <div css="margin: 16px 0;">
-      <StyledForm />
-    </div>
+    <StyledForm onSubmit={onSubmit}>
+      <StyledTextArea name="comment" value={comment} onChange={onChange} />
+      <StyledButton type="submit">仮のsubmitボタン</StyledButton>
+    </StyledForm>
   </>
 );
 
