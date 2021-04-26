@@ -20,14 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     static getPostByDate(userId, date) {
       return this.findOne({
         attributes: ['id', 'comment', 'star'],
-        where: {
-          userId,
-          createdAt: {
-            // ('2004-04-01T00:00:01+09:00')
-            [Op.gte]: new Date(date + 'T00:00:00+09:00'),
-            [Op.lte]: new Date(date + 'T23:59:59+09:00'),
-          },
-        },
+        where: { userId, date },
       });
     }
   }
