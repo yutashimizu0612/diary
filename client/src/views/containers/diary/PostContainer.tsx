@@ -5,8 +5,13 @@ import DiaryComment from '../../components/DiaryComment';
 import DiaryStar from '../../components/DiaryStar';
 import { usePost } from '../../../hooks/use-post';
 
-const StyledWrapper = styled.div`
-  margin: 16px 0;
+const StyledComment = styled.div`
+  margin-top: 60px;
+`;
+
+const StyledStar = styled.div`
+  margin-top: 60px;
+  text-align: right;
 `;
 
 type Props = {
@@ -54,16 +59,12 @@ const PostContainer: React.FC<Props> = ({ date }) => {
 
   return (
     <>
-      <div css="margin-top: 60px;">
+      <StyledComment>
         <DiaryComment comment={values.comment} onChange={handleChange} onSubmit={handleSubmit} />
-      </div>
-      <div
-        css={`
-          margin-top: 60px;
-          text-align: right;
-        `}>
+      </StyledComment>
+      <StyledStar>
         <DiaryStar />
-      </div>
+      </StyledStar>
     </>
   );
 };
