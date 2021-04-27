@@ -19,6 +19,8 @@ type Props = {
 };
 
 const PostContainer: React.FC<Props> = ({ date }) => {
+  const [success, setSuccess] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
   const { isCreated, getPost, createPost, updatePost } = usePost();
   const [values, setValues] = useState<Post>({ id: '', comment: '', star: 0 });
   useEffect(() => {
@@ -29,14 +31,19 @@ const PostContainer: React.FC<Props> = ({ date }) => {
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setCanSubmit(true);
     setValues({ ...values, [event.target.name]: event.target.value });
     console.log('values', values);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    console.log('handleSubmit');
-    isCreated ? update() : create();
+    if (canSubmit) {
+      console.log('handleSubmit');
+      setSuccess(false);
+      isCreated ? await update() : await create();
+      setSuccess(true);
+    }
   };
 
   const create = async (): Promise<void> => {
@@ -57,10 +64,21 @@ const PostContainer: React.FC<Props> = ({ date }) => {
     }
   };
 
+  const initializeSuccess = (): void => {
+    setSuccess(false);
+  };
+
   return (
     <>
       <StyledComment>
-        <DiaryComment comment={values.comment} onChange={handleChange} onSubmit={handleSubmit} />
+        <DiaryComment
+          success={success}
+          canSubmit={canSubmit}
+          comment={values.comment}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          onClickAway={initializeSuccess}
+        />
       </StyledComment>
       <StyledStar>
         <DiaryStar />
