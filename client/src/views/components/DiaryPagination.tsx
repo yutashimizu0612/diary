@@ -27,7 +27,7 @@ const StyledDate = styled.span`
 `;
 
 type Props = {
-  date: string;
+  date: moment.Moment | null;
   prev: () => void;
   next: () => void;
 };
@@ -37,7 +37,7 @@ const DiaryPagination: React.FC<Props> = ({ date, prev, next }) => (
     <StyledArrow onClick={prev}>
       <NavigateBeforeIcon css="color: #808080;" />
     </StyledArrow>
-    <StyledDate>{moment(date).format('YYYY/MM/DD')}</StyledDate>
+    <StyledDate>{date!.format('YYYY/MM/DD')}</StyledDate>
     <StyledArrow onClick={next}>
       <NavigateNextIcon css="color: #808080;" />
     </StyledArrow>

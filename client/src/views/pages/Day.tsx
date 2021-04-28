@@ -18,22 +18,31 @@ const StyledWrapper = styled.div`
 // コントリビューションの取得
 
 const Day: React.FC = () => {
-  const today = moment().format('YYYY-MM-DD');
-  const [targetDate, setTargetDate] = useState(today);
+  const today = moment();
+  const [targetDate, setTargetDate] = useState<moment.Moment | null>(today);
   const prev = () => {
-    setTargetDate(moment(targetDate).subtract(1, 'd').format('YYYY-MM-DD'));
+    setTargetDate(targetDate!.subtract(1, 'd'));
   };
   const next = () => {
-    setTargetDate(moment(targetDate).add(1, 'd').format('YYYY-MM-DD'));
+    setTargetDate(targetDate!.add(1, 'd'));
   };
   const backToToday = () => {
     setTargetDate(today);
+  };
+  const handleDateChange = (date: moment.Moment | null) => {
+    setTargetDate(date);
   };
   return (
     <Layout>
       <Contribution />
       <StyledWrapper>
-        <DiaryDate date={targetDate} prev={prev} next={next} backToToday={backToToday} />
+        <DiaryDate
+          date={targetDate}
+          prev={prev}
+          next={next}
+          backToToday={backToToday}
+          handleDateChange={handleDateChange}
+        />
         <div css="margin-top: 45px;">
           <Accomplishment date={targetDate} />
         </div>

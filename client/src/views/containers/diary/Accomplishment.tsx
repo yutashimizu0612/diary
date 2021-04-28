@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
 `;
 
 type Props = {
-  date: string;
+  date: moment.Moment | null;
 };
 
 const Accomplishment: React.FC<Props> = ({ date }) => {
@@ -30,7 +30,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     deleteAccomplishment,
   } = useAccomplishment();
   useEffect(() => {
-    getAccomplishments(date);
+    getAccomplishments(date!.format('YYYY-MM-DD'));
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
