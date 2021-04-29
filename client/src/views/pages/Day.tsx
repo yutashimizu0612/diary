@@ -21,10 +21,12 @@ const Day: React.FC = () => {
   const today = moment();
   const [targetDate, setTargetDate] = useState<moment.Moment | null>(today);
   const prev = () => {
-    setTargetDate(targetDate!.subtract(1, 'd'));
+    setTargetDate((date) => date!.subtract(1, 'd'));
+    console.log('targetDate', targetDate);
   };
   const next = () => {
-    setTargetDate(targetDate!.add(1, 'd'));
+    setTargetDate((date) => date!.add(1, 'd'));
+    console.log('targetDate', targetDate);
   };
   const backToToday = () => {
     setTargetDate(today);
