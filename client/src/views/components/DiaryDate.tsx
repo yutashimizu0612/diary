@@ -6,6 +6,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import MomentUtils from '@date-io/moment';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import DatePickerThemeProvider from '../providers/DatePickerThemeProvider';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -74,12 +75,16 @@ const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateC
       </StyledArrow>
     </StyledArrows>
     <MuiPickersUtilsProvider utils={MomentUtils}>
-      <KeyboardDatePicker
-        disableFuture
-        value={date!.format('YYYY/MM/DD')}
-        onChange={(date) => handleDateChange(date)}
-        format="LLLL"
-      />
+      <DatePickerThemeProvider>
+        <KeyboardDatePicker
+          autoOk
+          variant="inline"
+          disableFuture
+          value={date!.format('YYYY/MM/DD')}
+          onChange={(date) => handleDateChange(date)}
+          format="LLLL"
+        />
+      </DatePickerThemeProvider>
     </MuiPickersUtilsProvider>
   </StyledWrapper>
 );
