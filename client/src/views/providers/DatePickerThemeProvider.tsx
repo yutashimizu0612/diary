@@ -12,6 +12,9 @@ const materialTheme = createMuiTheme({
     MuiPickersDay: {
       daySelected: {
         backgroundColor: '#2cd671',
+        '&:hover': {
+          backgroundColor: '#2cd671',
+        },
       },
       current: {
         color: '#2cd671',
