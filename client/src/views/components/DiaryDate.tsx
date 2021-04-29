@@ -11,6 +11,7 @@ import DatePickerThemeProvider from '../providers/DatePickerThemeProvider';
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const StyledToday = styled.button`
