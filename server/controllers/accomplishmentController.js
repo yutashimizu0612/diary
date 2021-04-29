@@ -32,7 +32,7 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { content, published } = req.body;
+    const { date, content, published } = req.body;
     if (!content) {
       return res.status(400).json({
         message: '内容は入力必須です。',
@@ -40,6 +40,7 @@ module.exports = {
     }
     try {
       const accomplishment = await models.Accomplishment.create({
+        date,
         content,
         published,
         userId: req.user.id,
