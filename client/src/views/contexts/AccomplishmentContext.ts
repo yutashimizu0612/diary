@@ -16,7 +16,7 @@ const getAccomplishments = (date: string): any => {
   return accomplishments;
 };
 
-const createAccomplishment = (content: string, published: boolean): any => {
+const createAccomplishment = (date: string, content: string, published: boolean): any => {
   return accomplishments;
 };
 

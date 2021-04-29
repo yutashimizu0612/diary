@@ -1,7 +1,6 @@
 'use strict';
-const { Model, Sequelize } = require('sequelize');
+const { Model } = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
-const Op = Sequelize.Op;
 
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {

@@ -32,11 +32,11 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
-  const createAccomplishment = useCallback((content: string, published: boolean) => {
+  const createAccomplishment = useCallback((date: string, content: string, published: boolean) => {
     return axios({
       method: 'POST',
       url: `${process.env.REACT_APP_API_URL}/accomplishments`,
-      data: { content, published },
+      data: { date, content, published },
       headers: {
         Authorization: `Bearer ${token}`,
       },

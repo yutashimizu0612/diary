@@ -20,14 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     static getAccomplishmentsByDate(userId, date) {
       return this.findAll({
         attributes: ['id', 'content', 'published'],
-        where: {
-          userId,
-          createdAt: {
-            // ('2004-04-01T00:00:01+09:00')
-            [Op.gte]: new Date(date + 'T00:00:00+09:00'),
-            [Op.lte]: new Date(date + 'T23:59:59+09:00'),
-          },
-        },
+        where: { userId, date },
       });
     }
     // TODO
@@ -48,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Accomplishment.init(
     {
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
       content: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -42,7 +42,11 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     event.preventDefault();
     console.log('handleSubmit');
     try {
-      const id = await createAccomplishment(values.content, values.published);
+      const id = await createAccomplishment(
+        date!.format('YYYY-MM-DD'),
+        values.content,
+        values.published,
+      );
       addAccomplishment({
         id,
         content: values.content,
