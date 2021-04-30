@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { Count } from '../../types';
 
 const StyledWrapper = styled.div`
   background: #fff;
@@ -19,7 +20,12 @@ const StyledBody = styled.svg`
   width: 100%;
 `;
 
-const Contribution: React.FC = () => {
+type Props = {
+  counts: Count[];
+};
+
+const Contribution: React.FC<Props> = ({ counts }) => {
+  console.log('propsのcounts', counts);
   const xPositions = [...Array(52)].map((element, index) => 18 * index);
   const yPositions = [...Array(7)].map((element, index) => 18 * index);
   return (
