@@ -26,3 +26,8 @@ export type AccomplishmentFormValues = {
   content: string;
   published: boolean;
 };
+
+export type Count = {
+  date: string;
+  count: number;
+};
