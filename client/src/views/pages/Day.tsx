@@ -13,10 +13,6 @@ const StyledWrapper = styled.div`
   width: 900px;
 `;
 
-// Postsの取得
-
-// コントリビューションの取得
-
 const Day: React.FC = () => {
   const today = moment();
   const [targetDate, setTargetDate] = useState<moment.Moment | null>(today);
