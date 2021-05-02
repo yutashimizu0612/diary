@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Count } from '../../../types';
+import React from 'react';
 import Contribution from '../../components/Contribution';
-import { useAccomplishment } from '../../../hooks/use-accomplishments';
+import useContributionCounts from '../../../hooks/use-contribution-counts';
 
 const ContributionContainer: React.FC = () => {
-  const [counts, setCounts] = useState<Count[]>([]);
-  const { getAccomplishmentsCounts } = useAccomplishment();
-  useEffect(() => {
-    (async () => {
-      const counts = await getAccomplishmentsCounts('2021-04-21', '2021-04-29');
-      setCounts(counts);
-    })();
-  }, []);
-
+  const { counts } = useContributionCounts();
   return <Contribution counts={counts} />;
 };
 
