@@ -13,6 +13,7 @@ const useContributionCounts = () => {
   const [counts, setCounts] = useState<Count[][]>([]);
   const { getAccomplishmentsCounts } = useAccomplishment();
   useEffect(() => {
+    // TODO ：リファクタ：別ファイルに切り出ししたい
     (async () => {
       console.log('useEffect at use-contribution-counts');
       const counts = await getAccomplishmentsCounts(
