@@ -14,20 +14,21 @@ const StyledWrapper = styled.div`
 `;
 
 const Day: React.FC = () => {
-  const today = moment();
-  const [targetDate, setTargetDate] = useState<moment.Moment | null>(today);
+  const [targetDate, setTargetDate] = useState<moment.Moment | null>(moment());
   const prev = () => {
     setTargetDate((date) => date!.subtract(1, 'd'));
-    console.log('targetDate', targetDate);
+    console.log('prevボタン押下しました', targetDate!.format('YYYY-MM-DD'));
   };
   const next = () => {
     setTargetDate((date) => date!.add(1, 'd'));
-    console.log('targetDate', targetDate);
+    console.log('nextボタン押下しました', targetDate!.format('YYYY-MM-DD'));
   };
   const backToToday = () => {
-    setTargetDate(today);
+    console.log('todayボタン押下しました');
+    setTargetDate(moment());
   };
   const handleDateChange = (date: moment.Moment | null) => {
+    console.log('カレンダーで日付を変更しました');
     setTargetDate(date);
   };
   return (

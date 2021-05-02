@@ -31,6 +31,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   } = useAccomplishment();
   useEffect(() => {
     getAccomplishments(date!.format('YYYY-MM-DD'));
+    console.log('useEffect内のdate', date!.format('YYYY-MM-DD'));
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
