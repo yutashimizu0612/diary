@@ -16,19 +16,17 @@ const StyledWrapper = styled.div`
 const Day: React.FC = () => {
   const [targetDate, setTargetDate] = useState<moment.Moment | null>(moment());
   const prev = () => {
-    setTargetDate((date) => date!.subtract(1, 'd'));
-    console.log('prevボタン押下しました', targetDate!.format('YYYY-MM-DD'));
+    const currentDate = targetDate!.clone();
+    setTargetDate(currentDate!.subtract(1, 'd'));
   };
   const next = () => {
-    setTargetDate((date) => date!.add(1, 'd'));
-    console.log('nextボタン押下しました', targetDate!.format('YYYY-MM-DD'));
+    const currentDate = targetDate!.clone();
+    setTargetDate(currentDate!.add(1, 'd'));
   };
   const backToToday = () => {
-    console.log('todayボタン押下しました');
     setTargetDate(moment());
   };
   const handleDateChange = (date: moment.Moment | null) => {
-    console.log('カレンダーで日付を変更しました');
     setTargetDate(date);
   };
   return (
