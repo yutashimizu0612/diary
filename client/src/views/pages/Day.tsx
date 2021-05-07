@@ -4,7 +4,7 @@ import moment from 'moment';
 import Layout from '../layouts/Layout';
 import Accomplishment from '../containers/diary/Accomplishment';
 import PostContainer from '../containers/diary/PostContainer';
-import Contribution from '../components/Contribution';
+import ContributionContainer from '../containers/diary/ContributionContainer';
 import DiaryDate from '../components/DiaryDate';
 import DiaryPagination from '../components/DiaryPagination';
 
@@ -31,7 +31,7 @@ const Day: React.FC = () => {
   };
   return (
     <Layout>
-      <Contribution />
+      <ContributionContainer />
       <StyledWrapper>
         <DiaryDate
           date={targetDate}

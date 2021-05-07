@@ -3,13 +3,12 @@ const models = require('../models');
 module.exports = {
   // TODO 全件取得（6件ずつ）
   getAllAccomplishments: async (req, res) => {},
-  // TODO 日付を指定する（URL？パラメータ？）
   getAccomplishmentsCounts: async (req, res) => {
     try {
       const counts = await models.Accomplishment.getAccomplishmentsCounts(
         req.user.id,
-        '2021-04-13',
-        '2021-04-15',
+        req.query.from,
+        req.query.to,
       );
       console.log('counts', counts);
       return res.json(counts);
