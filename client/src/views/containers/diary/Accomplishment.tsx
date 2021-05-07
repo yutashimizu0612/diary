@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
 `;
 
 type Props = {
-  date: string;
+  date: moment.Moment | null;
 };
 
 const Accomplishment: React.FC<Props> = ({ date }) => {
@@ -30,7 +30,8 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     deleteAccomplishment,
   } = useAccomplishment();
   useEffect(() => {
-    getAccomplishments(date);
+    getAccomplishments(date!.format('YYYY-MM-DD'));
+    console.log('useEffect内のdate', date!.format('YYYY-MM-DD'));
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -42,7 +43,11 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
     event.preventDefault();
     console.log('handleSubmit');
     try {
-      const id = await createAccomplishment(values.content, values.published);
+      const id = await createAccomplishment(
+        date!.format('YYYY-MM-DD'),
+        values.content,
+        values.published,
+      );
       addAccomplishment({
         id,
         content: values.content,

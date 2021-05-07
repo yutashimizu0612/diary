@@ -4,7 +4,7 @@ import moment from 'moment';
 import Layout from '../layouts/Layout';
 import Accomplishment from '../containers/diary/Accomplishment';
 import PostContainer from '../containers/diary/PostContainer';
-import Contribution from '../components/Contribution';
+import ContributionContainer from '../containers/diary/ContributionContainer';
 import DiaryDate from '../components/DiaryDate';
 import DiaryPagination from '../components/DiaryPagination';
 
@@ -13,27 +13,33 @@ const StyledWrapper = styled.div`
   width: 900px;
 `;
 
-// Postsの取得
-
-// コントリビューションの取得
-
 const Day: React.FC = () => {
-  const today = moment().format('YYYY-MM-DD');
-  const [targetDate, setTargetDate] = useState(today);
+  const [targetDate, setTargetDate] = useState<moment.Moment | null>(moment());
   const prev = () => {
-    setTargetDate(moment(targetDate).subtract(1, 'd').format('YYYY-MM-DD'));
+    const currentDate = targetDate!.clone();
+    setTargetDate(currentDate!.subtract(1, 'd'));
   };
   const next = () => {
-    setTargetDate(moment(targetDate).add(1, 'd').format('YYYY-MM-DD'));
+    const currentDate = targetDate!.clone();
+    setTargetDate(currentDate!.add(1, 'd'));
   };
   const backToToday = () => {
-    setTargetDate(today);
+    setTargetDate(moment());
+  };
+  const handleDateChange = (date: moment.Moment | null) => {
+    setTargetDate(date);
   };
   return (
     <Layout>
-      <Contribution />
+      <ContributionContainer />
       <StyledWrapper>
-        <DiaryDate date={targetDate} prev={prev} next={next} backToToday={backToToday} />
+        <DiaryDate
+          date={targetDate}
+          prev={prev}
+          next={next}
+          backToToday={backToToday}
+          handleDateChange={handleDateChange}
+        />
         <div css="margin-top: 45px;">
           <Accomplishment date={targetDate} />
         </div>

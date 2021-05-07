@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { Count } from '../../types';
+import ContributionRect from './ContributionRect';
 
 const StyledWrapper = styled.div`
   background: #fff;
@@ -8,7 +10,7 @@ const StyledWrapper = styled.div`
 
 const StyledInner = styled.div`
   margin: 0 auto;
-  width: 900px;
+  width: 952px;
 `;
 
 const StyledTitle = styled.p`
@@ -19,18 +21,21 @@ const StyledBody = styled.svg`
   width: 100%;
 `;
 
-const Contribution: React.FC = () => {
-  const xPositions = [...Array(52)].map((element, index) => 18 * index);
-  const yPositions = [...Array(7)].map((element, index) => 18 * index);
+type Props = {
+  counts: Count[][];
+};
+
+const Contribution: React.FC<Props> = ({ counts }) => {
+  console.log('propsのcounts', counts);
   return (
     <StyledWrapper>
       <StyledInner>
         <StyledTitle>160 contribution in the last year</StyledTitle>
         <StyledBody>
-          {xPositions.map((x) => (
-            <g transform={`translate(${x})`} key={x}>
-              {yPositions.map((y) => (
-                <rect width="16" height="16" fill="#e8e2e2" x="0" y={y} key={y}></rect>
+          {counts.map((week, index) => (
+            <g transform={`translate(${index * 18})`} key={week[0].date}>
+              {week.map((day, index) => (
+                <ContributionRect day={day} index={index} key={day.date} />
               ))}
             </g>
           ))}

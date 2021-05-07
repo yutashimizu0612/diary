@@ -15,7 +15,7 @@ const StyledStar = styled.div`
 `;
 
 type Props = {
-  date: string;
+  date: moment.Moment | null;
 };
 
 const PostContainer: React.FC<Props> = ({ date }) => {
@@ -25,7 +25,7 @@ const PostContainer: React.FC<Props> = ({ date }) => {
   const [values, setValues] = useState<Post>({ id: '', comment: '', star: 0 });
   useEffect(() => {
     (async () => {
-      const post: Post = await getPost(date);
+      const post: Post = await getPost(date!.format('YYYY-MM-DD'));
       setValues(post);
     })();
   }, [date]);
@@ -48,7 +48,7 @@ const PostContainer: React.FC<Props> = ({ date }) => {
 
   const create = async (): Promise<void> => {
     try {
-      const id = await createPost(date, values.comment, values.star);
+      const id = await createPost(date!.format('YYYY-MM-DD'), values.comment, values.star);
       setValues({ ...values, id, comment: values.comment, star: values.star });
     } catch (error) {
       console.log('error', error);

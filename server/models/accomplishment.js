@@ -20,34 +20,30 @@ module.exports = (sequelize, DataTypes) => {
     static getAccomplishmentsByDate(userId, date) {
       return this.findAll({
         attributes: ['id', 'content', 'published'],
-        where: {
-          userId,
-          createdAt: {
-            // ('2004-04-01T00:00:01+09:00')
-            [Op.gte]: new Date(date + 'T00:00:00+09:00'),
-            [Op.lte]: new Date(date + 'T23:59:59+09:00'),
-          },
-        },
+        where: { userId, date },
       });
     }
-    // TODO
-    // 1. key名を'count'ではなく、該当日の日付にしたい
     static getAccomplishmentsCounts(userId, from, to) {
+      console.log('getAccomplishmentsCounts');
       return this.findAll({
-        attributes: [[sequelize.fn('COUNT', sequelize.col('createdAt')), 'count']],
+        attributes: ['date', [sequelize.fn('COUNT', sequelize.col('date')), 'count']],
         where: {
           userId,
-          createdAt: {
-            [Op.gte]: new Date(from + 'T00:00:00+09:00'),
-            [Op.lte]: new Date(to + 'T23:59:59+09:00'),
+          date: {
+            [Op.gte]: new Date(from),
+            [Op.lte]: new Date(to),
           },
         },
-        group: [sequelize.fn('day', sequelize.col('createdAt'))],
+        group: ['date'],
       });
     }
   }
   Accomplishment.init(
     {
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+      },
       content: {
         type: DataTypes.STRING,
         allowNull: false,

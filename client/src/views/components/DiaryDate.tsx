@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import moment from 'moment';
+import 'moment/locale/ja';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import DatePickerThemeProvider from '../providers/DatePickerThemeProvider';
 
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const StyledToday = styled.button`
@@ -50,20 +54,17 @@ const StyledNavigateNextIcon = styled(NavigateNextIcon)`
   height: 100% !important;
 `;
 
-const StyledDate = styled.span`
-  font-size: 28px;
-  font-weight: 300;
-  margin-right: 20px;
-`;
-
 type Props = {
-  date: string;
+  date: moment.Moment | null;
   prev: () => void;
   next: () => void;
   backToToday: () => void;
+  handleDateChange: (date: moment.Moment | null) => void;
 };
 
-const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday }) => (
+moment.locale('ja');
+
+const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateChange }) => (
   <StyledWrapper>
     <StyledToday onClick={backToToday}>TODAY</StyledToday>
     <StyledArrows>
@@ -74,8 +75,18 @@ const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday }) => (
         <StyledNavigateNextIcon fontSize="large" />
       </StyledArrow>
     </StyledArrows>
-    <StyledDate>{moment(date).format('dddd, MMMM DD YYYY')}</StyledDate>
-    <CalendarTodayIcon fontSize="large" />
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <DatePickerThemeProvider>
+        <KeyboardDatePicker
+          autoOk
+          variant="inline"
+          disableFuture
+          value={date!.format('YYYY/MM/DD')}
+          onChange={(date) => handleDateChange(date)}
+          format="LLLL"
+        />
+      </DatePickerThemeProvider>
+    </MuiPickersUtilsProvider>
   </StyledWrapper>
 );
 

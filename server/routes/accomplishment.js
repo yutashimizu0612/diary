@@ -5,14 +5,14 @@ const { requireLogin } = require('../middleware/auth');
 const accomplishmentController = require('../controllers/accomplishmentController');
 
 accomplishmentRouter.get(
-  '/accomplishments/:date',
-  requireLogin,
-  accomplishmentController.getAccomplishments,
-);
-accomplishmentRouter.get(
   '/accomplishments/counts',
   requireLogin,
   accomplishmentController.getAccomplishmentsCounts,
+);
+accomplishmentRouter.get(
+  '/accomplishments/:date',
+  requireLogin,
+  accomplishmentController.getAccomplishments,
 );
 accomplishmentRouter.post('/accomplishments/', requireLogin, accomplishmentController.create);
 accomplishmentRouter.put('/accomplishments/:id', requireLogin, accomplishmentController.update);

@@ -32,11 +32,11 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
-  const createAccomplishment = useCallback((content: string, published: boolean) => {
+  const createAccomplishment = useCallback((date: string, content: string, published: boolean) => {
     return axios({
       method: 'POST',
       url: `${process.env.REACT_APP_API_URL}/accomplishments`,
-      data: { content, published },
+      data: { date, content, published },
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,6 +71,19 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
+  const getAccomplishmentsCounts = useCallback((from: string, to: string) => {
+    return axios({
+      method: 'GET',
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/counts?from=${from}&?to=${to}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log('GET ACCOMPLISHMENTS COUNTS SUCCESS', response);
+      return response.data;
+    });
+  }, []);
+
   return {
     accomplishments,
     addAccomplishment,
@@ -79,6 +92,7 @@ const useProvideAccomplishment = () => {
     createAccomplishment,
     updateAccomplishment,
     deleteAccomplishment,
+    getAccomplishmentsCounts,
   };
 };
 

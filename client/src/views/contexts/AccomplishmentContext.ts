@@ -16,7 +16,7 @@ const getAccomplishments = (date: string): any => {
   return accomplishments;
 };
 
-const createAccomplishment = (content: string, published: boolean): any => {
+const createAccomplishment = (date: string, content: string, published: boolean): any => {
   return accomplishments;
 };
 
@@ -28,6 +28,10 @@ const deleteAccomplishment = (id: string): any => {
   return accomplishments;
 };
 
+const getAccomplishmentsCounts = (from: string, to: string): any => {
+  return accomplishments;
+};
+
 const AccomplishmentContext = createContext({
   accomplishments,
   addAccomplishment,
@@ -36,6 +40,7 @@ const AccomplishmentContext = createContext({
   createAccomplishment,
   updateAccomplishment,
   deleteAccomplishment,
+  getAccomplishmentsCounts,
 });
 
 export default AccomplishmentContext;
