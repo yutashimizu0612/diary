@@ -1,4 +1,3 @@
-// validators/auth.js
 const { body } = require('express-validator');
 
 const signupFormValidator = [
