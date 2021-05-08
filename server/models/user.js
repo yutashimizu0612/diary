@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         name,
         email,
         password,
-        auth: false,
+        admin: false,
       });
     }
   }
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      auth: {
+      admin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
