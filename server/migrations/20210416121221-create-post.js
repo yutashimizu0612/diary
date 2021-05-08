@@ -20,6 +20,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.UUID,
+        onDelete: 'CASCADE',
         references: {
           model: {
             tableName: 'Users',
