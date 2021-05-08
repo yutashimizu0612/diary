@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      auth: {
+      admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
