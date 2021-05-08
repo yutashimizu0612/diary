@@ -9,7 +9,7 @@ import Button from '../components/Button';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
-  width: 700px;
+  width: 400px;
 `;
 
 const StyledTitle = styled.h2`
