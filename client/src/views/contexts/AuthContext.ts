@@ -1,4 +1,3 @@
-// AuthContext.tsx
 import { createContext } from 'react';
 import Cookies from 'js-cookie';
 

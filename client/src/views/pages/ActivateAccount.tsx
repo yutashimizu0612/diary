@@ -1,4 +1,3 @@
-// ActivateAccount.tsx
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';

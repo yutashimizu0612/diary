@@ -1,4 +1,3 @@
-// Login.tsx
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Redirect } from 'react-router-dom';

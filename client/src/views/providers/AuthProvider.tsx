@@ -1,4 +1,3 @@
-// AuthProvider.tsx
 import React from 'react';
 import authContext from '../contexts/AuthContext';
 import useProvideAuth from '../../functions/auth/use-auth';
