@@ -1,3 +1,4 @@
+// AuthContext.ts
 import { createContext } from 'react';
 import Cookies from 'js-cookie';
 
