@@ -1,8 +1,7 @@
-// middleware/auth.js
-const expressJwt = require('express-jwt');
-require('dotenv').config();
+  const expressJwt = require('express-jwt');
+  require('dotenv').config();
 
-exports.requireLogin = expressJwt({
-  secret: process.env.JWT_SECRET,
-  algorithms: ['HS256'],
-});
+  exports.requireLogin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ['HS256'],
+  });
