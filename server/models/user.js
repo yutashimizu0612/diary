@@ -1,3 +1,4 @@
+// models/user.js
 'use strict';
 const { Model } = require('sequelize');
 const bcrypt = require('bcrypt');
