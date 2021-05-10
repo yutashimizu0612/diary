@@ -7,8 +7,6 @@ const useContributionCounts = () => {
   // 終点：次の日曜日
   const lastDay = moment().endOf('isoWeek');
   const startDay = lastDay.clone().subtract(53, 'weeks');
-  console.log('lastDay', lastDay);
-  console.log('startDay', startDay);
 
   const [counts, setCounts] = useState<Count[][]>([]);
   const { getAccomplishmentsCounts } = useAccomplishment();

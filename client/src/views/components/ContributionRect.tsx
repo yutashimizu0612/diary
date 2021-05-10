@@ -13,10 +13,6 @@ type Props = {
 };
 
 const ContributionRect: React.FC<Props> = ({ day, index }) => {
-  if (day.count !== 0) {
-    console.log('count', day.count);
-    console.log(day.count > 10 ? 5 : Math.ceil(day.count / 2));
-  }
   return (
     <StyledRect
       width="16"
