@@ -83,7 +83,7 @@ const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateC
           disableFuture
           value={date!.format('YYYY/MM/DD')}
           onChange={(date) => handleDateChange(date)}
-          format="LLLL"
+          format="YYYY年 M月D日 (dd)"
         />
       </DatePickerThemeProvider>
     </MuiPickersUtilsProvider>
