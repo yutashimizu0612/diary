@@ -1,24 +1,21 @@
 import { useState, useCallback, useContext } from 'react';
 import axios from 'axios';
-import { Post } from '../types';
+import Cookies from 'js-cookie';
 import PostContext from '../views/contexts/PostContext';
-import { useAuth } from '../functions/auth/use-auth';
 
 export const usePost = () => {
   return useContext(PostContext);
 };
 
 const useProvidePost = () => {
-  const auth = useAuth();
-  const token = auth.getAccessToken();
   const [isCreated, setIsCreated] = useState(false);
 
-  const getPost = useCallback((date) => {
+  const getPost = useCallback((date: string) => {
     return axios({
       method: 'GET',
       url: `${process.env.REACT_APP_API_URL}/posts/${date}`,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
     }).then((response) => {
       // console.log('getPost SUCCESS', response);
@@ -38,7 +35,7 @@ const useProvidePost = () => {
       url: `${process.env.REACT_APP_API_URL}/posts`,
       data: { date, comment, star },
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
     }).then((response) => {
       console.log('NEW POST SUCCESS', response);
@@ -52,7 +49,7 @@ const useProvidePost = () => {
       url: `${process.env.REACT_APP_API_URL}/posts/${id}`,
       data: { comment, star },
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
     }).then((response) => {
       console.log('UPDATE POST SUCCESS', response);
