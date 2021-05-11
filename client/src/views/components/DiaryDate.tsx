@@ -64,6 +64,12 @@ type Props = {
 
 moment.locale('ja');
 
+class LocalizedUtils extends MomentUtils {
+  getDatePickerHeaderText(date: moment.Moment) {
+    return moment(date).format('M月D日 dd曜日');
+  }
+}
+
 const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateChange }) => (
   <StyledWrapper>
     <StyledToday onClick={backToToday}>TODAY</StyledToday>
@@ -75,7 +81,7 @@ const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateC
         <StyledNavigateNextIcon fontSize="large" />
       </StyledArrow>
     </StyledArrows>
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+    <MuiPickersUtilsProvider utils={LocalizedUtils}>
       <DatePickerThemeProvider>
         <KeyboardDatePicker
           autoOk
@@ -83,7 +89,7 @@ const DiaryDate: React.FC<Props> = ({ date, prev, next, backToToday, handleDateC
           disableFuture
           value={date!.format('YYYY/MM/DD')}
           onChange={(date) => handleDateChange(date)}
-          format="LLLL"
+          format="YYYY年 M月D日 (dd)"
         />
       </DatePickerThemeProvider>
     </MuiPickersUtilsProvider>
