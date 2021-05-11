@@ -23,7 +23,7 @@ module.exports = {
       const confirmationToken = await generateToken(
         // TODO jwtにemailやpasswordを含んで良いのか...?
         { name, email, password },
-        process.env.JWT_ACCOUNT_CONFIRMATION,
+        process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
         '900s',
       );
 
@@ -45,7 +45,7 @@ module.exports = {
   activateAccount: (req, res) => {
     const token = req.body.token;
     if (token) {
-      jwt.verify(token, process.env.JWT_ACCOUNT_CONFIRMATION, async (error, decoded) => {
+      jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION_SECRET, async (error, decoded) => {
         if (error) {
           console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
