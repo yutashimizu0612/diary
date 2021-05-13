@@ -10,7 +10,6 @@ module.exports = {
         req.query.from,
         req.query.to,
       );
-      console.log('counts', counts);
       return res.json(counts);
     } catch (error) {
       console.log('error', error);
@@ -23,7 +22,6 @@ module.exports = {
         req.user.id,
         req.params.date,
       );
-      console.log('accomplishments', accomplishments);
       return res.json(accomplishments);
     } catch (error) {
       console.log('error', error);

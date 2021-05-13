@@ -9,7 +9,6 @@ require('dotenv').config();
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
-    console.log('api側のsignup', name, email, password);
     try {
       // 既にメールアドレスが登録されていないかチェック
       const user = await models.User.findUserByEmail(email);

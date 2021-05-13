@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     static getAccomplishmentsCounts(userId, from, to) {
-      console.log('getAccomplishmentsCounts');
       return this.findAll({
         attributes: ['date', [sequelize.fn('COUNT', sequelize.col('date')), 'count']],
         where: {
