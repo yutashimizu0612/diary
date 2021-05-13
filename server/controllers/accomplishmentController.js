@@ -42,7 +42,7 @@ module.exports = {
         published,
         userId: req.user.id,
       });
-      return res.json({ id: accomplishment.id });
+      return res.json(accomplishment);
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
