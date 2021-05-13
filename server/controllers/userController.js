@@ -34,8 +34,9 @@ module.exports = {
         user.name = name;
         await user.save();
         return res.json({
-          message: 'プロフィール情報を更新しました。',
+          name: user.name,
         });
+        // message: 'プロフィール情報を更新しました。',
       }
     } catch (error) {
       console.log('error', error);

@@ -4,7 +4,6 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const post = await models.Post.getPostByDate(req.user.id, req.params.date);
-      console.log('post', post);
       return res.json(post);
     } catch (error) {
       console.log('error', error);
@@ -14,13 +13,13 @@ module.exports = {
   create: async (req, res) => {
     const { date, comment, star } = req.body;
     try {
-      await models.Post.create({
+      const newPost = await models.Post.create({
         date,
         comment,
         star,
         userId: req.user.id,
       });
-      return res.json({ message: 'new post' });
+      return res.json(newPost);
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
@@ -38,9 +37,7 @@ module.exports = {
         post.comment = comment;
         post.star = star;
         await post.save();
-        return res.json({
-          message: '日記の内容を更新しました。',
-        });
+        return res.json(post);
       }
     } catch (error) {
       console.log('error', error);

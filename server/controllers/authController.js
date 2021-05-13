@@ -56,10 +56,12 @@ module.exports = {
         // ユーザ登録処理
         try {
           const newUser = await models.User.addNewUser(name, email, password);
-          console.log('newUser', newUser);
           return res.json({
-            message: 'ユーザ登録が完了しました。ログインしてください！',
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
           });
+          // message: 'ユーザ登録が完了しました。ログインしてください！',
         } catch (error) {
           switch (error.parent.code) {
             case 'ER_DUP_ENTRY':
