@@ -65,9 +65,7 @@ module.exports = {
         accomplishment.content = content;
         accomplishment.published = published;
         await accomplishment.save();
-        return res.json({
-          message: '達成したことの内容を更新しました。',
-        });
+        return res.json(accomplishment);
       }
     } catch (error) {
       console.log('error', error);
@@ -83,9 +81,7 @@ module.exports = {
         });
       } else {
         await accomplishment.destroy();
-        return res.json({
-          message: '達成したことの内容を削除しました。',
-        });
+        return res.sendStatus(204);
       }
     } catch (error) {
       console.log('error', error);
