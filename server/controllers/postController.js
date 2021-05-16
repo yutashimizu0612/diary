@@ -6,8 +6,7 @@ module.exports = {
       const post = await models.Post.getPostByDate(req.user.id, req.params.date);
       return res.json(post);
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   },
   create: async (req, res) => {
@@ -21,8 +20,7 @@ module.exports = {
       });
       return res.json(newPost);
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   },
   update: async (req, res) => {
@@ -30,8 +28,11 @@ module.exports = {
     try {
       const post = await models.Post.findOne({ where: { id: req.params.id } });
       if (!post) {
-        return res.status(400).json({
-          message: '存在しない投稿です。',
+        return res.status(404).json({
+          error: {
+            message: 'Post update failed',
+            code: 'not_found',
+          },
         });
       } else {
         post.comment = comment;
@@ -40,8 +41,7 @@ module.exports = {
         return res.json(post);
       }
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   },
 };
