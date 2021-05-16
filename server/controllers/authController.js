@@ -52,7 +52,10 @@ module.exports = {
         if (error) {
           console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
-            message: '再度登録画面からやり直してください。',
+            error: {
+              message: 'Account Activation failed',
+              code: 'unauthorized',
+            },
           });
         }
 
@@ -65,25 +68,32 @@ module.exports = {
             name: newUser.name,
             email: newUser.email,
           });
-          // message: 'ユーザ登録が完了しました。ログインしてください！',
         } catch (error) {
-          switch (error.parent.code) {
-            case 'ER_DUP_ENTRY':
-              console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
-              return res.status(400).json({
-                message: 'ログイン画面からログインしてください。',
+          if (error.parent) {
+            if (error.parent.code === 'ER_DUP_ENTRY') {
+              return res.status(409).json({
+                error: {
+                  message: 'Account Activation failed',
+                  code: 'already_exists',
+                },
               });
-            default:
-              console.log('SIGNUP ERROR', error);
-              return res.status(400).json({
-                message: '登録に失敗しました。再度登録画面からやり直してください。',
-              });
+            }
+          } else {
+            return res.status(500).json({
+              error: {
+                message: 'Account Activation failed',
+                code: 'internal_error',
+              },
+            });
           }
         }
       });
     } else {
       return res.status(400).json({
-        message: 'お手数ですが、再度登録画面からやり直してください。',
+        error: {
+          message: 'Account Activation failed',
+          code: 'token_required',
+        },
       });
     }
   },

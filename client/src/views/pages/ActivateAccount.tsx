@@ -48,19 +48,32 @@ const ActivateAccount: React.FC = () => {
       url: `${process.env.REACT_APP_API_URL}/activation`,
       data: { token },
     })
-      .then((response) => {
-        console.log('ACCOUNT ACTIVATION SUCCESS', response);
+      .then(() => {
         setToastStatus({
           isOpen: true,
-          message: response.data.message,
+          message: 'ユーザ登録が完了しました。ログインしてください！',
           severity: 'success',
         });
       })
-      .catch((error) => {
-        console.log('ACCOUNT ACTIVATION ERROR', error.response);
+      .catch((e) => {
+        const { error } = e.response.data;
+        let message;
+        switch (error.code) {
+          case 'unauthorized':
+            message = 'このURLは使用できません。再度登録画面からやり直してください。';
+            break;
+          case 'already_exists':
+            message = '既に登録済です。ログイン画面からログインしてください。';
+            break;
+          case 'token_required':
+            message = '登録画面から必要事項を入力してください。';
+            break;
+          default:
+            message = '登録に失敗しました。お手数ですが再度登録画面からやり直してください。';
+        }
         setToastStatus({
           isOpen: true,
-          message: error.response.data.message,
+          message,
           severity: 'error',
         });
       });
