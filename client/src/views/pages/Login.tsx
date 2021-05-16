@@ -51,18 +51,29 @@ const Login: React.FC = () => {
   };
 
   const submit = () => {
-    console.log('login');
     const { email, password } = values;
     auth
       .login(email, password)
       .then(() => {
         setValues({ email: '', password: '' });
       })
-      .catch((error: any) => {
-        console.log('LOGIN SUBMIT ERROR response', error.response);
+      .catch((e: any) => {
+        const { error } = e.response.data;
+        console.log('error', e);
+        let message;
+        switch (error.code) {
+          case 'user_not_registered':
+            message = 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。';
+            break;
+          case 'unauthorized':
+            message = 'メールアドレスかパスワードが間違っています。';
+            break;
+          default:
+            message = 'ログインに失敗しました。';
+        }
         setToastStatus({
           isOpen: true,
-          message: error.response.data.message,
+          message,
           severity: 'error',
         });
       });

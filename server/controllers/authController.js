@@ -103,15 +103,23 @@ module.exports = {
       const user = await models.User.findUserByEmail(req.body.email);
       // ユーザが登録されていない場合
       if (!user) {
-        return res.status(400).json({
-          message: 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。',
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'user_not_registered',
+          },
         });
       }
 
       // パスワードの照合
       const match = await bcrypt.compare(req.body.password, user.password);
       if (!match) {
-        return res.status(400).json({ message: 'メールアドレスかパスワードが間違っています。' });
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'unauthorized',
+          },
+        });
       }
 
       // access-tokenの発行
@@ -122,9 +130,11 @@ module.exports = {
         user: { id },
       });
     } catch (error) {
-      console.log('LOGIN ERROR', error);
-      return res.status(400).json({
-        message: 'ログインに失敗しました。',
+      return res.status(500).json({
+        error: {
+          message: 'Login failed',
+          code: 'internal_error',
+        },
       });
     }
   },
