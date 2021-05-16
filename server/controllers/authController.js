@@ -36,7 +36,12 @@ module.exports = {
       });
     } catch (error) {
       console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({
+        error: {
+          message: 'Signup failed',
+          code: 'internal_error',
+        },
+      });
     }
   },
 
