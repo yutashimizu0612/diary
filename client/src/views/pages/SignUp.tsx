@@ -51,7 +51,7 @@ const SignUp: React.FC = () => {
     const { name, email, password, confirmation } = values;
     auth
       .signup(name, email, password, confirmation)
-      .then((response: any) => {
+      .then(() => {
         setValues({
           name: '',
           email: '',
@@ -74,7 +74,7 @@ const SignUp: React.FC = () => {
         }
         setToastStatus({
           isOpen: true,
-          message: message,
+          message,
           severity: 'error',
         });
       });
