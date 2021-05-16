@@ -13,8 +13,11 @@ module.exports = {
       // 既にメールアドレスが登録されていないかチェック
       const user = await models.User.findUserByEmail(email);
       if (user) {
-        return res.status(400).json({
-          message: 'このメールアドレスは既に登録されています。',
+        return res.status(409).json({
+          error: {
+            message: 'Signup failed',
+            code: 'already_exists',
+          },
         });
       }
 
@@ -29,7 +32,7 @@ module.exports = {
       // メールアドレスに確認メールを送信
       await sendConfirmationEmail(res, name, email, confirmationToken);
       return res.json({
-        message: `${email}に確認メールを送信しました。メールをご確認の上、本登録を行ってください。`,
+        message: 'Confirmation email has been sent',
       });
     } catch (error) {
       console.log('error', error);
