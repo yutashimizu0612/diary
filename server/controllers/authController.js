@@ -27,14 +27,10 @@ module.exports = {
       );
 
       // メールアドレスに確認メールを送信
-      try {
-        await sendConfirmationEmail(res, email, confirmationToken);
-      } catch (error) {
-        console.error(error);
-        if (error.response) {
-          console.error(error.response.body);
-        }
-      }
+      await sendConfirmationEmail(res, name, email, confirmationToken);
+      return res.json({
+        message: `${email}に確認メールを送信しました。メールをご確認の上、本登録を行ってください。`,
+      });
     } catch (error) {
       console.log('error', error);
       return res.status(400).json({ error: error });
