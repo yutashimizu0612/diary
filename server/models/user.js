@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         email,
         password,
         admin: false,
+        is_verified: false,
       });
     }
   }
