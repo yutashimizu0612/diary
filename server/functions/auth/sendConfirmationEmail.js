@@ -4,7 +4,7 @@ const ejs = require('ejs');
 const appRoot = require('app-root-path');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-exports.sendConfirmationEmail = async (res, name, email, confirmationToken) => {
+exports.sendConfirmationEmail = async (name, email, confirmationToken) => {
   try {
     const html = await ejs.renderFile(appRoot + '/views/account-activation-mail.ejs', {
       name,
