@@ -6,15 +6,17 @@ module.exports = {
     try {
       const user = await models.User.findOne({ where: { id: userId } });
       if (!user) {
-        return res.status(400).json({
-          message: '存在しないユーザです。',
+        return res.status(404).json({
+          error: {
+            message: 'Could not get user info',
+            code: 'not_found',
+          },
         });
       }
       user.password = undefined;
       res.json(user);
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({ error: error });
     }
   },
   update: async (req, res) => {
@@ -22,25 +24,34 @@ module.exports = {
     try {
       const user = await models.User.findOne({ where: { id: req.user.id } });
       if (!user) {
-        return res.status(400).json({
-          message: '存在しないユーザです。',
+        return res.status(404).json({
+          error: {
+            message: 'User info update failed',
+            code: 'not_found',
+          },
         });
       }
       if (!name) {
         return res.status(400).json({
-          message: '名前は入力必須です。',
+          error: {
+            message: 'User info update failed',
+            code: 'required',
+          },
         });
       } else {
         user.name = name;
-        await user.save();
+        await user.sae();
         return res.json({
           name: user.name,
         });
-        // message: 'プロフィール情報を更新しました。',
       }
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({
+        error: {
+          message: 'User info update failed',
+          code: 'internal_error',
+        },
+      });
     }
   },
 };
