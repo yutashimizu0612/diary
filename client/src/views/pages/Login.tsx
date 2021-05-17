@@ -59,7 +59,6 @@ const Login: React.FC = () => {
       })
       .catch((e: any) => {
         const { error } = e.response.data;
-        console.log('error', e);
         let message;
         switch (error.code) {
           case 'user_not_registered':
