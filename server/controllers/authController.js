@@ -20,22 +20,21 @@ module.exports = {
           },
         });
       }
-
+      // ユーザ仮登録
+      const { id } = await models.User.addNewUser(name, email, password);
+      console.log('newUserのid', id);
       // confirmation-token発行
       const confirmationToken = await generateToken(
-        // TODO jwtにemailやpasswordを含んで良いのか...?
-        { name, email, password },
+        { id },
         process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
         '900s',
       );
-
       // メールアドレスに確認メールを送信
-      await sendConfirmationEmail(res, name, email, confirmationToken);
+      await sendConfirmationEmail(name, email, confirmationToken);
       return res.json({
         message: 'Confirmation email has been sent',
       });
     } catch (error) {
-      console.log('error', error);
       return res.status(500).json({
         error: {
           message: 'Signup failed',
