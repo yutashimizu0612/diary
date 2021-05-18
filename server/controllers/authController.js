@@ -113,6 +113,16 @@ module.exports = {
         });
       }
 
+      // 本登録されていない場合 401
+      if (!user.is_verified) {
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'not_verified',
+          },
+        });
+      }
+
       // パスワードの照合
       const match = await bcrypt.compare(req.body.password, user.password);
       if (!match) {

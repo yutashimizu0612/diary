@@ -64,6 +64,9 @@ const Login: React.FC = () => {
           case 'user_not_registered':
             message = 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。';
             break;
+          case 'not_verified':
+            message = '本登録が完了していません。';
+            break;
           case 'unauthorized':
             message = 'メールアドレスかパスワードが間違っています。';
             break;
