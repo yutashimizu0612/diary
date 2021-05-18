@@ -62,8 +62,11 @@ const ActivateAccount: React.FC = () => {
           case 'unauthorized':
             message = 'このURLは使用できません。再度登録画面からやり直してください。';
             break;
-          case 'already_exists':
-            message = '既に登録済です。ログイン画面からログインしてください。';
+          case 'not_registered':
+            message = '仮登録されていません。登録画面からやり直してください。';
+            break;
+          case 'already_verified':
+            message = '既に本登録が完了しています。ログイン画面からログインしてください。';
             break;
           case 'token_required':
             message = '登録画面から必要事項を入力してください。';

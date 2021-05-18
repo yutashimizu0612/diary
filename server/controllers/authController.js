@@ -22,7 +22,6 @@ module.exports = {
       }
       // ユーザ仮登録
       const { id } = await models.User.addNewUser(name, email, password);
-      console.log('newUserのid', id);
       // confirmation-token発行
       const confirmationToken = await generateToken(
         { id },
@@ -58,33 +57,37 @@ module.exports = {
           });
         }
 
-        const { name, email, password } = decoded;
-        // ユーザ登録処理
+        const { id } = decoded;
+        // ユーザ本登録処理
         try {
-          const newUser = await models.User.addNewUser(name, email, password);
-          return res.json({
-            id: newUser.id,
-            name: newUser.name,
-            email: newUser.email,
-          });
-        } catch (error) {
-          if (error.parent) {
-            if (error.parent.code === 'ER_DUP_ENTRY') {
-              return res.status(409).json({
-                error: {
-                  message: 'Account Activation failed',
-                  code: 'already_exists',
-                },
-              });
-            }
-          } else {
-            return res.status(500).json({
+          const user = await models.User.findByPk(id);
+          if (!user) {
+            return res.status(400).json({
               error: {
                 message: 'Account Activation failed',
-                code: 'internal_error',
+                code: 'not_registered',
               },
             });
           }
+          if (user.is_verified) {
+            return res.status(409).json({
+              error: {
+                message: 'Account Activation failed',
+                code: 'already_verified',
+              },
+            });
+          }
+          // 本登録処理
+          user.is_verified = true;
+          user.save();
+          return res.json({ user });
+        } catch (error) {
+          return res.status(500).json({
+            error: {
+              message: 'Account Activation failed',
+              code: 'internal_error',
+            },
+          });
         }
       });
     } else {
