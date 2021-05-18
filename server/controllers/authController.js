@@ -100,6 +100,51 @@ module.exports = {
     }
   },
 
+  resendConfirmationEmail: async (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await models.User.findUserByEmail(email);
+      // 仮登録されていない場合400
+      if (!user) {
+        return res.status(400).json({
+          error: {
+            message: 'Resend confirmation email failed',
+            code: 'not_registered',
+          },
+        });
+      }
+      // 既に本登録済みの場合は409
+      if (user.is_verified) {
+        return res.status(409).json({
+          error: {
+            message: 'Resend confirmation email failed',
+            code: 'already_verified',
+          },
+        });
+      }
+      // confirmation-token発行
+      const id = user.id;
+      const confirmationToken = await generateToken(
+        { id },
+        process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
+        '900s',
+      );
+      // メールアドレスに確認メールを送信
+      await sendConfirmationEmail(user.name, email, confirmationToken);
+      return res.json({
+        message: 'Confirmation email has been sent',
+      });
+    } catch (error) {
+      console.log('error', error);
+      return res.status(500).json({
+        error: {
+          message: 'Resend confirmation email failed',
+          code: 'internal_error',
+        },
+      });
+    }
+  },
+
   login: async (req, res) => {
     try {
       const user = await models.User.findUserByEmail(req.body.email);
