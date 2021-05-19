@@ -16,20 +16,9 @@ const StyledFormItem = styled.div`
   }
 `;
 
-const StyledText = styled.p`
-  color: #acacac;
-  text-align: center;
-`;
-
 const StyledSignupButtonWrapper = styled.div`
   margin: 40px auto 0;
   width: 400px;
-`;
-
-const StyledFacebook = styled.div`
-  border-top: 1px dotted #707070;
-  margin-top: 96px;
-  padding-top: 24px;
 `;
 
 type Props = {
@@ -92,18 +81,6 @@ const SignUpForm: React.FC<Props> = ({ values, errors, onChange, onSubmit }) => 
       <StyledSignupButtonWrapper>
         <Button text="アカウント登録" appearance="primary" onClick={onSubmit} />
       </StyledSignupButtonWrapper>
-      {/* Submitボタン（Facebook） */}
-      <StyledFacebook>
-        <StyledText>または</StyledText>
-        <StyledText>Facebookでも登録できます。</StyledText>
-        <div css="margin-top: 30px;">
-          <Button
-            text="Facebookで登録"
-            appearance="facebook"
-            onClick={() => console.log('Facebookで登録処理')}
-          />
-        </div>
-      </StyledFacebook>
     </StyledForm>
   );
 };
