@@ -6,7 +6,7 @@ import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
 import TextForm from '../components/TextForm';
-import Button from '../components/Button';
+import Button from '../components/BaseButton';
 import { validateResendConfirmationForm } from '../../functions/auth/validation';
 
 const StyledWrapper = styled.div`
@@ -30,6 +30,7 @@ const ResendConfirmationEmail: React.FC = () => {
   const [values, setValues] = useState<{ email: string }>({ email: '' });
   const [errors, setErrors] = useState<{ email?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [toastStatus, setToastStatus] = useState({
     isOpen: false,
     message: '',
@@ -58,6 +59,7 @@ const ResendConfirmationEmail: React.FC = () => {
           message: `${values.email}に確認メールを再送信しました。メールをご確認の上、本登録を行ってください。`,
           severity: 'success',
         });
+        setIsSubmitted(true);
       })
       .catch((e) => {
         const { error } = e.response.data;
@@ -109,7 +111,12 @@ const ResendConfirmationEmail: React.FC = () => {
           onChange={(e) => handleChange(e)}
         />
         <StyledButtonWrapper>
-          <Button text="再送信" appearance="primary" onClick={(e) => handleSubmit(e)} />
+          <Button
+            text="再送信"
+            appearance="primary"
+            onClick={(e) => handleSubmit(e)}
+            disabled={isSubmitted}
+          />
         </StyledButtonWrapper>
       </StyledWrapper>
     </Layout>
