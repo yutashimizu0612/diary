@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
@@ -24,6 +24,15 @@ const StyledTitle = styled.h2`
 const StyledText = styled.p`
   color: #acacac;
   text-align: center;
+`;
+
+const StyledLink = styled(Link)`
+  color: #acacac;
+  text-align: center;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Login: React.FC = () => {
@@ -115,6 +124,9 @@ const Login: React.FC = () => {
           />
         </div>
       </StyledWrapper>
+      <div css="text-align: center">
+        <StyledLink to="/resend">登録確認メールの再送信</StyledLink>
+      </div>
     </Layout>
   );
 };
