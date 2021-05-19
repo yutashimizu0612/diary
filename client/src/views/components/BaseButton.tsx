@@ -1,12 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import facebookLogo from '../../assets/images/logo_facebook.png';
+import Button from '@material-ui/core/Button';
 
-const StyledButton = styled.button<{ appearance: 'primary' | 'facebook' }>`
+const StyledButton = styled(Button)<{ appearance: 'primary' | 'facebook' }>`
   border: none;
   box-shadow: 0 3px 4px rgb(0, 0, 0, 0.16);
   outline: none;
   padding: 16px 0;
+  transition: 0.2s;
   width: 100%;
   &:hover {
     opacity: 0.7;
@@ -16,12 +18,21 @@ const StyledButton = styled.button<{ appearance: 'primary' | 'facebook' }>`
     css`
       background: #2cd671;
       border-radius: 24px;
+      &:hover {
+        background: #2cd671;
+      }
     `}
   ${(props) =>
     props.appearance === 'facebook' &&
     css`
       background: #1877f2;
+      &:hover {
+        background: #1877f2;
+      }
     `}
+  &:disabled {
+    background: #e4e4e4;
+  }
 `;
 
 const StyledText = styled.span<{ appearance: 'primary' | 'facebook' }>`
@@ -50,13 +61,14 @@ const StyledText = styled.span<{ appearance: 'primary' | 'facebook' }>`
 type Props = {
   text: string;
   appearance: 'primary' | 'facebook';
+  disabled?: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button: React.FC<Props> = ({ text, appearance, onClick }) => (
-  <StyledButton appearance={appearance} onClick={onClick}>
+const baseButton: React.FC<Props> = ({ text, appearance, disabled, onClick }) => (
+  <StyledButton appearance={appearance} onClick={onClick} disabled={disabled}>
     <StyledText appearance={appearance}>{text}</StyledText>
   </StyledButton>
 );
 
-export default Button;
+export default baseButton;
