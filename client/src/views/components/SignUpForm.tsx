@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { SignUpFormValues } from '../../types';
 import TextForm from './TextForm';
-import Button from './Button';
+import Button from './BaseButton';
 
 const StyledForm = styled.form``;
 

@@ -5,7 +5,7 @@ import { Color } from '@material-ui/lab/Alert';
 import { useParams } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
-import Button from '../components/Button';
+import Button from '../components/BaseButton';
 
 const StyledWrapper = styled.div`
   margin: 130px auto 0;
