@@ -123,9 +123,8 @@ module.exports = {
         });
       }
       // confirmation-token発行
-      const id = user.id;
       const confirmationToken = await generateToken(
-        { id },
+        { id: user.id },
         process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
         '900s',
       );
