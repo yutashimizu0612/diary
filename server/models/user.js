@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         email,
         password,
         admin: false,
+        is_verified: false,
       });
     }
   }
@@ -42,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       admin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      is_verified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },

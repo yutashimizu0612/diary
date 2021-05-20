@@ -9,7 +9,7 @@ const accomplishmentRouter = require('./routes/accomplishment');
 
 const app = express();
 require('dotenv').config();
-
+app.set('view engine', 'ejs');
 // middleware
 app.use(express.json());
 app.use(morgan('dev'));

@@ -31,27 +31,24 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   } = useAccomplishment();
   useEffect(() => {
     getAccomplishments(date!.format('YYYY-MM-DD'));
-    console.log('useEffect内のdate', date!.format('YYYY-MM-DD'));
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValues({ ...values, [event.target.name]: event.target.value });
-    console.log('values', values);
   };
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
-    console.log('handleSubmit');
     try {
-      const id = await createAccomplishment(
+      const accomplishment = await createAccomplishment(
         date!.format('YYYY-MM-DD'),
         values.content,
         values.published,
       );
       addAccomplishment({
-        id,
-        content: values.content,
-        published: values.published,
+        id: accomplishment.id,
+        content: accomplishment.content,
+        published: accomplishment.published,
       });
       setValues({ content: '', published: false });
     } catch (error) {

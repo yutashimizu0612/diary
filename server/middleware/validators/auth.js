@@ -26,6 +26,15 @@ const signupFormValidator = [
     }),
 ];
 
+const resendFormValidator = [
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage('メールアドレスは入力必須です')
+    .isEmail()
+    .withMessage('正しいメールアドレスを入力してください'),
+];
+
 const loginFormValidator = [
   body('email')
     .not()
@@ -43,5 +52,6 @@ const loginFormValidator = [
 
 module.exports = {
   signupFormValidator,
+  resendFormValidator,
   loginFormValidator,
 };
