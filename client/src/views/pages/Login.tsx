@@ -26,6 +26,13 @@ const StyledText = styled.p`
   text-align: center;
 `;
 
+const StyledLinkWrapper = styled.div`
+  border-top: 1px dotted #707070;
+  margin-top: 96px;
+  padding-top: 24px;
+  text-align: center;
+`;
+
 const StyledLink = styled(Link)`
   color: #acacac;
   text-align: center;
@@ -123,10 +130,10 @@ const Login: React.FC = () => {
             onSubmit={handleSubmit}
           />
         </div>
+        <StyledLinkWrapper>
+          <StyledLink to="/resend">登録確認メールの再送信</StyledLink>
+        </StyledLinkWrapper>
       </StyledWrapper>
-      <div css="text-align: center">
-        <StyledLink to="/resend">登録確認メールの再送信</StyledLink>
-      </div>
     </Layout>
   );
 };
