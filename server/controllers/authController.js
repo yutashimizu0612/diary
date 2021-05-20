@@ -9,76 +9,137 @@ require('dotenv').config();
 module.exports = {
   signup: async (req, res) => {
     const { name, email, password } = req.body;
-    console.log('api側のsignup', name, email, password);
     try {
       // 既にメールアドレスが登録されていないかチェック
       const user = await models.User.findUserByEmail(email);
       if (user) {
-        return res.status(400).json({
-          message: 'このメールアドレスは既に登録されています。',
+        return res.status(409).json({
+          error: {
+            message: 'Signup failed',
+            code: 'already_exists',
+          },
         });
       }
-
+      // ユーザ仮登録
+      const { id } = await models.User.addNewUser(name, email, password);
       // confirmation-token発行
       const confirmationToken = await generateToken(
-        // TODO jwtにemailやpasswordを含んで良いのか...?
-        { name, email, password },
-        process.env.JWT_ACCOUNT_CONFIRMATION,
+        { id },
+        process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
         '900s',
       );
-
       // メールアドレスに確認メールを送信
-      try {
-        await sendConfirmationEmail(res, email, confirmationToken);
-      } catch (error) {
-        console.error(error);
-        if (error.response) {
-          console.error(error.response.body);
-        }
-      }
+      await sendConfirmationEmail(name, email, confirmationToken);
+      return res.json({
+        message: 'Confirmation email has been sent',
+      });
     } catch (error) {
-      console.log('error', error);
-      return res.status(400).json({ error: error });
+      return res.status(500).json({
+        error: {
+          message: 'Signup failed',
+          code: 'internal_error',
+        },
+      });
     }
   },
 
   activateAccount: (req, res) => {
     const token = req.body.token;
     if (token) {
-      jwt.verify(token, process.env.JWT_ACCOUNT_CONFIRMATION, async (error, decoded) => {
+      jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION_SECRET, async (error, decoded) => {
         if (error) {
           console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
-            message: '再度登録画面からやり直してください。',
+            error: {
+              message: 'Account Activation failed',
+              code: 'unauthorized',
+            },
           });
         }
 
-        const { name, email, password } = decoded;
-        // ユーザ登録処理
+        const { id } = decoded;
+        // ユーザ本登録処理
         try {
-          const newUser = await models.User.addNewUser(name, email, password);
-          console.log('newUser', newUser);
-          return res.json({
-            message: 'ユーザ登録が完了しました。ログインしてください！',
-          });
-        } catch (error) {
-          switch (error.parent.code) {
-            case 'ER_DUP_ENTRY':
-              console.log('SIGNUP ERROR DUPLICATE ENTRY', error);
-              return res.status(400).json({
-                message: 'ログイン画面からログインしてください。',
-              });
-            default:
-              console.log('SIGNUP ERROR', error);
-              return res.status(400).json({
-                message: '登録に失敗しました。再度登録画面からやり直してください。',
-              });
+          const user = await models.User.findByPk(id);
+          if (!user) {
+            return res.status(400).json({
+              error: {
+                message: 'Account Activation failed',
+                code: 'not_registered',
+              },
+            });
           }
+          if (user.is_verified) {
+            return res.status(409).json({
+              error: {
+                message: 'Account Activation failed',
+                code: 'already_verified',
+              },
+            });
+          }
+          // 本登録処理
+          user.is_verified = true;
+          user.save();
+          return res.json({ user });
+        } catch (error) {
+          return res.status(500).json({
+            error: {
+              message: 'Account Activation failed',
+              code: 'internal_error',
+            },
+          });
         }
       });
     } else {
       return res.status(400).json({
-        message: 'お手数ですが、再度登録画面からやり直してください。',
+        error: {
+          message: 'Account Activation failed',
+          code: 'token_required',
+        },
+      });
+    }
+  },
+
+  resendConfirmationEmail: async (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await models.User.findUserByEmail(email);
+      // 仮登録されていない場合400
+      if (!user) {
+        return res.status(400).json({
+          error: {
+            message: 'Resend confirmation email failed',
+            code: 'not_registered',
+          },
+        });
+      }
+      // 既に本登録済みの場合は409
+      if (user.is_verified) {
+        return res.status(409).json({
+          error: {
+            message: 'Resend confirmation email failed',
+            code: 'already_verified',
+          },
+        });
+      }
+      // confirmation-token発行
+      const confirmationToken = await generateToken(
+        { id: user.id },
+        process.env.JWT_ACCOUNT_ACTIVATION_SECRET,
+        '900s',
+      );
+      // メールアドレスに確認メールを送信
+      await sendConfirmationEmail(user.name, email, confirmationToken);
+      return res.json({
+        message: 'Confirmation email has been sent',
+      });
+    } catch (error) {
+      console.log('error', error);
+      return res.status(500).json({
+        error: {
+          message: 'Resend confirmation email failed',
+          code: 'internal_error',
+        },
       });
     }
   },
@@ -88,15 +149,33 @@ module.exports = {
       const user = await models.User.findUserByEmail(req.body.email);
       // ユーザが登録されていない場合
       if (!user) {
-        return res.status(400).json({
-          message: 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。',
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'user_not_registered',
+          },
+        });
+      }
+
+      // 本登録されていない場合 401
+      if (!user.is_verified) {
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'not_verified',
+          },
         });
       }
 
       // パスワードの照合
       const match = await bcrypt.compare(req.body.password, user.password);
       if (!match) {
-        return res.status(400).json({ message: 'メールアドレスかパスワードが間違っています。' });
+        return res.status(401).json({
+          error: {
+            message: 'Login failed',
+            code: 'unauthorized',
+          },
+        });
       }
 
       // access-tokenの発行
@@ -107,9 +186,11 @@ module.exports = {
         user: { id },
       });
     } catch (error) {
-      console.log('LOGIN ERROR', error);
-      return res.status(400).json({
-        message: 'ログインに失敗しました。',
+      return res.status(500).json({
+        error: {
+          message: 'Login failed',
+          code: 'internal_error',
+        },
       });
     }
   },

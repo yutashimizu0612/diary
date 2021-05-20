@@ -67,6 +67,21 @@ export function validateLoginForm(values: LoginFormValues) {
   return errors;
 }
 
+export function validateResendConfirmationForm(values: { email: string }) {
+  const errors = {};
+  // メールアドレス
+  if (!values.email) {
+    Object.assign(errors, { email: 'メールアドレスは入力必須です。' });
+  } else {
+    const emailRegexp = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+    if (!emailRegexp.test(values.email)) {
+      Object.assign(errors, { email: '正しいメールアドレスを入力してください' });
+    }
+  }
+
+  return errors;
+}
+
 export function validateUpdateAccountForm(values: { name: string }) {
   const errors = {};
   // ユーザ名

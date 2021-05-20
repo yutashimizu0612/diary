@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { LoginFormValues } from '../../types';
 import TextForm from './TextForm';
-import Button from './Button';
+import Button from './BaseButton';
 
 const StyledForm = styled.form``;
 
@@ -15,20 +15,9 @@ const StyledFormItem = styled.div`
   }
 `;
 
-const StyledText = styled.p`
-  color: #acacac;
-  text-align: center;
-`;
-
 const StyledLoginButtonWrapper = styled.div`
   margin: 36px auto 0;
   width: 400px;
-`;
-
-const StyledFacebook = styled.div`
-  border-top: 1px dotted #707070;
-  margin-top: 96px;
-  padding-top: 24px;
 `;
 
 type Props = {
@@ -67,17 +56,6 @@ const SignUpForm: React.FC<Props> = ({ values, errors, onChange, onSubmit }) => 
       <StyledLoginButtonWrapper>
         <Button text="ログイン" appearance="primary" onClick={onSubmit} />
       </StyledLoginButtonWrapper>
-      <StyledFacebook>
-        <StyledText>または</StyledText>
-        <StyledText>Facebookでもログインできます。</StyledText>
-        <div css="margin-top: 30px;">
-          <Button
-            text="Facebookでログイン"
-            appearance="facebook"
-            onClick={() => console.log('facebookでログイン処理')}
-          />
-        </div>
-      </StyledFacebook>
     </StyledForm>
   );
 };

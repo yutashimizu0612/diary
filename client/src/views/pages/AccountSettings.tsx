@@ -71,7 +71,6 @@ const AccountSettings: React.FC = () => {
   };
 
   const submit = () => {
-    console.log('update');
     const { name } = values;
     axios({
       method: 'PUT',
@@ -81,19 +80,26 @@ const AccountSettings: React.FC = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => {
-        console.log('PRPFILE UPDATE SUCCESS', response);
+      .then(() => {
         setToastStatus({
           isOpen: true,
-          message: response.data.message,
+          message: 'プロフィール情報を更新しました。',
           severity: 'success',
         });
       })
-      .catch((error) => {
-        console.log('PRPFILE UPDATE ERROR', error.response);
+      .catch((e) => {
+        const { error } = e.response.data;
+        let message;
+        switch (error.code) {
+          case 'required':
+            message = '名前は入力必須です';
+            break;
+          default:
+            message = '更新できませんでした。時間を置いて再度やり直してください。';
+        }
         setToastStatus({
           isOpen: true,
-          message: error.response.data.message,
+          message,
           severity: 'error',
         });
       });

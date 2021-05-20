@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Color } from '@material-ui/lab/Alert';
 import Layout from '../layouts/Layout';
 import Toast from '../components/Toast';
@@ -24,6 +24,22 @@ const StyledTitle = styled.h2`
 const StyledText = styled.p`
   color: #acacac;
   text-align: center;
+`;
+
+const StyledLinkWrapper = styled.div`
+  border-top: 1px dotted #707070;
+  margin-top: 96px;
+  padding-top: 24px;
+  text-align: center;
+`;
+
+const StyledLink = styled(Link)`
+  color: #acacac;
+  text-align: center;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Login: React.FC = () => {
@@ -51,18 +67,31 @@ const Login: React.FC = () => {
   };
 
   const submit = () => {
-    console.log('login');
     const { email, password } = values;
     auth
       .login(email, password)
       .then(() => {
         setValues({ email: '', password: '' });
       })
-      .catch((error: any) => {
-        console.log('LOGIN SUBMIT ERROR response', error.response);
+      .catch((e: any) => {
+        const { error } = e.response.data;
+        let message;
+        switch (error.code) {
+          case 'user_not_registered':
+            message = 'このメールアドレスは登録されていません。ご利用にはユーザ登録が必要です。';
+            break;
+          case 'not_verified':
+            message = '本登録が完了していません。';
+            break;
+          case 'unauthorized':
+            message = 'メールアドレスかパスワードが間違っています。';
+            break;
+          default:
+            message = 'ログインに失敗しました。';
+        }
         setToastStatus({
           isOpen: true,
-          message: error.response.data.message,
+          message,
           severity: 'error',
         });
       });
@@ -101,6 +130,9 @@ const Login: React.FC = () => {
             onSubmit={handleSubmit}
           />
         </div>
+        <StyledLinkWrapper>
+          <StyledLink to="/resend">登録確認メールの再送信</StyledLink>
+        </StyledLinkWrapper>
       </StyledWrapper>
     </Layout>
   );

@@ -51,8 +51,7 @@ const SignUp: React.FC = () => {
     const { name, email, password, confirmation } = values;
     auth
       .signup(name, email, password, confirmation)
-      .then((response: any) => {
-        console.log('SIGNUP SUBMIT SUCCESS', response);
+      .then(() => {
         setValues({
           name: '',
           email: '',
@@ -61,15 +60,21 @@ const SignUp: React.FC = () => {
         });
         setToastStatus({
           isOpen: true,
-          message: response.data.message,
+          message: `${email}に確認メールを送信しました。メールをご確認の上、本登録を行ってください。`,
           severity: 'success',
         });
       })
-      .catch((error: any) => {
-        console.log('SIGNUP SUBMIT ERROR response', error.response);
+      .catch((e: any) => {
+        const { error } = e.response.data;
+        let message;
+        if (error.code === 'already_exists') {
+          message = 'このメールアドレスは既に登録されています。';
+        } else {
+          message = '登録に失敗しました。再度登録画面からやり直してください。';
+        }
         setToastStatus({
           isOpen: true,
-          message: error.response.data.message,
+          message,
           severity: 'error',
         });
       });

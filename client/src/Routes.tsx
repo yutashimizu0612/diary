@@ -4,6 +4,7 @@ import PrivateRoute from './views/components/auth/PrivateRoute';
 import Login from './views/pages/Login';
 import SignUp from './views/pages/SignUp';
 import ActivateAccount from './views/pages/ActivateAccount';
+import ResendConfirmationEmail from './views/pages/ResendConfirmationEmail';
 import Posts from './views/pages/Posts';
 import Status from './views/pages/Status';
 import Day from './views/pages/Day';
@@ -21,6 +22,9 @@ const Routes: React.FC = () => (
       </Route>
       <Route path="/activation/:token">
         <ActivateAccount />
+      </Route>
+      <Route path="/resend/">
+        <ResendConfirmationEmail />
       </Route>
       <PrivateRoute exact path="/">
         <Day />
