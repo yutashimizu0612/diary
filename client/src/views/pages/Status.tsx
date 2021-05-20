@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
-import GoodDays from '../components/GoodDays';
+import ContributionContainer from '../containers/status/ContributionContainer';
+import GoodDaysInThePastMonth from '../containers/status/GoodDaysInThePastMonth';
 
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
@@ -10,8 +11,9 @@ const StyledWrapper = styled.div`
 
 const Status: React.FC = () => (
   <Layout>
+    <ContributionContainer />
     <StyledWrapper>
-      <GoodDays />
+      <GoodDaysInThePastMonth />
     </StyledWrapper>
   </Layout>
 );
