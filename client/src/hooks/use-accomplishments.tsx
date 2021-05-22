@@ -13,10 +13,11 @@ const useProvideAccomplishment = () => {
 
   const setAccomplishments = (accomplishments: Accomplishment[]) => setState(accomplishments);
 
-  const getAccomplishments = useCallback((date: string) => {
+  const getAccomplishments = useCallback((date: string[]) => {
+    const querystring = '?date=' + date.join('&date=');
     return axios({
       method: 'GET',
-      url: `${process.env.REACT_APP_API_URL}/accomplishments/${date}`,
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/${querystring}`,
       headers: {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
