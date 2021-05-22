@@ -30,9 +30,9 @@ const AccomplishmentContainer: React.FC<Props> = ({ date }) => {
   } = useAccomplishment();
   useEffect(() => {
     (async () => {
-      const accomplishments: Accomplishment[] = await getAccomplishments([
+      const accomplishments: Accomplishment[] = await getAccomplishments(
         date!.format('YYYY-MM-DD'),
-      ]);
+      );
       setAccomplishments(accomplishments);
     })();
   }, [date]);
