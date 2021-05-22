@@ -8,14 +8,6 @@ const setAccomplishments = (accomplishments: Accomplishment[]): any => {
   return accomplishments;
 };
 
-const addAccomplishment = (newAccomplishment: Accomplishment): any => {
-  return accomplishments;
-};
-
-const removeAccomplishment = (id: string): any => {
-  return accomplishments;
-};
-
 const getAccomplishments = (date: string): any => {
   return accomplishments;
 };
@@ -39,8 +31,6 @@ const getAccomplishmentsCounts = (from: string, to: string): any => {
 const AccomplishmentContext = createContext({
   accomplishments,
   setAccomplishments,
-  addAccomplishment,
-  removeAccomplishment,
   getAccomplishments,
   createAccomplishment,
   updateAccomplishment,

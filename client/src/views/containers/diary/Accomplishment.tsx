@@ -23,8 +23,6 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   const {
     accomplishments,
     setAccomplishments,
-    addAccomplishment,
-    removeAccomplishment,
     getAccomplishments,
     createAccomplishment,
     updateAccomplishment,

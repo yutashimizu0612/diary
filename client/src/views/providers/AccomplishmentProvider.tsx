@@ -6,8 +6,6 @@ const AccomplishmentProvider: React.FC = ({ children }) => {
   const {
     accomplishments,
     setAccomplishments,
-    addAccomplishment,
-    removeAccomplishment,
     getAccomplishments,
     createAccomplishment,
     updateAccomplishment,
@@ -19,8 +17,6 @@ const AccomplishmentProvider: React.FC = ({ children }) => {
       value={{
         accomplishments,
         setAccomplishments,
-        addAccomplishment,
-        removeAccomplishment,
         getAccomplishments,
         createAccomplishment,
         updateAccomplishment,

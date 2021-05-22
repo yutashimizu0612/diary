@@ -13,12 +13,6 @@ const useProvideAccomplishment = () => {
 
   const setAccomplishments = (accomplishments: Accomplishment[]) => setState(accomplishments);
 
-  const addAccomplishment = (newAccomplishment: Accomplishment) =>
-    setState([...accomplishments, newAccomplishment]);
-
-  const removeAccomplishment = (id: string) =>
-    setState(accomplishments.filter((accomplishment) => accomplishment.id !== id));
-
   const getAccomplishments = useCallback((date: string) => {
     return axios({
       method: 'GET',
@@ -86,8 +80,6 @@ const useProvideAccomplishment = () => {
   return {
     accomplishments,
     setAccomplishments,
-    addAccomplishment,
-    removeAccomplishment,
     getAccomplishments,
     createAccomplishment,
     updateAccomplishment,
