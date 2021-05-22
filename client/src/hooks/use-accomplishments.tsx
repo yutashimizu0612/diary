@@ -13,8 +13,8 @@ const useProvideAccomplishment = () => {
 
   const setAccomplishments = (accomplishments: Accomplishment[]) => setState(accomplishments);
 
-  const getAccomplishments = useCallback((date: string[]) => {
-    const querystring = '?date=' + date.join('&date=');
+  const getAccomplishments = useCallback((date: string | string[]) => {
+    const querystring = Array.isArray(date) ? '?date=' + date.join('&date=') : `?date=${date}`;
     return axios({
       method: 'GET',
       url: `${process.env.REACT_APP_API_URL}/accomplishments/${querystring}`,
