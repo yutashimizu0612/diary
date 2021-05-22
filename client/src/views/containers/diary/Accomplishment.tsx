@@ -22,6 +22,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   // Accomplishmentsの取得
   const {
     accomplishments,
+    setAccomplishments,
     addAccomplishment,
     removeAccomplishment,
     getAccomplishments,
@@ -45,11 +46,14 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
         values.content,
         values.published,
       );
-      addAccomplishment({
-        id: accomplishment.id,
-        content: accomplishment.content,
-        published: accomplishment.published,
-      });
+      setAccomplishments([
+        ...accomplishments,
+        {
+          id: accomplishment.id,
+          content: accomplishment.content,
+          published: accomplishment.published,
+        },
+      ]);
       setValues({ content: '', published: false });
     } catch (error) {
       console.log('error', error);
@@ -67,7 +71,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   const handleDelete = async (id: string): Promise<void> => {
     try {
       await deleteAccomplishment(id);
-      removeAccomplishment(id);
+      setAccomplishments(accomplishments.filter((accomplishment) => accomplishment.id !== id));
     } catch (error) {
       console.log('error', error);
     }

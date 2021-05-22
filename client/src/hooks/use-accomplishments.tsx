@@ -9,13 +9,15 @@ export const useAccomplishment = () => {
 };
 
 const useProvideAccomplishment = () => {
-  const [accomplishments, setAccomplishments] = useState<Accomplishment[]>([]);
+  const [accomplishments, setState] = useState<Accomplishment[]>([]);
+
+  const setAccomplishments = (accomplishments: Accomplishment[]) => setState(accomplishments);
 
   const addAccomplishment = (newAccomplishment: Accomplishment) =>
-    setAccomplishments([...accomplishments, newAccomplishment]);
+    setState([...accomplishments, newAccomplishment]);
 
   const removeAccomplishment = (id: string) =>
-    setAccomplishments(accomplishments.filter((accomplishment) => accomplishment.id !== id));
+    setState(accomplishments.filter((accomplishment) => accomplishment.id !== id));
 
   const getAccomplishments = useCallback((date: string) => {
     return axios({
@@ -26,7 +28,7 @@ const useProvideAccomplishment = () => {
       },
     }).then((response) => {
       console.log('getAccomplishments SUCCESS', response);
-      setAccomplishments(response.data);
+      setState(response.data);
     });
   }, []);
 
@@ -83,6 +85,7 @@ const useProvideAccomplishment = () => {
 
   return {
     accomplishments,
+    setAccomplishments,
     addAccomplishment,
     removeAccomplishment,
     getAccomplishments,
