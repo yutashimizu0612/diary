@@ -16,10 +16,11 @@ module.exports = {
     }
   },
   getAccomplishments: async (req, res) => {
+    const date = Array.isArray(req.query.date) ? req.query.date : [req.query.date];
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
         req.user.id,
-        req.params.date,
+        date,
       );
       return res.json(accomplishments);
     } catch (error) {

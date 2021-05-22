@@ -10,7 +10,7 @@ accomplishmentRouter.get(
   accomplishmentController.getAccomplishmentsCounts,
 );
 accomplishmentRouter.get(
-  '/accomplishments/:date',
+  '/accomplishments/',
   requireLogin,
   accomplishmentController.getAccomplishments,
 );
