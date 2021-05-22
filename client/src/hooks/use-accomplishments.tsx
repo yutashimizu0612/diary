@@ -22,7 +22,7 @@ const useProvideAccomplishment = () => {
       },
     }).then((response) => {
       console.log('getAccomplishments SUCCESS', response);
-      setState(response.data);
+      return response.data;
     });
   }, []);
 
