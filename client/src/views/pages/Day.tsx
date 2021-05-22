@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import moment from 'moment';
 import Layout from '../layouts/Layout';
-import Accomplishment from '../containers/diary/Accomplishment';
+import AccomplishmentContainer from '../containers/diary/AccomplishmentContainer';
 import PostContainer from '../containers/diary/PostContainer';
 import DiaryDate from '../components/DiaryDate';
 import DiaryPagination from '../components/DiaryPagination';
@@ -39,7 +39,7 @@ const Day: React.FC = () => {
           handleDateChange={handleDateChange}
         />
         <div css="margin-top: 45px;">
-          <Accomplishment date={targetDate} />
+          <AccomplishmentContainer date={targetDate} />
         </div>
         <div css="margin-top: 60px;">
           <PostContainer date={targetDate} />
