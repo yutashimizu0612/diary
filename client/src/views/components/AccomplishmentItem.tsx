@@ -96,6 +96,7 @@ const AccomplishmentItem: React.FC<Props> = ({ accomplishment, onUpdate, onDelet
   };
 
   const [isEditing, setIsEditing] = useState(false);
+
   const edit = () => {
     setIsEditing(true);
   };
