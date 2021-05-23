@@ -18,6 +18,7 @@ export type Post = {
 
 export type Accomplishment = {
   id: string;
+  date: string;
   content: string;
   published: boolean;
 };
