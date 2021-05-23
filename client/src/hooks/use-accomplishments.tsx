@@ -68,7 +68,7 @@ const useProvideAccomplishment = () => {
   const getAccomplishmentsCounts = useCallback((from: string, to: string) => {
     return axios({
       method: 'GET',
-      url: `${process.env.REACT_APP_API_URL}/accomplishments/counts?from=${from}&?to=${to}`,
+      url: `${process.env.REACT_APP_API_URL}/accomplishments/counts?from=${from}&to=${to}`,
       headers: {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
@@ -78,6 +78,22 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
+  const getProductiveDates = useCallback(
+    (from: string, to: string, order: string, limit: number) => {
+      return axios({
+        method: 'GET',
+        url: `${process.env.REACT_APP_API_URL}/accomplishments/counts/?from=${from}&to=${to}&order=${order}&limit=${limit}`,
+        headers: {
+          Authorization: `Bearer ${Cookies.get('accessToken')}`,
+        },
+      }).then((response) => {
+        console.log('GET PRODUCTIVE DATES SUCCESS', response);
+        return response.data;
+      });
+    },
+    [],
+  );
+
   return {
     accomplishments,
     setAccomplishments,
@@ -86,6 +102,7 @@ const useProvideAccomplishment = () => {
     updateAccomplishment,
     deleteAccomplishment,
     getAccomplishmentsCounts,
+    getProductiveDates,
   };
 };
 
