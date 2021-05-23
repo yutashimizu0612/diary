@@ -44,7 +44,7 @@ const AccomplishmentContainer: React.FC<Props> = ({ date }) => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const accomplishment = await createAccomplishment(
+      const accomplishment: Accomplishment = await createAccomplishment(
         date!.format('YYYY-MM-DD'),
         values.content,
         values.published,
@@ -53,6 +53,7 @@ const AccomplishmentContainer: React.FC<Props> = ({ date }) => {
         ...accomplishments,
         {
           id: accomplishment.id,
+          date: accomplishment.date,
           content: accomplishment.content,
           published: accomplishment.published,
         },
