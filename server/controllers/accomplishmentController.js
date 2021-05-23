@@ -9,6 +9,8 @@ module.exports = {
         req.user.id,
         req.query.from,
         req.query.to,
+        req.query.order,
+        req.query.limit,
       );
       return res.json(counts);
     } catch (error) {
