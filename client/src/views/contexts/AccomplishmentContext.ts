@@ -28,7 +28,7 @@ const getAccomplishmentsCounts = (from: string, to: string): any => {
   return accomplishments;
 };
 
-const getProductiveDates = (from: string, to: string, order: string, limit: number): any => {
+const getProductiveDays = (from: string, to: string, order: string, limit: number): any => {
   return accomplishments;
 };
 
@@ -40,7 +40,7 @@ const AccomplishmentContext = createContext({
   updateAccomplishment,
   deleteAccomplishment,
   getAccomplishmentsCounts,
-  getProductiveDates,
+  getProductiveDays,
 });
 
 export default AccomplishmentContext;

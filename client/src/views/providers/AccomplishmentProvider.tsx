@@ -11,7 +11,7 @@ const AccomplishmentProvider: React.FC = ({ children }) => {
     updateAccomplishment,
     deleteAccomplishment,
     getAccomplishmentsCounts,
-    getProductiveDates,
+    getProductiveDays,
   } = useProvideAccomplishment();
   return (
     <AccomplishmentContext.Provider
@@ -23,7 +23,7 @@ const AccomplishmentProvider: React.FC = ({ children }) => {
         updateAccomplishment,
         deleteAccomplishment,
         getAccomplishmentsCounts,
-        getProductiveDates,
+        getProductiveDays,
       }}>
       {children}
     </AccomplishmentContext.Provider>

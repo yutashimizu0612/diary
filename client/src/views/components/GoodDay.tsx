@@ -53,15 +53,15 @@ const StyledListAltIcon = styled(ListAltIcon)`
 
 type Props = {
   index: number;
-  productiveDate: {
+  productiveDay: {
     date: string;
     count: number;
     contents: string[];
   };
 };
 
-const GoodDay: React.FC<Props> = ({ index, productiveDate }) => {
-  const { date, count, contents } = productiveDate;
+const GoodDay: React.FC<Props> = ({ index, productiveDay }) => {
+  const { date, count, contents } = productiveDay;
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(true);

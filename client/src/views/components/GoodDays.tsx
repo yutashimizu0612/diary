@@ -15,14 +15,14 @@ const StyledTableCell = styled(TableCell)`
 `;
 
 type Props = {
-  productiveDates: {
+  productiveDays: {
     date: string;
     count: number;
     contents: string[];
   }[];
 };
 
-const GoodDays: React.FC<Props> = ({ productiveDates }) => {
+const GoodDays: React.FC<Props> = ({ productiveDays }) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -34,8 +34,8 @@ const GoodDays: React.FC<Props> = ({ productiveDates }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {productiveDates.map((productiveDate, index) => (
-            <GoodDay key={productiveDate.date} index={index} productiveDate={productiveDate} />
+          {productiveDays.map((productiveDay, index) => (
+            <GoodDay key={productiveDay.date} index={index} productiveDay={productiveDay} />
           ))}
         </TableBody>
       </Table>

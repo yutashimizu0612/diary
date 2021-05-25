@@ -78,7 +78,7 @@ const useProvideAccomplishment = () => {
     });
   }, []);
 
-  const getProductiveDates = useCallback(
+  const getProductiveDays = useCallback(
     (from: string, to: string, order: string, limit: number) => {
       return axios({
         method: 'GET',
@@ -102,7 +102,7 @@ const useProvideAccomplishment = () => {
     updateAccomplishment,
     deleteAccomplishment,
     getAccomplishmentsCounts,
-    getProductiveDates,
+    getProductiveDays,
   };
 };
 
