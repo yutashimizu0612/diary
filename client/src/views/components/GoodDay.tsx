@@ -1,59 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import TodayIcon from '@material-ui/icons/Today';
-import PerformanceIcon from './PerformanceIcon';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Tooltip from '@material-ui/core/Tooltip';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
-const StyledWrapper = styled.div`
-  background: #fff;
-  border: 1px solid #d0caca;
-  border-radius: 8px;
-  font-weight: 300;
-  padding: 20px 22px 12px;
+const StyledTableRow = styled(TableRow)<{ index: number }>`
+  // 偶数の場合、背景を灰色にする
+  background: ${(props) => (props.index % 2 === 0 ? '#f6f6f6' : '#fff')};
 `;
 
-const StyledTop = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-
-const StyledDate = styled.span`
-  font-weight: bold;
-  margin-left: 5px;
+const StyledTableCell = styled(TableCell)`
+  font-size: 16px;
+  position: relative;
+  text-align: center;
 `;
 
 const StyledList = styled.ul`
-  margin-top: 12px;
+  padding: 5px;
 `;
 
 const StyledItem = styled.li`
-  font-size: 14px;
-  margin-left: 1em;
-  text-indent: -1em;
-  &:not(:first-child) {
-    margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 3px 20px;
+  position: relative;
+`;
+
+const StyledCheckBoxIcon = styled(CheckBoxIcon)`
+  color: #2cd671;
+  position: absolute;
+  top: -1px;
+  left: -24px;
+`;
+
+const StyledTooltip = styled((props) => (
+  <Tooltip classes={{ popper: props.className, tooltip: 'tooltip' }} {...props} />
+))`
+  & .tooltip {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    color: #383838;
   }
 `;
 
-const StyledBottom = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
+const StyledListAltIcon = styled(ListAltIcon)`
+  position: absolute;
+  top: 12px;
+  right: 63px;
 `;
 
-const GoodDay: React.FC = () => (
-  <StyledWrapper>
-    <StyledTop>
-      <TodayIcon />
-      <StyledDate>12/31</StyledDate>
-    </StyledTop>
+type Props = {
+  index: number;
+  productiveDate: {
+    date: string;
+    count: number;
+    contents: string[];
+  };
+};
+
+const GoodDay: React.FC<Props> = ({ index, productiveDate }) => {
+  const { date, count, contents } = productiveDate;
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  const title = (
     <StyledList>
-      <StyledItem>・5km走れた</StyledItem>
-      <StyledItem>・ポートフォリオ作成のための</StyledItem>
+      {contents.map((content, index) => (
+        <StyledItem key={index}>
+          <StyledCheckBoxIcon fontSize="small" />
+          {content}
+        </StyledItem>
+      ))}
     </StyledList>
-    <StyledBottom>
-      <PerformanceIcon />
-    </StyledBottom>
-  </StyledWrapper>
-);
+  );
+  return (
+    <StyledTableRow index={index}>
+      <StyledTableCell>{index + 1}</StyledTableCell>
+      <StyledTableCell>{date}</StyledTableCell>
+      <StyledTableCell>
+        {count}
+        <StyledTooltip
+          open={isOpen}
+          title={title}
+          placement="top"
+          onClose={handleClose}
+          onOpen={handleOpen}>
+          <StyledListAltIcon />
+        </StyledTooltip>
+      </StyledTableCell>
+    </StyledTableRow>
+  );
+};
 
 export default GoodDay;
