@@ -13,25 +13,23 @@ const StyledWrapper = styled.div`
 const GoodDaysInThePastMonth: React.FC = () => {
   const today = moment();
   const startDay = today.clone().subtract(1, 'months');
-  const { getAccomplishments, getProductiveDates } = useAccomplishment();
-  const [productiveDates, setProductiveDates] = useState([]);
+  const { getAccomplishments, getProductiveDays } = useAccomplishment();
+  const [productiveDays, setProductiveDays] = useState([]);
   useEffect(() => {
     (async () => {
       // 達成したことの数が多い日を6つ取得
-      const dates = await getProductiveDates(
+      const data = await getProductiveDays(
         startDay.format('YYYY-MM-DD'),
         today.format('YYYY-MM-DD'),
         'DESC',
         6,
       );
-      console.log('dates', dates);
-      // 日付のみを含む配列に変換
-      const datesArray = dates.map((element: { date: string; count: number }) => element.date);
+      // 日付のみを含む配列に変換：['2021-05-26', '2021-04-22'....]
+      const dates = data.map((element: { date: string; count: number }) => element.date);
       // 該当日の達成タスクを取得
-      const accomplishments = await getAccomplishments(datesArray);
-      console.log('accomplishments', accomplishments);
+      const accomplishments = await getAccomplishments(dates);
       // datesにcontentsプロパティを追加
-      const productiveDates = dates.map(
+      const productiveDays = data.map(
         (date: { date: string; count: number; contents: string[] }) => {
           const contents: string[] = [];
           accomplishments.forEach((accomplishment: Accomplishment) => {
@@ -43,15 +41,14 @@ const GoodDaysInThePastMonth: React.FC = () => {
           return date;
         },
       );
-      console.log('productiveDates', productiveDates);
-      setProductiveDates(productiveDates);
+      setProductiveDays(productiveDays);
     })();
   }, []);
   return (
     <>
       <H2Heading text="今月の良かった日" color="#2cd671" />
       <StyledWrapper>
-        <GoodDays productiveDates={productiveDates} />
+        <GoodDays productiveDays={productiveDays} />
       </StyledWrapper>
     </>
   );
