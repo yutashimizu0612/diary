@@ -32,3 +32,9 @@ export type Count = {
   date: string;
   count: number;
 };
+
+export type productiveDay = {
+  date: string;
+  count: number;
+  contents?: string[];
+};
