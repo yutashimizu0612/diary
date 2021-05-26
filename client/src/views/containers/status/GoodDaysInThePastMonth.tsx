@@ -18,7 +18,7 @@ const GoodDaysInThePastMonth: React.FC = () => {
   useEffect(() => {
     (async () => {
       // 1. 達成したことの数が多い日を6つ取得
-      const data: { date: string; count: number }[] = await getProductiveDays(
+      const data = await getProductiveDays(
         startDay.format('YYYY-MM-DD'),
         today.format('YYYY-MM-DD'),
         'DESC',

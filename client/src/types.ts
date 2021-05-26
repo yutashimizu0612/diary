@@ -36,5 +36,5 @@ export type Count = {
 export type productiveDay = {
   date: string;
   count: number;
-  contents?: string[];
+  contents: string[];
 };
