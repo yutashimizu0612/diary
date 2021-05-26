@@ -3,14 +3,14 @@ import styled from 'styled-components/macro';
 import moment from 'moment';
 import { Accomplishment, productiveDay } from '../../../types';
 import H2Heading from '../../components/H2Heading';
-import GoodDays from '../../components/GoodDays';
+import ProductiveDays from '../../components/ProductiveDays';
 import { useAccomplishment } from '../../../hooks/use-accomplishments';
 
 const StyledWrapper = styled.div`
   margin: 16px 0;
 `;
 
-const GoodDaysInThePastMonth: React.FC = () => {
+const ProductiveDaysInThePastMonth: React.FC = () => {
   const today = moment();
   const startDay = today.clone().subtract(1, 'months');
   const { getAccomplishments, getProductiveDays } = useAccomplishment();
@@ -46,10 +46,10 @@ const GoodDaysInThePastMonth: React.FC = () => {
     <>
       <H2Heading text="今月の良かった日" color="#2cd671" />
       <StyledWrapper>
-        <GoodDays productiveDays={productiveDays} />
+        <ProductiveDays productiveDays={productiveDays} />
       </StyledWrapper>
     </>
   );
 };
 
-export default GoodDaysInThePastMonth;
+export default ProductiveDaysInThePastMonth;

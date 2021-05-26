@@ -57,7 +57,7 @@ type Props = {
   productiveDay: productiveDay;
 };
 
-const GoodDay: React.FC<Props> = ({ index, productiveDay }) => {
+const ProductiveDay: React.FC<Props> = ({ index, productiveDay }) => {
   const { date, count, contents } = productiveDay;
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
@@ -95,4 +95,4 @@ const GoodDay: React.FC<Props> = ({ index, productiveDay }) => {
   );
 };
 
-export default GoodDay;
+export default ProductiveDay;

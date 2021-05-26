@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { productiveDay } from '../../types';
-import GoodDay from './GoodDay';
+import ProductiveDay from './ProductiveDay';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -19,7 +19,7 @@ type Props = {
   productiveDays: productiveDay[];
 };
 
-const GoodDays: React.FC<Props> = ({ productiveDays }) => {
+const ProductiveDays: React.FC<Props> = ({ productiveDays }) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -32,7 +32,7 @@ const GoodDays: React.FC<Props> = ({ productiveDays }) => {
         </TableHead>
         <TableBody>
           {productiveDays.map((productiveDay, index) => (
-            <GoodDay key={productiveDay.date} index={index} productiveDay={productiveDay} />
+            <ProductiveDay key={productiveDay.date} index={index} productiveDay={productiveDay} />
           ))}
         </TableBody>
       </Table>
@@ -40,4 +40,4 @@ const GoodDays: React.FC<Props> = ({ productiveDays }) => {
   );
 };
 
-export default GoodDays;
+export default ProductiveDays;
