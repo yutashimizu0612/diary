@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import { productiveDay } from '../../types';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -53,11 +54,7 @@ const StyledListAltIcon = styled(ListAltIcon)`
 
 type Props = {
   index: number;
-  productiveDay: {
-    date: string;
-    count: number;
-    contents: string[];
-  };
+  productiveDay: productiveDay;
 };
 
 const GoodDay: React.FC<Props> = ({ index, productiveDay }) => {

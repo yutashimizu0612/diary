@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import { productiveDay } from '../../types';
 import GoodDay from './GoodDay';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,11 +16,7 @@ const StyledTableCell = styled(TableCell)`
 `;
 
 type Props = {
-  productiveDays: {
-    date: string;
-    count: number;
-    contents: string[];
-  }[];
+  productiveDays: productiveDay[];
 };
 
 const GoodDays: React.FC<Props> = ({ productiveDays }) => {
