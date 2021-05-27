@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
 import ContributionContainer from '../containers/status/ContributionContainer';
-import ProductiveDaysInThePastMonth from '../containers/status/ProductiveDaysInThePastMonth';
+import ProductiveDaysContainer from '../containers/status/ProductiveDaysContainer';
 
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
@@ -13,7 +13,7 @@ const Status: React.FC = () => (
   <Layout>
     <ContributionContainer />
     <StyledWrapper>
-      <ProductiveDaysInThePastMonth />
+      <ProductiveDaysContainer />
     </StyledWrapper>
   </Layout>
 );
