@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { AccomplishmentFormValues } from '../../../types';
+import { Accomplishment, AccomplishmentFormValues } from '../../../types';
 import H2Heading from '../../components/H2Heading';
 import AccomplishmentItem from '../../components/AccomplishmentItem';
 import AccomplishmentForm from '../../components/AccomplishmentForm';
@@ -14,7 +14,7 @@ type Props = {
   date: moment.Moment | null;
 };
 
-const Accomplishment: React.FC<Props> = ({ date }) => {
+const AccomplishmentContainer: React.FC<Props> = ({ date }) => {
   const [values, setValues] = useState<AccomplishmentFormValues>({
     content: '',
     published: false,
@@ -22,15 +22,19 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   // Accomplishmentsの取得
   const {
     accomplishments,
-    addAccomplishment,
-    removeAccomplishment,
+    setAccomplishments,
     getAccomplishments,
     createAccomplishment,
     updateAccomplishment,
     deleteAccomplishment,
   } = useAccomplishment();
   useEffect(() => {
-    getAccomplishments(date!.format('YYYY-MM-DD'));
+    (async () => {
+      const accomplishments: Accomplishment[] = await getAccomplishments(
+        date!.format('YYYY-MM-DD'),
+      );
+      setAccomplishments(accomplishments);
+    })();
   }, [date]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -40,16 +44,20 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
     try {
-      const accomplishment = await createAccomplishment(
+      const accomplishment: Accomplishment = await createAccomplishment(
         date!.format('YYYY-MM-DD'),
         values.content,
         values.published,
       );
-      addAccomplishment({
-        id: accomplishment.id,
-        content: accomplishment.content,
-        published: accomplishment.published,
-      });
+      setAccomplishments([
+        ...accomplishments,
+        {
+          id: accomplishment.id,
+          date: accomplishment.date,
+          content: accomplishment.content,
+          published: accomplishment.published,
+        },
+      ]);
       setValues({ content: '', published: false });
     } catch (error) {
       console.log('error', error);
@@ -67,7 +75,7 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   const handleDelete = async (id: string): Promise<void> => {
     try {
       await deleteAccomplishment(id);
-      removeAccomplishment(id);
+      setAccomplishments(accomplishments.filter((accomplishment) => accomplishment.id !== id));
     } catch (error) {
       console.log('error', error);
     }
@@ -92,4 +100,4 @@ const Accomplishment: React.FC<Props> = ({ date }) => {
   );
 };
 
-export default Accomplishment;
+export default AccomplishmentContainer;

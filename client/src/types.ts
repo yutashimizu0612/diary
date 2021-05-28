@@ -18,6 +18,7 @@ export type Post = {
 
 export type Accomplishment = {
   id: string;
+  date: string;
   content: string;
   published: boolean;
 };
@@ -30,4 +31,10 @@ export type AccomplishmentFormValues = {
 export type Count = {
   date: string;
   count: number;
+};
+
+export type productiveDay = {
+  date: string;
+  count: number;
+  contents: string[];
 };

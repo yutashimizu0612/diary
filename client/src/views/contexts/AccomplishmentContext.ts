@@ -4,15 +4,11 @@ import { Accomplishment } from '../../types';
 // TODO contextのdefault値
 const accomplishments: Accomplishment[] = [];
 
-const addAccomplishment = (newAccomplishment: Accomplishment): any => {
+const setAccomplishments = (accomplishments: Accomplishment[]): any => {
   return accomplishments;
 };
 
-const removeAccomplishment = (id: string): any => {
-  return accomplishments;
-};
-
-const getAccomplishments = (date: string): any => {
+const getAccomplishments = (date: string | string[]): any => {
   return accomplishments;
 };
 
@@ -32,15 +28,19 @@ const getAccomplishmentsCounts = (from: string, to: string): any => {
   return accomplishments;
 };
 
+const getProductiveDays = (from: string, to: string, order: string, limit: number): any => {
+  return accomplishments;
+};
+
 const AccomplishmentContext = createContext({
   accomplishments,
-  addAccomplishment,
-  removeAccomplishment,
+  setAccomplishments,
   getAccomplishments,
   createAccomplishment,
   updateAccomplishment,
   deleteAccomplishment,
   getAccomplishmentsCounts,
+  getProductiveDays,
 });
 
 export default AccomplishmentContext;

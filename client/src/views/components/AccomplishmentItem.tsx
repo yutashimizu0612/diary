@@ -89,12 +89,14 @@ const AccomplishmentItem: React.FC<Props> = ({ accomplishment, onUpdate, onDelet
     console.log('values', values);
   };
 
-  const handleUpdate = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleUpdate = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    onUpdate(id, values.content, values.published);
+    await onUpdate(id, values.content, values.published);
+    setIsEditing(false);
   };
 
   const [isEditing, setIsEditing] = useState(false);
+
   const edit = () => {
     setIsEditing(true);
   };

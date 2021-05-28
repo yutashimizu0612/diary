@@ -9,6 +9,8 @@ module.exports = {
         req.user.id,
         req.query.from,
         req.query.to,
+        req.query.order,
+        req.query.limit,
       );
       return res.json(counts);
     } catch (error) {
@@ -19,7 +21,7 @@ module.exports = {
     try {
       const accomplishments = await models.Accomplishment.getAccomplishmentsByDate(
         req.user.id,
-        req.params.date,
+        req.query.date,
       );
       return res.json(accomplishments);
     } catch (error) {

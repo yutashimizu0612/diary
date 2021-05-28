@@ -19,12 +19,12 @@ module.exports = (sequelize, DataTypes) => {
     }
     static getAccomplishmentsByDate(userId, date) {
       return this.findAll({
-        attributes: ['id', 'content', 'published'],
+        attributes: ['id', 'date', 'content', 'published'],
         where: { userId, date },
       });
     }
-    static getAccomplishmentsCounts(userId, from, to) {
-      return this.findAll({
+    static getAccomplishmentsCounts(userId, from, to, order, limit) {
+      let queryObject = {
         attributes: ['date', [sequelize.fn('COUNT', sequelize.col('date')), 'count']],
         where: {
           userId,
@@ -34,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
         group: ['date'],
-      });
+      };
+      if (order === 'DESC') queryObject.order = sequelize.literal('count DESC');
+      if (limit) queryObject.limit = parseInt(limit);
+      return this.findAll(queryObject);
     }
   }
   Accomplishment.init(
