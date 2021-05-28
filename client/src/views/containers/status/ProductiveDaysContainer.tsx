@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import moment from 'moment';
 import { Accomplishment, productiveDay } from '../../../types';
 import Skeleton from '@material-ui/lab/Skeleton';
-import H2Heading from '../../components/H2Heading';
 import ProductiveDays from '../../components/ProductiveDays';
 import { useAccomplishment } from '../../../hooks/use-accomplishments';
 
@@ -25,9 +24,14 @@ const StyledLoading = styled.span`
   transform: translate(-50%);
 `;
 
-const ProductiveDaysContainer: React.FC = () => {
+type Props = {
+  unit: 'weeks' | 'months' | 'years';
+  length?: number;
+};
+
+const ProductiveDaysContainer: React.FC<Props> = ({ unit, length = 1 }) => {
   const today = moment();
-  const startDay = today.clone().subtract(1, 'months');
+  const startDay = today.clone().subtract(length, unit);
   const { getAccomplishments, getProductiveDays } = useAccomplishment();
   const [productiveDays, setProductiveDays] = useState<productiveDay[]>([]);
   const [isLoaded, setIsLoaded] = useState(true);
@@ -65,7 +69,6 @@ const ProductiveDaysContainer: React.FC = () => {
   }, []);
   return (
     <>
-      <H2Heading text="今月の良かった日" color="#2cd671" />
       <StyledWrapper>
         {isLoaded ? (
           <ProductiveDays productiveDays={productiveDays} />
