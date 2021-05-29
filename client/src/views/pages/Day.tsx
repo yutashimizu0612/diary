@@ -10,6 +10,16 @@ import DiaryPagination from '../components/DiaryPagination';
 const StyledWrapper = styled.div`
   margin: 60px auto 0;
   width: 900px;
+  min-height: calc(100vh - 122px);
+  position: relative;
+  padding-bottom: 80px;
+`;
+
+const StyledPagination = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
 `;
 
 const Day: React.FC = () => {
@@ -44,9 +54,9 @@ const Day: React.FC = () => {
         <div css="margin-top: 30px;">
           <AccomplishmentContainer date={targetDate} />
         </div>
-        <div css="margin-top: 75px;">
+        <StyledPagination>
           <DiaryPagination date={targetDate} prev={prev} next={next} />
-        </div>
+        </StyledPagination>
       </StyledWrapper>
     </Layout>
   );
