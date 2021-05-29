@@ -20,6 +20,7 @@ const StyledDropDown = styled.div`
   top: 50px;
   left: 0;
   width: 120px;
+  z-index: 1;
 `;
 
 const StyledDropDownLink = styled(Link)`
