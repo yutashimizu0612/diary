@@ -2,16 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Post } from '../../../types';
 import DiaryComment from '../../components/DiaryComment';
-import DiaryStar from '../../components/DiaryStar';
 import { usePost } from '../../../hooks/use-post';
 
 const StyledComment = styled.div`
   margin-top: 60px;
-`;
-
-const StyledStar = styled.div`
-  margin-top: 60px;
-  text-align: right;
 `;
 
 type Props = {
@@ -80,9 +74,6 @@ const PostContainer: React.FC<Props> = ({ date }) => {
           onClickAway={initializeSuccess}
         />
       </StyledComment>
-      <StyledStar>
-        <DiaryStar />
-      </StyledStar>
     </>
   );
 };
