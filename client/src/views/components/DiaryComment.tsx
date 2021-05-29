@@ -54,7 +54,7 @@ const DiaryComment: React.FC<Props> = ({
   onClickAway,
 }) => (
   <>
-    <H2Heading text="コメント" color="#f8548c" />
+    <H2Heading text="日記" color="#f8548c" />
     <StyledForm onSubmit={onSubmit}>
       <StyledTextArea name="comment" value={comment} onChange={onChange} />
       <StyledButtonWrapper>
