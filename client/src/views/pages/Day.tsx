@@ -39,10 +39,10 @@ const Day: React.FC = () => {
           handleDateChange={handleDateChange}
         />
         <div css="margin-top: 45px;">
-          <AccomplishmentContainer date={targetDate} />
-        </div>
-        <div css="margin-top: 60px;">
           <PostContainer date={targetDate} />
+        </div>
+        <div css="margin-top: 30px;">
+          <AccomplishmentContainer date={targetDate} />
         </div>
         <div css="margin-top: 75px;">
           <DiaryPagination date={targetDate} prev={prev} next={next} />
