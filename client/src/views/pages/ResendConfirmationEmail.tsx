@@ -107,6 +107,7 @@ const ResendConfirmationEmail: React.FC = () => {
           iconType={EmailOutlinedIcon}
           placeholder="メールアドレス"
           value={values.email}
+          formType="email"
           error={errors.email}
           onChange={(e) => handleChange(e)}
         />

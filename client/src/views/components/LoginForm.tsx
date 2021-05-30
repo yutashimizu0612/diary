@@ -39,6 +39,7 @@ const SignUpForm: React.FC<Props> = ({ values, errors, onChange, onSubmit }) => 
           iconType={EmailOutlinedIcon}
           placeholder="メールアドレス"
           value={values.email}
+          formType="email"
           error={errors.email}
           onChange={onChange}
         />
@@ -49,6 +50,7 @@ const SignUpForm: React.FC<Props> = ({ values, errors, onChange, onSubmit }) => 
           iconType={LockOutlinedIcon}
           placeholder="パスワード"
           value={values.password}
+          formType="password"
           error={errors.password}
           onChange={onChange}
         />

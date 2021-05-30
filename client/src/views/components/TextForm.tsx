@@ -38,11 +38,20 @@ type Props = {
   iconType: any;
   placeholder: string;
   value: string;
+  formType: string;
   error?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, error, onChange }) => {
+const TextForm: React.FC<Props> = ({
+  name,
+  iconType,
+  placeholder,
+  value,
+  error,
+  formType,
+  onChange,
+}) => {
   const Icon = iconType;
   return (
     <>
@@ -54,7 +63,13 @@ const TextForm: React.FC<Props> = ({ name, iconType, placeholder, value, error, 
           <StyledWrapper>
             <Icon fontSize="large" />
           </StyledWrapper>
-          <StyledInput name={name} value={value} onChange={onChange} placeholder={placeholder} />
+          <StyledInput
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            type={formType}
+          />
         </label>
       </div>
       {error && <StyledError>{error}</StyledError>}
