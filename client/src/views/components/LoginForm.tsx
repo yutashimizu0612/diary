@@ -11,12 +11,12 @@ const StyledForm = styled.form``;
 
 const StyledFormItem = styled.div`
   &:not(:first-child) {
-    margin-top: 32px;
+    margin-top: 34px;
   }
 `;
 
 const StyledLoginButtonWrapper = styled.div`
-  margin: 36px auto 0;
+  margin: 80px auto 0;
   width: 400px;
 `;
 
