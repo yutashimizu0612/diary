@@ -27,7 +27,7 @@ const StyledText = styled.p`
 `;
 
 const StyledLinkWrapper = styled.div`
-  border-top: 1px dotted #707070;
+  border-top: 1px solid #707070;
   margin-top: 96px;
   padding-top: 24px;
   text-align: center;
