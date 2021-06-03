@@ -27,13 +27,11 @@ const PostContainer: React.FC<Props> = ({ date }) => {
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCanSubmit(true);
     setValues({ ...values, [event.target.name]: event.target.value });
-    console.log('values', values);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     if (canSubmit) {
-      console.log('handleSubmit');
       setSuccess(false);
       isCreated ? await update() : await create();
       setSuccess(true);
