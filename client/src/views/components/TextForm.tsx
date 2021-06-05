@@ -28,9 +28,12 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledError = styled.span`
+  position: absolute;
+  left: 32px;
+  top: -22px;
   color: #ec3e3e;
   display: block;
-  margin: 8px 0 0 32px;
+  font-size: 14px;
 `;
 
 type Props = {
@@ -59,6 +62,7 @@ const TextForm: React.FC<Props> = ({
         css={`
           position: relative;
         `}>
+        {error && <StyledError>{error}</StyledError>}
         <label>
           <StyledWrapper>
             <Icon fontSize="large" />
@@ -72,7 +76,6 @@ const TextForm: React.FC<Props> = ({
           />
         </label>
       </div>
-      {error && <StyledError>{error}</StyledError>}
     </>
   );
 };
