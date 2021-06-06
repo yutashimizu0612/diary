@@ -114,12 +114,10 @@ const AccountSettings: React.FC = () => {
       },
     })
       .then((response) => {
-        console.log('LOAD USER INFO', response);
         const { name, email } = response.data;
         setValues({ ...values, name, email });
       })
       .catch((error) => {
-        console.log('LOAD USER INFO ERROR', error);
         if (error.response.status === 401) {
           auth.logout(() => {
             history.push('/login');

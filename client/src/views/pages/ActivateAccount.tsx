@@ -28,7 +28,6 @@ const ActivateAccount: React.FC = () => {
   const { token } = useParams<ParamTypes>();
 
   useEffect(() => {
-    console.log('token', token);
     if (token) {
       setValues({ ...values, token });
     }
@@ -41,7 +40,6 @@ const ActivateAccount: React.FC = () => {
   });
 
   const submit = (): void => {
-    console.log('submit');
     const { token } = values;
     axios({
       method: 'POST',

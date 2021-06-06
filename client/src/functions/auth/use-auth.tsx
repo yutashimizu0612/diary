@@ -35,7 +35,6 @@ const useProvideAuth = () => {
       data: { email, password },
     }).then((response) => {
       if (response.data.accessToken) {
-        console.log('LOGIN SUBMIT SUCCESS', response);
         Cookies.set('accessToken', response.data.accessToken, { expires: 1 });
         Cookies.set('id', response.data.user.id, { expires: 1 });
       }
@@ -43,7 +42,6 @@ const useProvideAuth = () => {
   };
 
   const logout = (next: any) => {
-    console.log('logout');
     Cookies.remove('accessToken');
     Cookies.remove('id');
     next();

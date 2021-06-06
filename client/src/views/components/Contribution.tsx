@@ -22,7 +22,6 @@ type Props = {
 };
 
 const Contribution: React.FC<Props> = ({ counts }) => {
-  console.log('propsのcounts', counts);
   return (
     <StyledWrapper>
       <StyledTitle>160 contribution in the last year</StyledTitle>

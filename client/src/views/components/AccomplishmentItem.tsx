@@ -86,7 +86,6 @@ const AccomplishmentItem: React.FC<Props> = ({ accomplishment, onUpdate, onDelet
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValues({ ...values, [event.target.name]: event.target.value });
-    console.log('values', values);
   };
 
   const handleUpdate = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
