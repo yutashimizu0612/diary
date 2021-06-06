@@ -19,7 +19,6 @@ const AccomplishmentContainer: React.FC<Props> = ({ date }) => {
     content: '',
     published: false,
   });
-  // Accomplishmentsの取得
   const {
     accomplishments,
     setAccomplishments,

@@ -1,8 +1,6 @@
 const models = require('../models');
 
 module.exports = {
-  // TODO 全件取得（6件ずつ）
-  getAllAccomplishments: async (req, res) => {},
   getAccomplishmentsCounts: async (req, res) => {
     try {
       const counts = await models.Accomplishment.getAccomplishmentsCounts(
