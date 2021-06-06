@@ -4,8 +4,7 @@ import { Count } from '../types';
 import { useAccomplishment } from './use-accomplishments';
 
 const useContributionCounts = () => {
-  // 終点：次の日曜日
-  const lastDay = moment().endOf('isoWeek');
+  const lastDay = moment().endOf('isoWeek'); // 終点：次の日曜日
   const startDay = lastDay.clone().subtract(53, 'weeks');
 
   const { getAccomplishmentsCounts } = useAccomplishment();

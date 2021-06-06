@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       return this.findOne({ where: { email } });
     }
     static addNewUser(name, email, password) {
-      console.log('new user is created.');
       return this.create({
         name,
         email,

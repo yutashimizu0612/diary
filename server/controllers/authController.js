@@ -48,7 +48,6 @@ module.exports = {
     if (token) {
       jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION_SECRET, async (error, decoded) => {
         if (error) {
-          console.log('ACCOUNT ACTIVATION ERROR', error);
           return res.status(401).json({
             error: {
               message: 'Account Activation failed',
@@ -134,7 +133,6 @@ module.exports = {
         message: 'Confirmation email has been sent',
       });
     } catch (error) {
-      console.log('error', error);
       return res.status(500).json({
         error: {
           message: 'Resend confirmation email failed',

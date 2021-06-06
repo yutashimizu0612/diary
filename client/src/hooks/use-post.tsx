@@ -18,7 +18,6 @@ const useProvidePost = () => {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
     }).then((response) => {
-      // console.log('getPost SUCCESS', response);
       if (response.data) {
         setIsCreated(true);
         return response.data;

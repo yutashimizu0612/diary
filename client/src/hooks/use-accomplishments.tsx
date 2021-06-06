@@ -22,7 +22,6 @@ const useProvideAccomplishment = () => {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       },
     }).then((response) => {
-      console.log('getAccomplishments SUCCESS', response);
       return response.data;
     });
   }, []);

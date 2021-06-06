@@ -47,7 +47,6 @@ const SignUp: React.FC = () => {
   };
 
   const submit = () => {
-    console.log('submit');
     const { name, email, password, confirmation } = values;
     auth
       .signup(name, email, password, confirmation)
