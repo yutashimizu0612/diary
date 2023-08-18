@@ -13,11 +13,7 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(express.json());
 app.use(morgan('dev'));
-if (process.env.NODE_ENV === 'development') {
-  app.use(cors());
-} else {
-  app.use(cors({ origin: `http://localhost:8080` }));
-}
+app.use(cors());
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', postRouter);
