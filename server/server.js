@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(morgan('dev'));
 if (process.env.NODE_ENV === 'development') {
-  app.use(cors({ origin: `http://0.0.0.0:8080` }));
+  app.use(cors());
 } else {
   app.use(cors({ origin: `http://localhost:8080` }));
 }
